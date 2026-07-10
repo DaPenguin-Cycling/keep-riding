@@ -333,10 +333,10 @@
         <div class="grid-item-manual">
           <div class="card height_100percent">
             <div class="card_body_small">
-              <h3 class="heading_primary">144</h3>
+              <h3 class="heading_primary" id="ytd-miles">144</h3>
               <div class="margin_top-auto">
                 <div class="text-color_secondary w-richtext">
-                  <p>Miles ridden this month—each one packed with new friends, challenges, and memories worth sharing.</p>
+                  <p>Miles ridden this year—each one packed with new friends, challenges, and memories worth sharing.</p>
                 </div>
                 <div class="button-group">
                   <a href="#" class="text-button w-inline-block">
@@ -750,5 +750,16 @@
   <script src="https://cdn.prod.website-files.com/gsap/3.15.0/SplitText.min.js" type="text/javascript"></script>
   <script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js" type="text/javascript"></script>
   <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"3d889f1096e40890688153506d0c3f01"})});</script>
+  <script>
+    fetch('data/stats.json', { cache: 'no-store' })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        var el = document.getElementById('ytd-miles');
+        if (el && typeof data.ytdMiles === 'number') {
+          el.textContent = data.ytdMiles.toLocaleString();
+        }
+      })
+      .catch(function () {});
+  </script>
 </body>
 </html>
