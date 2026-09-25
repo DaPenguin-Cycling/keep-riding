@@ -1,0 +1,33 @@
+{%- comment -%}
+  Google Analytics 4 (gtag.js).
+
+  The measurement ID lives in _config.yml (analytics.ga4_measurement_id). Blank
+  it out and analytics disappears from every page — same convention as the other
+  configurable links.
+
+  Two guards, both deliberate:
+
+  1. `analytics.ga4_measurement_id` must be set.
+  2. The build must be production. GitHub Pages builds with JEKYLL_ENV=production;
+     `bundle exec jekyll serve` builds in development. So local development never
+     sends hits, and the property's numbers stay honest without anyone having to
+     remember to filter an IP address in the GA4 admin. To see the tag locally:
+     `JEKYLL_ENV=production bundle exec jekyll serve`.
+
+  Placed ahead of the stylesheets so the browser starts fetching gtag.js early;
+  the script itself is async, so it never blocks rendering.
+
+  js/analytics.js adds the handful of events GA4 cannot see on its own — see the
+  comment at the top of that file for what and why.
+{%- endcomment -%}
+{%- assign ga4 = site.analytics.ga4_measurement_id | default: "" -%}
+{%- if ga4 != "" and jekyll.environment == "production" %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga4 }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ ga4 }}');
+  </script>
+  <script src="{{ '/js/analytics.js' | relative_url }}" defer></script>
+{%- endif -%}
