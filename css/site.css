@@ -37,6 +37,14 @@
   overflow: hidden;
 }
 
+/* Ride card photos sit in a fixed 3:2 slot, so a portrait photo gets cropped.
+   Anchor the crop above centre: in these shots the subject — a face, a finish
+   arch — is in the upper part of the frame, and a straight centre crop was
+   cutting heads off. */
+.ride-card-image {
+  object-position: center 25%;
+}
+
 /* Skip link — visually hidden until it receives keyboard focus.
    The Webflow `.screen-reader` utility has no focus state, so it cannot be
    used for this on its own. */
