@@ -125,6 +125,12 @@ To add a photo to a ride, drop the file in `images/` and add `image`,
 have resized variants). Leave them out and the ride renders as a text card.
 Only attach a photo that is genuinely from that ride.
 
+To show logged figures on a ride, add a `strava` block with `distance`,
+`elevation` and `time`. Add `url` as well and the row links to the activity —
+only do that for an activity that is public, or the link 404s for visitors.
+These are typed in by hand: the daily Action fetches year-to-date totals, not
+per-activity data, so nothing fills them in automatically.
+
 `upcoming: []` is a valid state — the Rides page then says "Nothing on the board
 right now." Add an entry with `name`, `meta` and `body` to list a real event.
 

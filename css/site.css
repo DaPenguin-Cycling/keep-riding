@@ -79,6 +79,32 @@
   }
 }
 
+/* Logged ride figures on a ride card. Deliberately quiet: these are evidence
+   sitting under the writing, not a dashboard competing with it. Tabular figures
+   so the numbers align between cards. */
+.ride-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 2rem;
+  margin: 0 0 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--_colors---border-color--border-primary, #0000001a);
+}
+
+.ride-stats dt {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--_colors---text-color--text-secondary);
+  margin-bottom: 0.15rem;
+}
+
+.ride-stats dd {
+  margin: 0;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
 /* Ride card photos sit in a fixed 3:2 slot, so a portrait photo gets cropped.
    Anchor the crop above centre: in these shots the subject — a face, a finish
    arch — is in the upper part of the frame, and a straight centre crop was

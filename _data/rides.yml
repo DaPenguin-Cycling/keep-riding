@@ -9,6 +9,10 @@
 # filename from images/ plus `image_alt` and a photo appears on that card. Only
 # add one when it is genuinely from that ride.
 #
+# `strava` is optional. Give it `distance`, `elevation` and `time` and the card
+# shows them as a stat row. Add `url` and that row links to the activity — only
+# do that for an activity that is public, or the link 404s for visitors.
+#
 # `image_position` sets the CSS object-position for the card's 3:2 crop. It
 # defaults to "center 25%", which suits landscape shots. A portrait photo only
 # shows about half its height in that slot, so use "center top" to keep a face
@@ -50,6 +54,11 @@ completed:
       - Third year doing this series. Still not tired of it.
       - Bonked and called it at 36.78 miles this year.
       - Bad day on the bike, but still miles.
+    strava:
+      # url: needs the activity id from the ride's Strava page
+      distance: "36.78 mi"
+      elevation: "2,300 ft"
+      time: "3:55:00"
     # The jersey in this shot reads KENTUCKY CYCLING CHALLENGE 2025 — that is
     # last year's kit. The photo is from the 2026 ride, confirmed by Melanie.
     image: horsey-hundred.avif
