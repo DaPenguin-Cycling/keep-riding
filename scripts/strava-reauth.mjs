@@ -17,9 +17,9 @@
  *      access to whoever approves it, so approving as anyone else would point
  *      the site at the wrong athlete's rides.
  *
- *   2. After approving, the browser lands on the app's callback domain at a
- *      path that does not exist, so expect a 404. That is fine — nothing needs
- *      to be listening. The part that matters is in the address bar: copy the
+ *   2. After approving, the browser follows the callback and lands on a page
+ *      that does not exist — a 404 from the live site. That is fine; nothing is
+ *      meant to be there. The part that matters is in the address bar: copy the
  *      value of `code=`, up to the `&`.
  *
  * Then put the printed refresh token into the repo's STRAVA_REFRESH_TOKEN
@@ -51,8 +51,13 @@ if (!clientId || !clientSecret) {
 const scope = "read,activity:read";
 
 // Strava checks this against the Authorization Callback Domain on the app's
-// settings page and rejects anything else, so the two have to agree. Override
-// with STRAVA_CALLBACK_DOMAIN if the app is ever pointed somewhere else.
+// settings page and rejects anything else outright, so the two have to agree.
+// The app is set to dapenguincycling.com; if that field is ever changed, pass
+// the new value as STRAVA_CALLBACK_DOMAIN rather than editing this.
+//
+// It only matters here. The daily Action authenticates with the refresh grant,
+// which never sends a redirect_uri, so nothing in normal operation depends on
+// this field.
 const callbackDomain = process.env.STRAVA_CALLBACK_DOMAIN || "dapenguincycling.com";
 const scheme = callbackDomain.startsWith("localhost") ? "http" : "https";
 const redirectUri = `${scheme}://${callbackDomain}/exchange_token`;
@@ -67,7 +72,7 @@ const authUrl =
 
 console.log("\n1. Sign in to Strava as Anthony, then open:\n");
 console.log(authUrl);
-console.log(`\n2. Approve. The browser lands on ${redirectUri} and shows a 404.`);
+console.log(`\n2. Approve. The browser lands on ${redirectUri}, which 404s.`);
 console.log("   That is expected — nothing is meant to be there.");
 console.log("3. Copy the `code=` value out of the address bar (stop at the `&`).\n");
 
