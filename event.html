@@ -114,7 +114,8 @@ description: See where Anthony Brown is riding, where he's been, and the cycling
             <dl class="ride-stats">
               <div><dt>Distance</dt><dd>{{ dist | round: 2 }} mi</dd></div>
               <div><dt>Elevation</dt><dd>{% if elev >= 1000 %}{{ elev | divided_by: 1000 }},{{ elev | modulo: 1000 | prepend: "00" | slice: -3, 3 }}{% else %}{{ elev }}{% endif %} ft</dd></div>
-              <div><dt>Time</dt><dd>{{ hours }}:{{ mins }}:{{ ss }}</dd></div>
+              {%- comment -%} Drop a leading 0: so a sub-hour ride reads 59:43, not 0:59:43. {%- endcomment -%}
+              <div><dt>Time</dt><dd>{% if hours > 0 %}{{ hours }}:{% endif %}{{ mins }}:{{ ss }}</dd></div>
             </dl>
             {%- comment -%} Only one activity behind the figures can be linked honestly. {%- endcomment -%}
             {%- if matched == 1 %}{%- assign strava_url = single_url -%}{%- else %}{%- assign strava_url = "" -%}{%- endif %}
