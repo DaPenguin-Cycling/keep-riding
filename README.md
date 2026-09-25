@@ -118,9 +118,18 @@ and in `contact.html`.
 
 ## Adding or changing a ride
 
-Edit `_data/rides.yml` — no HTML. `completed` is newest first, and the home
-page's "Latest ride" block reads the first entry, so a ride's name and distance
-can never drift between the two pages.
+Edit `_data/rides.yml` — no HTML, and nothing else to touch. `completed` is
+newest first, and the home page's "Latest ride" block reads the first entry, so
+adding a ride there updates the Rides page and the home page together and they
+cannot drift apart.
+
+A new entry needs `name`, `dates`, `meta` and `body`. Everything else is
+optional:
+
+- the Strava figures arrive on their own, matched on `dates`
+- a photo is `image` plus its alt and dimensions
+- `home_body` is a shorter note for the home card; without one it falls back to
+  `body`
 
 To add a photo to a ride, drop the file in `images/` and add `image`,
 `image_alt`, `image_w` and `image_h` to that entry (plus `image_srcset` if you

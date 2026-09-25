@@ -118,21 +118,38 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
       <h2 class="heading_primary">Latest ride</h2>
     </div>
     {%- comment -%}
-      Newest entry in _data/rides.yml. Name and distance come from the same place
-      as the Rides page, so the two cannot drift apart the way the distance did
-      before. The wording here is the ride's `home_body`.
+      Newest entry in _data/rides.yml, so adding a ride there updates this block
+      and the Rides page together and the two cannot drift apart.
+
+      `home_body` is an optional shorter note for this card; without one it falls
+      back to the ride's `body`, so a newly added ride is never left here as a
+      heading with nothing under it.
     {%- endcomment -%}
     {%- assign latest = site.data.rides.completed | first %}
-    <div class="card">
+    {%- if latest.home_body %}{%- assign latest_copy = latest.home_body %}{%- else %}{%- assign latest_copy = latest.body %}{%- endif %}
+    {%- comment -%}
+      The whole card is the link, using the design system's own clickable-card
+      treatment. It goes to the Rides page rather than a page for this ride,
+      which is what the label says — there are no per-ride pages.
+    {%- endcomment -%}
+    <a href="{{ '/event.html' | relative_url }}" class="card-link ride-card-link w-inline-block">
       <div class="card_body">
         <h3 class="heading_tertiary">{{ latest.name }}</h3>
         <div class="label">{{ latest.meta }}</div>
         <div class="rich-text w-richtext">
-          {%- for para in latest.home_body %}
+          {%- for para in latest_copy %}
           <p>{{ para }}</p>
           {%- endfor %}
         </div>
+        <div class="margin_top-auto padding-top_xsmall">
+          <div class="text-button">
+            <div>See all rides</div>
+            <div class="button_icon"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                <path d="M2 8H14.5M14.5 8L8.5 2M14.5 8L8.5 14" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+              </svg></div>
+          </div>
+        </div>
       </div>
-    </div>
+    </a>
   </div>
 </section>

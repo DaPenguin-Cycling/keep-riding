@@ -154,6 +154,13 @@
   gap: var(--_sizes---gap--sm-gap, 1rem);
 }
 
+/* The design system gives .card-link a hover state but no focus state, so a
+   keyboard user had no idea where they were. */
+.card-link:focus-visible {
+  outline: 2px solid var(--_colors---text-color--text-primary);
+  outline-offset: 3px;
+}
+
 /* Ride card photos sit in a fixed 3:2 slot, so a portrait photo gets cropped.
    Anchor the crop above centre: in these shots the subject — a face, a finish
    arch — is in the upper part of the frame, and a straight centre crop was
