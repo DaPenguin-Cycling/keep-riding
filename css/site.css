@@ -37,6 +37,48 @@
   overflow: hidden;
 }
 
+/* "Supported by Bluedobie" lockup.
+   This used Webflow's `.logo` utility, which is hard-set to 4rem — it exists for
+   the small partner-logo strip — so the mark rendered at 64px and sat alone in a
+   450px half-column, swallowed by the space around it. The columns now size to
+   their content, so the mark and the text read as one unit.
+
+   The source file is 256x256, which is the ceiling: at 2x pixel density a 160px
+   render is already a 1.25x upscale, and the fine "design and developing"
+   line under the wordmark is the first thing to soften. Don't push past this
+   without a larger source file. */
+.sponsor-lockup {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--_sizes---gap--lg-gap, 2.5rem);
+  align-items: center;
+}
+
+.sponsor-mark {
+  display: block;
+  flex: none;
+  line-height: 0;
+}
+
+.sponsor-mark img {
+  width: clamp(112px, 15vw, 160px);
+  height: auto;
+  aspect-ratio: 1;
+}
+
+@media screen and (max-width: 767px) {
+  .sponsor-lockup {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: var(--_sizes---gap--md-gap, 1.5rem);
+  }
+
+  .sponsor-lockup .button-group {
+    justify-content: center;
+  }
+}
+
 /* Ride card photos sit in a fixed 3:2 slot, so a portrait photo gets cropped.
    Anchor the crop above centre: in these shots the subject — a face, a finish
    arch — is in the upper part of the frame, and a straight centre crop was
