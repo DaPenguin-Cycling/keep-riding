@@ -31,7 +31,7 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
         </div>
 
         {%- if form_endpoint != "" %}
-        <div class="form_block w-form">
+        <div class="form_block">
           <form action="{{ form_endpoint }}" method="post" name="contact-form" id="contact-form" class="form">
             <div class="form_item is-half">
               <label for="name" class="input_label">Name</label>
@@ -59,6 +59,10 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
               <label for="message" class="input_label">Message</label>
               <textarea id="message" name="message" maxlength="5000" class="input_field input_text-area on-inverse w-input" required></textarea>
             </div>
+            <p class="form-honeypot" aria-hidden="true">
+              <label for="_gotcha">Leave this field empty</label>
+              <input type="text" name="_gotcha" id="_gotcha" tabindex="-1" autocomplete="off">
+            </p>
             <div class="form_item">
               <div class="button-group is-vertical-stretch">
                 <input type="submit" data-wait="Sending..." class="button on-inverse w-button" value="Send Message">
@@ -72,6 +76,7 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
             <div>That didn't work. Try it again.</div>
           </div>
         </div>
+        <script src="{{ '/js/contact-form.js' | relative_url }}" defer></script>
         {%- endif %}
       </div>
 

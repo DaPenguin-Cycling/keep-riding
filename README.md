@@ -65,10 +65,29 @@ real value is known.
 
 The old markup was a Webflow form. Webflow forms only collect submissions on
 Webflow's own hosting — on GitHub Pages they post nowhere, so that form was a
-button that did nothing. It is now driven by `forms.endpoint`: while that is
-blank the Contact page leads with the email address instead. Paste an endpoint
-from a form handler (Formspree, Basin, Getform, …) into `forms.endpoint` and the
-full form renders and works. Nothing else needs to change.
+button that did nothing.
+
+It now posts to a **Google Apps Script web app** that emails each submission to
+`RECIPIENT`. Free, no third-party account, and no monthly submission cap the way
+Formspree's free tier has. **Setup instructions are in the header comment of
+`scripts/contact-form.gs`** — about five minutes, one time.
+
+Once deployed, paste the `/exec` URL into `forms.endpoint`. Until then the form
+does not render at all and the Contact page leads with the email address, so
+there is never a submit button that silently does nothing.
+
+How it behaves:
+
+- `scripts/contact-form.gs` validates, rejects bad input, and sets `replyTo` to
+  the sender, so replying in Gmail goes to them.
+- A hidden honeypot field catches bots. A tripped honeypot returns success and
+  sends nothing, so the bot gets no signal.
+- `js/contact-form.js` submits in the background and shows the result inline.
+- The form has a real `action` and `method="post"`, so with JavaScript off it
+  submits normally and the Apps Script returns its own confirmation page.
+
+If you edit the `.gs` file you must redeploy it as a **new version**, or the live
+endpoint keeps running the old code.
 
 ### Hiding the phone number
 
@@ -106,6 +125,27 @@ Only attach a photo that is genuinely from that ride.
 
 `upcoming: []` is a valid state — the Rides page then says "Nothing on the board
 right now." Add an entry with `name`, `meta` and `body` to list a real event.
+
+## If Webflow gets replaced
+
+The plan is to drop the Webflow CSS for Tailwind or plain CSS eventually. What
+is here helps, but be clear about how much:
+
+- The chrome lives in three files (`_layouts/default.html`, `_includes/nav.html`,
+  `_includes/footer.html`) instead of being duplicated across six pages, so the
+  header and footer get restyled once.
+- Content is separated from presentation in `_data/rides.yml` and `_config.yml`,
+  so rides and links survive a rewrite untouched.
+- `css/site.css` is already ours and separate from the Webflow export.
+
+What it does *not* do: the page bodies still carry Webflow class names
+(`heading_primary`, `card_body`, `grid_2-col`, …), and those have to be swapped
+by hand whichever direction you go. The win is that there are six content files
+to work through rather than six content files plus six copies of the chrome.
+
+`js/webflow.js` is only needed for the mobile nav toggle. Replacing that with a
+few lines of JS would let both it and the jQuery dependency go, which is most of
+the site's remaining JavaScript weight.
 
 ## Not built yet
 
