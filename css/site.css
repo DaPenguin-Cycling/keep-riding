@@ -1,0 +1,144 @@
+/* ---------------------------------------------------------------------------
+   Site-specific additions.
+
+   Kept out of the Webflow-generated stylesheets (normalize.css, webflow.css,
+   dapenguin.webflow.css) so a future Webflow re-export does not overwrite them.
+   Loaded last, so anything here wins.
+   --------------------------------------------------------------------------- */
+
+/* Skip link — visually hidden until it receives keyboard focus.
+   The Webflow `.screen-reader` utility has no focus state, so it cannot be
+   used for this on its own. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--_colors---background-color--bg-primary, #fff);
+  color: var(--_colors---text-color--text-primary, #111);
+  border-radius: 0 0 var(--_sizes---radius--md-radius, 0.5rem) 0;
+  text-decoration: none;
+  font-weight: 600;
+  transform: translateY(-120%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Photo grid on Photos & Video. Plain CSS grid so it needs no Webflow
+   interaction code and reflows cleanly down to phone width. */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--_sizes---gap--xs-gap, 0.5rem);
+}
+
+.photo-grid figure,
+.figure-reset {
+  margin: 0;
+}
+
+.photo-grid figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  opacity: 0.75;
+}
+
+@media screen and (max-width: 767px) {
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .photo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* The nav CTA sits outside the collapsing menu, so keep it from crowding the
+   logo and hamburger on narrow phones. */
+@media screen and (max-width: 479px) {
+  .nav_right .button {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    white-space: nowrap;
+  }
+}
+
+/* Open mobile menu needs a solid background.
+   The Webflow base rule sets `.nav_menu { background-color: #0000 }` and the
+   <=991px breakpoint adds padding, radius and a shadow but never restores a
+   background, so the open menu rendered as unreadable text floating over the
+   page content beneath it.
+
+   It has to be the LIGHT surface, not the dark one: at this same breakpoint the
+   template already recolours `.nav_link.on-inverse` to the dark `text-secondary`
+   (dapenguin.webflow.css line ~7004), i.e. it was authored for a light panel.
+   Painting the panel dark instead put dark text on a dark background at 1:1
+   contrast. Supplying the light surface the links were written for is the fix. */
+@media screen and (max-width: 991px) {
+  .nav_menu {
+    background-color: var(--_colors---background-color--bg-primary);
+    color: var(--_colors---text-color--text-primary);
+    left: 0;
+    right: 0;
+  }
+
+  /* The template's mobile colour for these links is `text-secondary`
+     (rgba(30,31,40,.6)), which lands at 4.36:1 on the white panel — just under
+     the 4.5:1 WCAG AA minimum for body-size text. Primary takes it to ~15:1. */
+  .nav_menu .nav_link.on-inverse,
+  .nav_menu .nav_link.on-inverse:hover {
+    color: var(--_colors---text-color--text-primary);
+  }
+}
+
+/* Logo sizing.
+   `.nav_logo-icon` is a flex box with no width, and its image is a flex item
+   that collapses to 0px wide at desktop widths, so the mark disappeared and only
+   the "DaPenguin" wordmark showed. Give the box and the image real dimensions
+   rather than depending on flex intrinsic sizing. */
+/* The logo block must not be squeezed narrower than its own contents. Without
+   this, between the 991px collapse breakpoint and ~1100px the "DaPenguin"
+   wordmark overflowed its box and printed on top of the first nav link. */
+.nav_logo {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.nav_logo-icon {
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.nav_logo-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: var(--_sizes---radius--sm-radius, 0.25rem);
+}
+
+.footer .nav_logo-icon img {
+  width: 75px;
+  height: 75px;
+}
+
+/* Lead with the words on small screens.
+   These heroes put their image grid first in the DOM so it sits left on
+   desktop. Stacked on a phone that pushed the h1 roughly two screens down, so
+   the visitor met four photos before finding out whose site this is. */
+@media screen and (max-width: 767px) {
+  .hero-text-first {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-text-first > .hero-copy {
+    order: -1;
+  }
+}

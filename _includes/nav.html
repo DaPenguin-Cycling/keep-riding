@@ -1,0 +1,63 @@
+{%- comment -%}
+Global navigation. `page.nav` on each page marks the current item.
+Every link here points at a page that exists.
+{%- endcomment -%}
+<div class="nav is-inverse">
+  <div data-duration="400" data-animation="default" data-easing2="ease" data-easing="ease" data-collapse="medium" role="banner" data-no-scroll="1" class="nav_container w-nav">
+    <div class="nav_left">
+{%- comment -%}
+  The logo links home but deliberately carries no aria-current, so the Home nav
+  item below is the single element announced as the current page.
+{%- endcomment -%}
+      <a href="{{ '/index.html' | relative_url }}" class="nav_logo w-inline-block{% if page.nav == 'home' %} w--current{% endif %}">
+        <div class="nav_logo-icon"><img src="{{ '/images/dapenguin-icon.avif' | relative_url }}" loading="eager" width="50" height="50" alt="" srcset="{{ '/images/dapenguin-icon-p-500.avif' | relative_url }} 500w, {{ '/images/dapenguin-icon.avif' | relative_url }} 1024w" sizes="50px"></div>
+        <div data-brand-name="true" class="paragraph_large margin-bottom_none">DaPenguin</div>
+      </a>
+      <nav role="navigation" aria-label="Main" class="nav_menu w-nav-menu">
+        <ul role="list" class="nav_menu-list w-list-unstyled">
+          <li class="nav_menu-list-item">
+            <a href="{{ '/index.html' | relative_url }}" class="nav_link on-inverse w-inline-block{% if page.nav == 'home' %} w--current{% endif %}"{% if page.nav == 'home' %} aria-current="page"{% endif %}>
+              <div>Home</div>
+            </a>
+          </li>
+          <li class="nav_menu-list-item">
+            <a href="{{ '/event.html' | relative_url }}" class="nav_link on-inverse w-inline-block{% if page.nav == 'rides' %} w--current{% endif %}"{% if page.nav == 'rides' %} aria-current="page"{% endif %}>
+              <div>Rides</div>
+            </a>
+          </li>
+          <li class="nav_menu-list-item">
+            <a href="{{ '/portfolio.html' | relative_url }}" class="nav_link on-inverse w-inline-block{% if page.nav == 'photos' %} w--current{% endif %}"{% if page.nav == 'photos' %} aria-current="page"{% endif %}>
+              <div>Photos &amp; Video</div>
+            </a>
+          </li>
+          <li class="nav_menu-list-item">
+            <a href="{{ '/about.html' | relative_url }}" class="nav_link on-inverse w-inline-block{% if page.nav == 'about' %} w--current{% endif %}"{% if page.nav == 'about' %} aria-current="page"{% endif %}>
+              <div>About</div>
+            </a>
+          </li>
+          <li class="nav_menu-list-item">
+            <a href="{{ '/contact.html' | relative_url }}" class="nav_link on-inverse w-inline-block{% if page.nav == 'contact' %} w--current{% endif %}"{% if page.nav == 'contact' %} aria-current="page"{% endif %}>
+              <div>Contact</div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="nav_right">
+      <div class="button-group margin-top_none">
+        <a href="{{ '/work-with-me.html' | relative_url }}" class="button on-inverse w-inline-block{% if page.nav == 'work' %} w--current{% endif %}"{% if page.nav == 'work' %} aria-current="page"{% endif %}>
+          <div class="button_label">Work With Me</div>
+        </a>
+      </div>
+    </div>
+    <div class="nav_mobile-menu-button w-nav-button" aria-label="Open menu">
+      <div class="icon on-inverse"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" aria-hidden="true" focusable="false">
+          <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" fill="none" stroke="currentColor" stroke-miterlimit="10" class="nc-icon-wrapper">
+            <line x1="1" y1="12" x2="23" y2="12" stroke="currentColor"></line>
+            <line x1="1" y1="5" x2="23" y2="5"></line>
+            <line x1="1" y1="19" x2="23" y2="19"></line>
+          </g>
+        </svg></div>
+    </div>
+  </div>
+</div>

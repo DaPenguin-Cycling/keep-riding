@@ -3,8 +3,9 @@
   "configurations": [
     {
       "name": "static-site",
+      "comment": "Serves the built Jekyll output in _site. Run `bundle exec jekyll build` first. For live reload while editing, use `bundle exec jekyll serve` instead.",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8420"],
+      "runtimeArgs": ["-m", "http.server", "8420", "--directory", "_site"],
       "port": 8420
     }
   ]

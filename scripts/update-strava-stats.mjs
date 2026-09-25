@@ -52,8 +52,8 @@ async function main() {
     updatedAt: new Date().toISOString(),
   };
 
-  await writeFile("data/stats.json", JSON.stringify(output, null, 2) + "\n");
-  console.log("Wrote data/stats.json:", output);
+  await writeFile("_data/stats.json", JSON.stringify(output, null, 2) + "\n");
+  console.log("Wrote _data/stats.json:", output);
 }
 
 main().catch((err) => {
