@@ -221,4 +221,29 @@ runs daily, calls the Strava API via `scripts/update-strava-stats.mjs`, and comm
 the file if it changed. That commit triggers a Pages rebuild, so the number on the
 home page is baked into the HTML at build time — no JavaScript, no loading flicker.
 
+It also writes `_data/ride_stats.json` — every ride-type activity of the current
+year, keyed by date, with multiple activities on one date summed. Each ride in
+`_data/rides.yml` carries a `dates` list; the card looks its dates up in there
+and shows distance, elevation and time. A multi-day trip sums across its days.
+
+The card links to the activity only when a single activity sits behind the
+figures, since pointing a combined total at one of several rides would
+misrepresent it.
+
 Needs repo secrets `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`, `STRAVA_REFRESH_TOKEN`.
+
+### Scopes
+
+Per-ride figures need `activity:read`; the mileage alone does not. A Strava
+token's scopes are fixed when it is authorised — nothing widens an existing one
+— so adding it means minting a new refresh token against the same app:
+
+```bash
+STRAVA_CLIENT_ID=xxxxx STRAVA_CLIENT_SECRET=yyyyy node scripts/strava-reauth.mjs
+```
+
+Authorise **as Anthony**, paste the code back, and put the printed refresh token
+into the `STRAVA_REFRESH_TOKEN` secret. Only that secret changes.
+
+Until then nothing breaks: the Action writes the mileage as usual, logs that it
+skipped the per-ride figures, and leaves any existing `ride_stats.json` alone.

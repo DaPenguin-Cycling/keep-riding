@@ -1,0 +1,12 @@
+{
+  "seeded": "Horsey Hundred only, read off the Strava card shown at 0:56 in videos/horsey-hundred-ride.mp4. The daily Action overwrites this file with live figures for every ride date; this seed means the card is not blank until it first runs, and survives if the token turns out to lack the activity:read scope.",
+  "updatedAt": "2026-09-25T00:00:00.000Z",
+  "dates": {
+    "2026-05-23": {
+      "distanceMi": 36.78,
+      "elevationFt": 2300,
+      "elapsedSeconds": 14100,
+      "url": null
+    }
+  }
+}

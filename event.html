@@ -79,20 +79,50 @@ description: See where Anthony Brown is riding, where he's been, and the cycling
               <p>{{ para }}</p>
               {%- endfor %}
             </div>
-            {%- if ride.strava %}
             {%- comment -%}
-              Logged figures for the ride, not claims about it. Linked only when
-              the activity is public — a `url` is opt-in per ride for that reason.
+              Figures for the ride, summed across its dates so a multi-day trip
+              reads as one total. `strava` in the rides file wins if it is set,
+              which is the escape hatch for a ride Strava has no record of;
+              otherwise these come from _data/ride_stats.json, written by the
+              daily Action. A ride with neither shows no stat row at all.
             {%- endcomment -%}
+            {%- assign dist = 0 -%}{%- assign elev = 0 -%}{%- assign secs = 0 -%}
+            {%- assign matched = 0 -%}{%- assign single_url = "" -%}
+            {%- for d in ride.dates -%}
+              {%- assign key = d | date: "%Y-%m-%d" -%}
+              {%- assign hit = site.data.ride_stats.dates[key] -%}
+              {%- if hit -%}
+                {%- assign matched = matched | plus: 1 -%}
+                {%- assign dist = dist | plus: hit.distanceMi -%}
+                {%- assign elev = elev | plus: hit.elevationFt -%}
+                {%- assign secs = secs | plus: hit.elapsedSeconds -%}
+                {%- if hit.url -%}{%- assign single_url = hit.url -%}{%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if ride.strava %}
             <dl class="ride-stats">
               {%- if ride.strava.distance %}<div><dt>Distance</dt><dd>{{ ride.strava.distance }}</dd></div>{% endif %}
               {%- if ride.strava.elevation %}<div><dt>Elevation</dt><dd>{{ ride.strava.elevation }}</dd></div>{% endif %}
               {%- if ride.strava.time %}<div><dt>Time</dt><dd>{{ ride.strava.time }}</dd></div>{% endif %}
             </dl>
             {%- assign strava_url = ride.strava.url | default: "" %}
+            {%- elsif matched > 0 %}
+            {%- assign hours = secs | divided_by: 3600 -%}
+            {%- assign rem = secs | modulo: 3600 -%}
+            {%- assign mins = rem | divided_by: 60 | prepend: "0" | slice: -2, 2 -%}
+            {%- assign ss = rem | modulo: 60 | prepend: "0" | slice: -2, 2 -%}
+            <dl class="ride-stats">
+              <div><dt>Distance</dt><dd>{{ dist | round: 2 }} mi</dd></div>
+              <div><dt>Elevation</dt><dd>{% if elev >= 1000 %}{{ elev | divided_by: 1000 }},{{ elev | modulo: 1000 | prepend: "00" | slice: -3, 3 }}{% else %}{{ elev }}{% endif %} ft</dd></div>
+              <div><dt>Time</dt><dd>{{ hours }}:{{ mins }}:{{ ss }}</dd></div>
+            </dl>
+            {%- comment -%} Only one activity behind the figures can be linked honestly. {%- endcomment -%}
+            {%- if matched == 1 %}{%- assign strava_url = single_url -%}{%- else %}{%- assign strava_url = "" -%}{%- endif %}
+            {%- else %}
+            {%- assign strava_url = "" -%}
+            {%- endif %}
             {%- if strava_url != "" %}
             <a href="{{ strava_url }}" target="_blank" rel="noopener" class="text-link is-secondary">View this ride on Strava</a>
-            {%- endif %}
             {%- endif %}
           </div>
         </div>
