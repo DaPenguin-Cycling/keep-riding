@@ -8,8 +8,19 @@
 # `image` is optional. Leave it out and the ride renders as a text card; add a
 # filename from images/ plus `image_alt` and a photo appears on that card. Only
 # add one when it is genuinely from that ride.
+#
+# `image_position` sets the CSS object-position for the card's 3:2 crop. It
+# defaults to "center 25%", which suits landscape shots. A portrait photo only
+# shows about half its height in that slot, so use "center top" to keep a face
+# in frame.
 
-upcoming: []
+upcoming:
+  - name: Cameron Ponder Memorial Ride
+    meta: "October 3, 2026 • Elizabethtown, Kentucky"
+    # No `body` yet: distance/route and Anthony's own note on this one are not
+    # known, and the card renders fine without them. Add lines here when he has
+    # something to say about it.
+    body: []
 
 completed:
   - name: Limestone Cycling Tour
@@ -22,8 +33,10 @@ completed:
     body:
       - Finished.
       - Legs worked. Bike worked. That's generally the arrangement I'm looking for.
-    # image:      # TODO: needs a photo confirmed as being from this ride
-    # image_alt:
+    image: IMG_0040.jpeg
+    image_alt: Anthony Brown riding through the finish arch at the Limestone Cycling Tour
+    image_w: 607
+    image_h: 640
 
   - name: Horsey Hundred
     meta: "May 23, 2026 • Georgetown, Kentucky"
@@ -51,8 +64,9 @@ completed:
       - Also the first time I'd been outside the United States without the Marine Corps being responsible for the itinerary.
       - Different experience.
       - I'd go back.
-    image: 3147cfbf-be43-49c3-91ef-17db01ac294b.jpeg
-    image_srcset: 3147cfbf-be43-49c3-91ef-17db01ac294b-p-500.jpeg 500w, 3147cfbf-be43-49c3-91ef-17db01ac294b-p-800.jpeg 800w, 3147cfbf-be43-49c3-91ef-17db01ac294b.jpeg 1200w
-    image_alt: Road bikes lined up on a balcony above the beach in Jamaica
-    image_w: 1200
-    image_h: 1600
+    image: IMG_7776.avif
+    image_srcset: IMG_7776-p-500.avif 500w, IMG_7776.avif 640w
+    image_alt: Anthony Brown with his finisher's medal in front of a Cycle Jamaica backdrop
+    image_position: center top
+    image_w: 480
+    image_h: 640

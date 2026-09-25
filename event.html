@@ -17,7 +17,7 @@ description: See where Anthony Brown is riding, where he's been, and the cycling
         </div>
       </div>
       <div class="grid-item-manual">
-        <div class="image-ratio_1x1"><img class="image_cover" src="{{ '/images/DSC00143.avif' | relative_url }}" width="640" height="480" alt="Anthony Brown and his Lynskey titanium bike loaded on the car before a morning start" sizes="(max-width: 991px) 100vw, 640px" loading="eager" srcset="{{ '/images/DSC00143-p-500.avif' | relative_url }} 500w, {{ '/images/DSC00143.avif' | relative_url }} 640w"></div>
+        <div class="image-ratio_1x1"><img class="image_cover" src="{{ '/images/DSC00143.avif' | relative_url }}" width="640" height="480" alt="Anthony Brown and his Lynskey titanium bike at the car before the Redbud Ride" sizes="(max-width: 991px) 100vw, 640px" loading="eager" srcset="{{ '/images/DSC00143-p-500.avif' | relative_url }} 500w, {{ '/images/DSC00143.avif' | relative_url }} 640w"></div>
       </div>
     </div>
   </div>
@@ -69,7 +69,7 @@ description: See where Anthony Brown is riding, where he's been, and the cycling
       <li>
         <div class="card on-secondary">
           {%- if ride.image %}
-          <div class="image-ratio_3x2 radius_bottom-none"><img class="image_cover" src="{{ ride.image | prepend: '/images/' | relative_url }}"{% if ride.image_srcset %} srcset="{% assign parts = ride.image_srcset | split: ',' %}{% for p in parts %}{% assign bits = p | strip | split: ' ' %}{{ bits[0] | prepend: '/images/' | relative_url }} {{ bits[1] }}{% unless forloop.last %}, {% endunless %}{% endfor %}"{% endif %} sizes="(max-width: 767px) 100vw, 720px" width="{{ ride.image_w }}" height="{{ ride.image_h }}" alt="{{ ride.image_alt }}" loading="lazy"></div>
+          <div class="image-ratio_3x2 radius_bottom-none"><img class="image_cover ride-card-image"{% if ride.image_position %} style="object-position: {{ ride.image_position }}"{% endif %} src="{{ ride.image | prepend: '/images/' | relative_url }}"{% if ride.image_srcset %} srcset="{% assign parts = ride.image_srcset | split: ',' %}{% for p in parts %}{% assign bits = p | strip | split: ' ' %}{{ bits[0] | prepend: '/images/' | relative_url }} {{ bits[1] }}{% unless forloop.last %}, {% endunless %}{% endfor %}"{% endif %} sizes="(max-width: 767px) 100vw, 720px" width="{{ ride.image_w }}" height="{{ ride.image_h }}" alt="{{ ride.image_alt }}" loading="lazy"></div>
           {%- endif %}
           <div class="card_body">
             <h3 class="heading_tertiary">{{ ride.name }}</h3>
