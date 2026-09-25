@@ -52,9 +52,12 @@ completed:
 
   - name: Licking Valley Century
     dates: [2026-06-20]
-    meta: "June 20, 2026"
-    # A mechanical ended this one. Strava logs 9.93 mi, which matches "roughly
-    # 10 miles in". Wording below is a draft pending Melanie's approval.
+    meta: "June 20, 2026 • Alexandria, Kentucky"
+    # A mechanical ended this one. Strava logs 9.93 mi, which matches the
+    # account of it going just under ten miles in. Closing line approved by
+    # Melanie on 2026-09-25, as is the event name and location — the old
+    # template carried both, but alongside a fabricated description, so they
+    # were confirmed rather than inherited.
     body:
       - Mechanical failure just under 10 miles in. Day over.
     image: licking-valley.avif
