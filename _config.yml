@@ -24,6 +24,10 @@ baseurl: ""
 # ---------------------------------------------------------------------------
 contact:
   email: "anthonybrown7557@gmail.com"
+  # Confirmed real. The old site showed this number but linked it to "#", so it
+  # was not clickable; wa.me makes it open a chat directly.
+  whatsapp_display: "+1 (253) 576-2262"
+  whatsapp_url: "https://wa.me/12535762262"
 
 social:
   facebook: "https://www.facebook.com/profile.php?id=61567605682416"

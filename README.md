@@ -55,7 +55,8 @@ real value is known.
 | `social.facebook` | Facebook link in the footer and on Contact |
 | `social.strava` | Overrides the Strava link; normally left blank (see below) |
 | `forms.endpoint` | Contact form. **Blank, so no form renders**; see below |
-| `contact.email` | The email address shown on Contact |
+| `contact.email` | The email address shown on Contact. Single-sourced — changing it here changes it everywhere |
+| `contact.whatsapp_display` / `contact.whatsapp_url` | WhatsApp entry on Contact; blank either one and the row disappears |
 | `baseurl` | `""` for the custom domain; `"/keep-riding"` for the github.io URL |
 
 ### The contact form
