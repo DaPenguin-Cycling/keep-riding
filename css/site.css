@@ -146,6 +146,14 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Social graphics are square and there may be one or several, so cap the width
+   rather than forcing a column count that looks lopsided at low counts. */
+.social-graphics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 22rem));
+  gap: var(--_sizes---gap--sm-gap, 1rem);
+}
+
 /* Ride card photos sit in a fixed 3:2 slot, so a portrait photo gets cropped.
    Anchor the crop above centre: in these shots the subject — a face, a finish
    arch — is in the upper part of the frame, and a straight centre crop was

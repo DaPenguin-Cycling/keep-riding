@@ -50,6 +50,22 @@ completed:
     image_w: 607
     image_h: 640
 
+  - name: Licking Valley Century
+    dates: [2026-06-20]
+    meta: "June 20, 2026 • Alexandria, Kentucky"
+    # A mechanical ended this one. Strava logs 9.93 mi, which matches the
+    # account of it going just under ten miles in. Closing line approved by
+    # Melanie on 2026-09-25, as is the event name and location — the old
+    # template carried both, but alongside a fabricated description, so they
+    # were confirmed rather than inherited.
+    body:
+      - Mechanical failure just under 10 miles in. Day over.
+    image: licking-valley.avif
+    image_srcset: licking-valley-p-500.avif 500w, licking-valley.avif 1200w
+    image_alt: Anthony Brown holding his helmet in a Kentucky Cycling Challenge jersey before the ride
+    image_w: 1200
+    image_h: 900
+
   - name: Horsey Hundred
     dates: [2026-05-23]
     meta: "May 23, 2026 • Georgetown, Kentucky"
