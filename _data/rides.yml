@@ -40,13 +40,16 @@ completed:
 
   - name: Horsey Hundred
     meta: "May 23, 2026 • Georgetown, Kentucky"
-    # He bonked roughly 34 miles in and did not finish this one. The last line
-    # was written for him and approved by Melanie on 2026-09-25; the two above
-    # it are his original copy.
+    # He bonked and did not finish this one. The closing line is his own Strava
+    # caption for the ride, verbatim, and 36.78 mi is the distance from that
+    # same activity — both read off the Strava card shown at 0:56 in
+    # videos/horsey-hundred-ride.mp4. The ride is logged there as a Morning
+    # Ride in Scott County, Kentucky: 36.78 mi, 2,300 ft, 3:55:00, 165 W avg.
     body:
       - One of the Kentucky Cycling Challenge rides and one I look forward to.
       - Third year doing this series. Still not tired of it.
-      - Bonked around 34 miles in this year and called it. It happens.
+      - Bonked and called it at 36.78 miles this year.
+      - Bad day on the bike, but still miles.
     # The jersey in this shot reads KENTUCKY CYCLING CHALLENGE 2025 — that is
     # last year's kit. The photo is from the 2026 ride, confirmed by Melanie.
     image: horsey-hundred.avif
