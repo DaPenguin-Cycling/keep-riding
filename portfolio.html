@@ -79,18 +79,50 @@ description: Ride photos, event footage, cycling travel, and moments from Anthon
     </div>
   </div>
 </section>
+<section class="section">
+  <div class="container">
+    <div class="header">
+      <h2 class="heading_primary">Video</h2>
+      <div class="subheading w-richtext">
+        <p>Action camera footage, ride clips, and the occasional lesson in where not to put a microphone.</p>
+      </div>
+    </div>
+    <ul role="list" class="video-grid w-list-unstyled">
+      {%- for v in site.data.videos %}
+      <li>
+        <figure class="figure-reset">
+          {%- comment -%}
+            preload="none" matters here: eight clips on one page would otherwise
+            pull tens of megabytes before anyone pressed play. The poster is all
+            that loads until they do.
+          {%- endcomment -%}
+          <video
+            class="video-item"
+            controls
+            preload="none"
+            playsinline
+            width="540"
+            height="960"
+            poster="{{ v.slug | prepend: '/videos/' | append: '.jpg' | relative_url }}"
+            aria-label="{{ v.title }}">
+            <source src="{{ v.slug | prepend: '/videos/' | append: '.mp4' | relative_url }}" type="video/mp4">
+            Your browser can't play this video.
+            <a href="{{ v.slug | prepend: '/videos/' | append: '.mp4' | relative_url }}">Download it instead</a>.
+          </video>
+          <figcaption>{{ v.title }}</figcaption>
+        </figure>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
 {%- comment -%}
-  Two approved categories are held back until there is real media to put in them,
-  rather than shipping a heading over an empty space:
+  "On the Road" is still held back: the only non-event riding photo in the repo
+  is images/insta-profile.webp at 150x150, too small to show. Its approved copy:
 
-  "On the Road" — Training rides and regular miles.
+    On the Road — Training rides and regular miles.
                   Not every ride needs an event banner to count.
-     Needs: training-ride photos. The only non-event riding shot in the repo is
-     images/insta-profile.webp, which is 150x150 and too small to display.
 
-  "Video"       — Action camera footage, ride clips, and the occasional lesson in
-                  where not to put a microphone.
-     Needs: video files, or a channel/playlist URL to embed or link.
-
-  Drop either section back in as soon as the assets exist.
+  Drop the section back in as soon as there are photos for it.
 {%- endcomment -%}

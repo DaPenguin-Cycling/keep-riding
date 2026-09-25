@@ -1,0 +1,47 @@
+# Clips on the Video section of Photos & Video, oldest first.
+#
+# The order below is the files' creation dates, kept here for reference but not
+# shown on the page: for most of these the file date is when the edit was
+# exported, not when the ride happened, so printing it would imply something it
+# does not mean. The Horsey Hundred clip, for instance, was exported on 26 May
+# for a ride on 23 May.
+#
+# `title` is taken from what each clip says on screen or from the ride it is
+# plainly of — none of it is invented. Rename freely; it is only a label.
+#
+# Sources are 1080x1920 masters; what ships is 540x960 at CRF 27, which is
+# indistinguishable at the size these play in the grid. Masters are outside the
+# repo — re-encode from those rather than from these if a bigger version is ever
+# needed.
+
+- slug: started-here-finished
+  title: "Started here. Finished."
+  created: 2026-04-18
+
+- slug: cycle-jamaica-day-1
+  title: "Cycle Jamaica — Day 1"
+  created: 2026-04-22
+
+- slug: cycle-jamaica-day-2
+  title: "Cycle Jamaica — Day 2"
+  created: 2026-04-22
+
+- slug: home-ride
+  title: "Home ride"
+  created: 2026-04-25
+
+- slug: building-toward-horsey
+  title: "Building toward the Horsey 100"
+  created: 2026-04-26
+
+- slug: horsey-hundred-ride
+  title: "Horsey Hundred"
+  created: 2026-05-26
+
+- slug: weather-takes-control
+  title: "When the weather takes control"
+  created: 2026-05-30
+
+- slug: going-out
+  title: "Going out"
+  created: 2026-06-08
