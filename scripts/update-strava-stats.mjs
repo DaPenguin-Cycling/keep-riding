@@ -25,7 +25,29 @@ async function main() {
   if (!tokenRes.ok) {
     throw new Error(`Token refresh failed: ${tokenRes.status} ${await tokenRes.text()}`);
   }
-  const { access_token: accessToken } = await tokenRes.json();
+  const tokenBody = await tokenRes.json();
+  const accessToken = tokenBody.access_token;
+
+  // The access token this returns is short-lived and that is fine — it is minted
+  // fresh on every run and never stored.
+  //
+  // The refresh token is the one that matters, and Strava may hand back a new
+  // one here, invalidating the old. Nothing in a GitHub Action can write back to
+  // the repo secret that holds it, so the rotation would otherwise pass
+  // unnoticed and tomorrow's run would fail for no visible reason. Stop on it
+  // instead, while the cause is still legible.
+  //
+  // The new token is deliberately not printed: Action logs on a public repo are
+  // public, and GitHub only masks secret values it already knows, so a freshly
+  // rotated one would appear in clear text.
+  if (tokenBody.refresh_token && tokenBody.refresh_token !== refreshToken) {
+    throw new Error(
+      "Strava rotated the refresh token, so the one in STRAVA_REFRESH_TOKEN no " +
+        "longer works. Mint a replacement with `node scripts/strava-reauth.mjs` " +
+        "and update that secret. The new token is not printed here on purpose — " +
+        "this log is public."
+    );
+  }
 
   const athleteRes = await fetch("https://www.strava.com/api/v3/athlete", {
     headers: { Authorization: `Bearer ${accessToken}` },

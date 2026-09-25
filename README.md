@@ -247,3 +247,19 @@ into the `STRAVA_REFRESH_TOKEN` secret. Only that secret changes.
 
 Until then nothing breaks: the Action writes the mileage as usual, logs that it
 skipped the per-ride figures, and leaves any existing `ride_stats.json` alone.
+
+### Tokens
+
+The **access token** is short-lived and needs no attention — it is minted fresh
+from the refresh token on every run and never stored. An expiry notice from
+Strava about one is nothing to act on.
+
+The **refresh token** is the one that matters. Strava can rotate it during a
+refresh, invalidating the old one, and an Action cannot write back to the secret
+that holds it. So the script stops with a clear error if that happens rather
+than letting the next day's run fail for no visible reason. Mint a replacement
+with `scripts/strava-reauth.mjs` and update the secret.
+
+This repo is public, which makes its Action logs public too. GitHub masks secret
+values it already knows, but not a token that has just been rotated — so the
+script never prints one.
