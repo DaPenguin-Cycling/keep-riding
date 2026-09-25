@@ -16,6 +16,7 @@ _layouts/default.html    the page shell: <head>, nav, footer, scripts
 _includes/nav.html       global navigation
 _includes/footer.html    global footer
 _data/stats.json         Strava year-to-date mileage, written by a GitHub Action
+_data/rides.yml          the rides listed on Rides, and the home "Latest ride"
 css/site.css             our CSS; everything else in css/ is Webflow's export
 ```
 
@@ -79,6 +80,20 @@ next daily run. Set `social.strava` only to override it with something else.
 TikTok is not on the site. To add it later: put the URL in `_config.yml` under
 `social`, then copy the Facebook `{%- if ... %}` block in `_includes/footer.html`
 and in `contact.html`.
+
+## Adding or changing a ride
+
+Edit `_data/rides.yml` — no HTML. `completed` is newest first, and the home
+page's "Latest ride" block reads the first entry, so a ride's name and distance
+can never drift between the two pages.
+
+To add a photo to a ride, drop the file in `images/` and add `image`,
+`image_alt`, `image_w` and `image_h` to that entry (plus `image_srcset` if you
+have resized variants). Leave them out and the ride renders as a text card.
+Only attach a photo that is genuinely from that ride.
+
+`upcoming: []` is a valid state — the Rides page then says "Nothing on the board
+right now." Add an entry with `name`, `meta` and `body` to list a real event.
 
 ## Mileage
 
