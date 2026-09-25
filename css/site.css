@@ -79,6 +79,46 @@
   }
 }
 
+/* Video gallery. The clips are vertical 9:16, shot for social, so the grid is
+   built around that shape rather than the square one the photo grid uses. */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--_sizes---gap--sm-gap, 1rem);
+  margin: 0;
+  padding: 0;
+}
+
+.video-grid li {
+  margin-bottom: 0;
+}
+
+.video-item {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  background: #000;
+  border-radius: var(--_sizes---card--card-radius, 0.5rem);
+}
+
+.video-grid figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--_colors---text-color--text-secondary);
+}
+
+@media screen and (max-width: 991px) {
+  .video-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media screen and (max-width: 767px) {
+  .video-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media screen and (max-width: 479px) {
+  .video-grid { grid-template-columns: 1fr; }
+
 /* Logged ride figures on a ride card. Deliberately quiet: these are evidence
    sitting under the writing, not a dashboard competing with it. Tabular figures
    so the numbers align between cards. */
