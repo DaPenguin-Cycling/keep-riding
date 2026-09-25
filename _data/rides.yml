@@ -40,10 +40,9 @@ completed:
 
   - name: Horsey Hundred
     meta: "May 23, 2026 • Georgetown, Kentucky"
-    # DRAFT — the last line is not Anthony's own wording yet. He bonked roughly
-    # 34 miles in and did not finish. The two lines above it are his approved
-    # copy and are unchanged. Swap the last line for his phrasing before this is
-    # treated as final.
+    # He bonked roughly 34 miles in and did not finish this one. The last line
+    # was written for him and approved by Melanie on 2026-09-25; the two above
+    # it are his original copy.
     body:
       - One of the Kentucky Cycling Challenge rides and one I look forward to.
       - Third year doing this series. Still not tired of it.
