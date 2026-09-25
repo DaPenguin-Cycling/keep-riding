@@ -36,7 +36,7 @@ upcoming:
 completed:
   - name: Limestone Cycling Tour
     dates: [2026-09-12]
-    meta: "September 12, 2026 • 28 miles"
+    meta: "September 12, 2026"
     # Home page uses this shorter note; the Rides page uses `body` below.
     home_body:
       - Another one in the books.
