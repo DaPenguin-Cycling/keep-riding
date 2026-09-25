@@ -118,6 +118,7 @@
 
 @media screen and (max-width: 479px) {
   .video-grid { grid-template-columns: 1fr; }
+}
 
 /* Logged ride figures on a ride card. Deliberately quiet: these are evidence
    sitting under the writing, not a dashboard competing with it. Tabular figures
