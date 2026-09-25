@@ -50,7 +50,12 @@ Every link here points at a page that exists.
         </a>
       </div>
     </div>
-    <div class="nav_mobile-menu-button w-nav-button" aria-label="Open menu">
+    {%- comment -%}
+      A real <button>, not Webflow's <div role="button">. Focusable and operable
+      from the keyboard with no script needed for that part; js/nav.js only does
+      the open/close.
+    {%- endcomment -%}
+    <button type="button" class="nav_mobile-menu-button w-nav-button" aria-label="Menu">
       <div class="icon on-inverse"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" aria-hidden="true" focusable="false">
           <g stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" fill="none" stroke="currentColor" stroke-miterlimit="10" class="nc-icon-wrapper">
             <line x1="1" y1="12" x2="23" y2="12" stroke="currentColor"></line>
@@ -58,6 +63,6 @@ Every link here points at a page that exists.
             <line x1="1" y1="19" x2="23" y2="19"></line>
           </g>
         </svg></div>
-    </div>
+    </button>
   </div>
 </div>

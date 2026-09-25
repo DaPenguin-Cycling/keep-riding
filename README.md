@@ -18,6 +18,8 @@ _includes/footer.html    global footer
 _data/stats.json         Strava year-to-date mileage, written by a GitHub Action
 _data/rides.yml          the rides listed on Rides, and the home "Latest ride"
 css/site.css             our CSS; everything else in css/ is Webflow's export
+js/nav.js                mobile menu toggle
+js/contact-form.js       contact form submission (loads only on Contact)
 ```
 
 Page files (`index.html`, `event.html`, `portfolio.html`, `about.html`,
@@ -126,6 +128,28 @@ Only attach a photo that is genuinely from that ride.
 `upcoming: []` is a valid state — the Rides page then says "Nothing on the board
 right now." Add an entry with `name`, `meta` and `body` to list a real event.
 
+## JavaScript
+
+The site runs on two small first-party files and no framework:
+
+- `js/nav.js` — opens and closes the mobile menu.
+- `js/contact-form.js` — submits the contact form; loads only on Contact, and
+  only when `forms.endpoint` is set.
+
+`js/webflow.js` (217KB) and its jQuery dependency (~89KB) are gone. By the end of
+the rewrite webflow.js was only still being loaded to toggle that one menu —
+every other Webflow class on the site is styling only. Webflow's WebFont.load
+script went too; fonts are a plain stylesheet link now.
+
+`js/nav.js` reuses Webflow's own CSS hook (`[data-nav-menu-open]`), so it needed
+no new CSS, and it improves on what was there: the trigger is a real `<button>`
+rather than a `<div role="button">`, `aria-expanded` stays accurate, Escape
+closes and returns focus, and the menu closes on outside click, on following a
+link, and when the viewport grows past the breakpoint.
+
+With JavaScript off the mobile menu cannot be opened. That was equally true
+before; the footer carries the same five links, so every page stays reachable.
+
 ## If Webflow gets replaced
 
 The plan is to drop the Webflow CSS for Tailwind or plain CSS eventually. What
@@ -143,9 +167,8 @@ What it does *not* do: the page bodies still carry Webflow class names
 by hand whichever direction you go. The win is that there are six content files
 to work through rather than six content files plus six copies of the chrome.
 
-`js/webflow.js` is only needed for the mobile nav toggle. Replacing that with a
-few lines of JS would let both it and the jQuery dependency go, which is most of
-the site's remaining JavaScript weight.
+The JavaScript side of that is already done — see above. What remains is purely
+the CSS and the class names in the markup.
 
 ## Not built yet
 
