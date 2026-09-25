@@ -28,7 +28,7 @@ upcoming:
 
 completed:
   - name: Limestone Cycling Tour
-    meta: "September 2026 • 28 miles"
+    meta: "September 12, 2026 • 28 miles"
     # Home page uses this shorter note; the Rides page uses `body` below.
     home_body:
       - Another one in the books.
@@ -70,7 +70,7 @@ completed:
     # image_alt:
 
   - name: Redbud Ride
-    meta: "2026 • Kentucky"
+    meta: "April 18, 2026 • London, Kentucky"
     body:
       - First KCC ride I documented for DaPenguin.
       - Plenty of miles. Plenty of camera footage. Apparently riding the bike wasn't enough work.
@@ -81,7 +81,7 @@ completed:
     image_h: 480
 
   - name: Jamaica
-    meta: "April 2026 • Jamaica"
+    meta: "April 10–12, 2026 • Jamaica"
     body:
       - First international cycling trip.
       - Also the first time I'd been outside the United States without the Marine Corps being responsible for the itinerary.
