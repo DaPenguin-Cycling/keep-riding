@@ -55,7 +55,3 @@ exclude:
   - scripts
   - README.md
   - CLAUDE.md
-  # Webflow's generated component style guide. Kept in the repo as a reference for
-  # the design system's class names, but no longer published — it is full of
-  # template placeholder copy and nothing on the site links to it.
-  - style-guide.html

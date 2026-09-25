@@ -95,6 +95,19 @@ Only attach a photo that is genuinely from that ride.
 `upcoming: []` is a valid state — the Rides page then says "Nothing on the board
 right now." Add an entry with `name`, `meta` and `body` to list a real event.
 
+## Not built yet
+
+**A blog.** Anthony wants one eventually. Jekyll does this natively — add a
+`_posts/` folder with `YYYY-MM-DD-title.md` files, a `post` layout, and an index
+page; the nav and footer are single includes, so a "Journal" link is a one-line
+addition to each. Deliberately not scaffolded yet: it needs his writing, and an
+empty blog or placeholder posts would be worse than no blog. The old nav's
+"Blog" link went nowhere, which is why it was removed.
+
+**Ride detail pages.** The "Ride Details" / "See Photos" style CTAs were removed
+rather than pointed at pages that do not exist. If these get built, `_data/rides.yml`
+is already the right shape to generate them from.
+
 ## Mileage
 
 `_data/stats.json` holds year-to-date miles. `.github/workflows/update-strava-stats.yml`
