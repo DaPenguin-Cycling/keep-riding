@@ -1,0 +1,11 @@
+# Jekyll build output — GitHub Pages builds this on its own
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Ruby
+.bundle/
+vendor/
+
+# macOS
+.DS_Store

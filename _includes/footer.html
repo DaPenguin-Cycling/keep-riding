@@ -1,0 +1,112 @@
+{%- comment -%}
+Global footer. Social links render only when a real URL is set in _config.yml,
+so an unknown profile leaves no dead link behind.
+{%- endcomment -%}
+{%- comment -%}
+  Compare against "" rather than Liquid's `blank`: an empty string is truthy in
+  Liquid, and `!= blank` still evaluates true here, so both of those idioms would
+  emit href="" dead links for profiles that have not been supplied yet.
+  `default: ""` normalises a missing key and an empty value to the same thing.
+{%- endcomment -%}
+{%- assign fb = site.social.facebook | default: "" -%}
+{%- assign tt = site.social.tiktok | default: "" -%}
+{%- assign st = site.social.strava | default: "" -%}
+{%- assign has_social = false -%}
+{%- if fb != "" or tt != "" or st != "" -%}
+  {%- assign has_social = true -%}
+{%- endif -%}
+<footer class="footer is-inverse">
+  <div class="container">
+    <nav class="grid_4-col gap-small" aria-label="Footer">
+      <div class="grid-item-manual">
+        <div class="flex_vertical gap-small">
+          <a href="{{ '/index.html' | relative_url }}" class="logo-link w-inline-block">
+            <div class="nav_logo-icon"><img src="{{ '/images/dapenguin-icon.avif' | relative_url }}" loading="lazy" width="75" height="75" alt="" srcset="{{ '/images/dapenguin-icon-p-500.avif' | relative_url }} 500w, {{ '/images/dapenguin-icon.avif' | relative_url }} 1024w" sizes="75px" class="image-3"></div>
+            <div data-brand-name="true" class="paragraph_xlarge margin-bottom_none text_all-caps">DaPenguin</div>
+          </a>
+          <p class="paragraph_small text-color_inverse-secondary margin-bottom_none">Anthony Brown. Cyclist. Marine veteran. Usually somewhere between the next ride and getting the bike ready for it.</p>
+        </div>
+      </div>
+
+      <ul role="list" class="w-list-unstyled">
+        <li>
+          <h2 class="heading_xxsmall text-color_secondary">Explore</h2>
+        </li>
+        <li>
+          <a href="{{ '/index.html' | relative_url }}" class="footer_link on-inverse w-inline-block">
+            <div>Home</div>
+          </a>
+        </li>
+        <li>
+          <a href="{{ '/event.html' | relative_url }}" class="footer_link on-inverse w-inline-block">
+            <div>Rides</div>
+          </a>
+        </li>
+        <li>
+          <a href="{{ '/portfolio.html' | relative_url }}" class="footer_link on-inverse w-inline-block">
+            <div>Photos &amp; Video</div>
+          </a>
+        </li>
+        <li>
+          <a href="{{ '/about.html' | relative_url }}" class="footer_link on-inverse w-inline-block">
+            <div>About</div>
+          </a>
+        </li>
+        <li>
+          <a href="{{ '/contact.html' | relative_url }}" class="footer_link on-inverse w-inline-block">
+            <div>Contact</div>
+          </a>
+        </li>
+      </ul>
+
+      {%- if has_social %}
+      <ul role="list" class="w-list-unstyled">
+        <li>
+          <h2 class="heading_xxsmall text-color_secondary">Follow</h2>
+        </li>
+        {%- if fb != "" %}
+        <li>
+          <a href="{{ fb }}" target="_blank" rel="noopener" class="footer_link on-inverse w-inline-block">
+            <div>Facebook</div>
+          </a>
+        </li>
+        {%- endif %}
+        {%- if tt != "" %}
+        <li>
+          <a href="{{ tt }}" target="_blank" rel="noopener" class="footer_link on-inverse w-inline-block">
+            <div>TikTok</div>
+          </a>
+        </li>
+        {%- endif %}
+        {%- if st != "" %}
+        <li>
+          <a href="{{ st }}" target="_blank" rel="noopener" class="footer_link on-inverse w-inline-block">
+            <div>Strava</div>
+          </a>
+        </li>
+        {%- endif %}
+      </ul>
+      {%- endif %}
+
+      <ul role="list" class="w-list-unstyled">
+        <li>
+          <h2 class="heading_xxsmall text-color_secondary">Work With Me</h2>
+        </li>
+        <li>
+          <a href="{{ '/work-with-me.html' | relative_url }}" class="footer_link on-inverse w-inline-block">
+            <div>Partnerships &amp; Sponsorships</div>
+          </a>
+        </li>
+        <li>
+          <a href="{{ '/contact.html' | relative_url }}" class="footer_link on-inverse w-inline-block">
+            <div>Contact</div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="divider margin-top_xsmall margin-bottom_xsmall"></div>
+    <div class="footer_bottom">
+      <div class="text-color_secondary">© 2026 DaPenguin. All rights reserved.</div>
+    </div>
+  </div>
+</footer>

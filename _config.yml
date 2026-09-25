@@ -1,0 +1,54 @@
+# DaPenguin — Anthony Brown cycling site
+# Built by GitHub Pages (legacy Jekyll build) from the `main` branch, root path.
+
+title: DaPenguin
+author: Anthony Brown
+description: >-
+  Follow Anthony Brown, aka DaPenguin, through training rides, cycling events,
+  gear, travel, and the miles in between.
+
+url: "https://dapenguincycling.com"
+
+# Served from the domain root, so no path prefix.
+# Every internal link goes through the `relative_url` filter, so this one value
+# is all that needs to change if the site ever moves back to a subpath
+# (e.g. "/keep-riding" for the github.io project URL).
+baseurl: ""
+
+# ---------------------------------------------------------------------------
+# Real, verified destinations. Single source of truth for nav, footer, contact.
+#
+# Leave a value blank and every link to it disappears from the site instead of
+# rendering as a dead link. Paste a real URL in and it lights up everywhere.
+# Do not fill these in with guesses.
+# ---------------------------------------------------------------------------
+contact:
+  email: "anthonybrown7557@gmail.com"
+
+social:
+  facebook: "https://www.facebook.com/profile.php?id=61567605682416"
+  tiktok: ""   # TODO: needs the real profile URL from Anthony
+  strava: ""   # TODO: needs the real athlete profile URL from Anthony
+
+forms:
+  # The old markup was a Webflow form. Webflow forms only collect submissions on
+  # Webflow hosting — on GitHub Pages they post nowhere, so that form was a dead
+  # control. Paste a form-handler endpoint here (Formspree, Basin, Getform, etc.)
+  # and the contact form renders and works. While this is blank the contact page
+  # leads with the real email address instead of showing a button that does nothing.
+  endpoint: ""
+
+sponsor:
+  bluedobie: "https://www.bluedobiedev.com"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - scripts
+  - README.md
+  - CLAUDE.md
+  # Webflow's generated component style guide. Kept in the repo as a reference for
+  # the design system's class names, but no longer published — it is full of
+  # template placeholder copy and nothing on the site links to it.
+  - style-guide.html
