@@ -63,6 +63,7 @@ real value is known.
 | `contact.email` | The email address shown on Contact. Single-sourced — changing it here changes it everywhere |
 | `contact.whatsapp_url` | WhatsApp link target; blank it and the row disappears |
 | `contact.whatsapp_label` | The text shown for it. The number is not displayed |
+| `analytics.ga4_measurement_id` | Google Analytics 4 property. Blank it and the tag disappears |
 | `baseurl` | `""` for the custom domain; `"/keep-riding"` for the github.io URL |
 
 ### The contact form
@@ -147,11 +148,13 @@ right now." Add an entry with `name`, `meta` and `body` to list a real event.
 
 ## JavaScript
 
-The site runs on two small first-party files and no framework:
+The site runs on three small first-party files and no framework:
 
 - `js/nav.js` — opens and closes the mobile menu.
 - `js/contact-form.js` — submits the contact form; loads only on Contact, and
   only when `forms.endpoint` is set.
+- `js/analytics.js` — the handful of analytics events GA4 cannot see by itself;
+  loads only when a measurement ID is set and only in a production build.
 
 `js/webflow.js` (217KB) and its jQuery dependency (~89KB) are gone. By the end of
 the rewrite webflow.js was only still being loaded to toggle that one menu —
@@ -166,6 +169,76 @@ link, and when the viewport grows past the breakpoint.
 
 With JavaScript off the mobile menu cannot be opened. That was equally true
 before; the footer carries the same five links, so every page stays reachable.
+
+## Analytics and Search Console
+
+### Google Analytics 4
+
+The tag is in `_includes/analytics.html`, pulled into `<head>` by the layout, so
+it is on all six pages from one line. The measurement ID lives in `_config.yml`
+(`analytics.ga4_measurement_id`) — currently `G-XMHYECRX6B`, the "DaPenguin
+stream" web stream. Blank that value and analytics leaves the site entirely.
+
+**Local development never sends hits.** The include also requires a production
+build, and GitHub Pages is the only thing that builds that way
+(`bundle exec jekyll serve` is a development build). So the property's numbers
+are real without anyone having to filter an IP address in the GA4 admin. To see
+the tag locally:
+
+```bash
+JEKYLL_ENV=production bundle exec jekyll serve
+```
+
+GA4's enhanced measurement already records page views, scrolls, outbound clicks
+and file downloads on its own. `js/analytics.js` adds only what it misses:
+
+| Event | Why it needs code |
+| --- | --- |
+| `email_click` | A `mailto:` link is not an outbound click — the browser hands it to a mail app and never navigates, so GA4 sees nothing. On a contact page that leads with an email address, this is the conversion |
+| `contact_form_submit` | Fired from `js/contact-form.js` once the endpoint confirms. GA4's automatic `form_submit` watches for a normal submit, and that form posts with `fetch` |
+| `whatsapp_click` | Already counted as a generic outbound `click`, but only findable by filtering on the URL. A named event shows up on its own |
+
+These appear under **Reports → Engagement → Events** within a day or so, with no
+setup. Deliberately distinct event names rather than one event with a `method`
+parameter: custom parameters show up in reports only after they are registered
+as custom dimensions in the GA4 admin, and that step is easy to never do. If any
+of the three should count as a conversion, mark it a key event in
+**Admin → Events**.
+
+One loose end worth fixing in the GA4 admin: the stream URL is recorded as
+`https://www.dapenguincycling.com`, but www 301-redirects to the apex domain.
+It does not affect collection — it is the stream's label — but the apex is the
+real address.
+
+There is also a Metricool tracker at the bottom of `_layouts/default.html`,
+predating this and left alone. It runs on every page and in every build,
+including local development. Nothing depends on it; delete that one line if the
+account is no longer in use.
+
+### Sitemap
+
+`jekyll-sitemap` generates `/sitemap.xml` and `/robots.txt` from the pages that
+already exist, so a new page is listed the moment it is added and there is
+nothing to maintain by hand. It ships inside the `github-pages` gem and is on the
+GitHub Pages plugin allowlist, so it needs no Gemfile change and runs identically
+on Pages and locally. Keep a page out with `sitemap: false` in its front matter.
+
+The URLs come from `url` in `_config.yml`, which is the apex domain — and must
+stay that way, because `www` 301-redirects to the apex. A sitemap advertising the
+redirecting hostname makes Google follow a hop for every page.
+
+### Search Console verification
+
+`google07042a99acd862f5.html` in the repo root is Google's verification file,
+served at `https://dapenguincycling.com/google07042a99acd862f5.html`. It has no
+front matter, so Jekyll copies it through byte for byte — which is the point,
+since Google checks its exact contents. That is also why it is excluded from the
+sitemap through `defaults` in `_config.yml` rather than front matter: front
+matter would make Jekyll render the file instead of copying it.
+
+Leave the file in place permanently. Google re-checks it, and verification is
+revoked if it disappears. Submit the sitemap in Search Console under
+**Sitemaps** as `sitemap.xml`.
 
 ## If Webflow gets replaced
 

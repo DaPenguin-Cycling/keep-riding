@@ -55,6 +55,45 @@ forms:
 sponsor:
   bluedobie: "https://www.bluedobiedev.com"
 
+# jekyll-sitemap generates /sitemap.xml (and a /robots.txt pointing at it) from
+# the pages that already exist — nothing to maintain by hand, and a new page is
+# listed the moment it is added. It ships inside the `github-pages` gem and is on
+# the GitHub Pages plugin allowlist, so it needs no Gemfile change and runs on
+# the Pages build the same as it does locally.
+#
+# It builds the URLs from `url` above, which is the apex domain. That matters:
+# www.dapenguincycling.com 301-redirects to the apex, so the apex is canonical
+# and the sitemap must agree with it. Change one and change the other.
+#
+# Add `sitemap: false` to a page's front matter to keep it out.
+plugins:
+  - jekyll-sitemap
+
+# The Google Search Console verification file is a static file, and jekyll-sitemap
+# lists static .html files alongside real pages — so it would appear in the
+# sitemap as if it were a page. Setting `sitemap: false` through `defaults`
+# rather than front matter is what keeps it out: Google requires that file's
+# contents to be exactly the one line it generated, and front matter would make
+# Jekyll render the file instead of copying it through untouched.
+#
+# If the property is ever re-verified, Google issues a new filename — swap it
+# here and in the repo root together, and leave the old one in place if other
+# Google products still check for it.
+defaults:
+  - scope:
+      path: "google07042a99acd862f5.html"
+    values:
+      sitemap: false
+
+analytics:
+  # Google Analytics 4 measurement ID for the "DaPenguin stream" web stream
+  # (stream ID 15846120289, https://www.dapenguincycling.com).
+  #
+  # Blank this out and the tag disappears from every page. It is also skipped
+  # automatically in a development build, so `bundle exec jekyll serve` never
+  # sends hits to the property.
+  ga4_measurement_id: "G-XMHYECRX6B"
+
 exclude:
   - Gemfile
   - Gemfile.lock

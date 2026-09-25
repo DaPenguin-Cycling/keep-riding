@@ -62,6 +62,11 @@
         if (result && result.ok) {
           form.hidden = true;
           show(done);
+          // Defined by js/analytics.js, which only loads when analytics is
+          // configured — hence the guard rather than a direct call.
+          if (typeof window.trackEvent === 'function') {
+            window.trackEvent('contact_form_submit');
+          }
           // Move focus to the confirmation so it is announced and so keyboard
           // users are not left on a button that no longer exists.
           if (done) {
