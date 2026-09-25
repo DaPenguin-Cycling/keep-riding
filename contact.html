@@ -13,7 +13,7 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
 {%- assign form_endpoint = site.forms.endpoint | default: "" -%}
 {%- assign fb = site.social.facebook | default: "" -%}
 {%- assign wa_url = site.contact.whatsapp_url | default: "" -%}
-{%- assign wa_num = site.contact.whatsapp_display | default: "" -%}
+{%- assign wa_label = site.contact.whatsapp_label | default: "Message on WhatsApp" -%}
 {%- assign st = site.social.strava | default: "" -%}
 {%- if st == "" -%}{%- assign st = site.data.stats.stravaUrl | default: "" -%}{%- endif -%}
 
@@ -91,7 +91,7 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
                 </div>
               </div>
             </li>
-            {%- if wa_url != "" and wa_num != "" %}
+            {%- if wa_url != "" %}
             <li>
               <div class="flex_horizontal mobile-l-vertical gap-xsmall is-y-center">
                 <div class="icon on-inverse"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewbox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
@@ -99,7 +99,7 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
                   </svg></div>
                 <div class="flex-child_expand">
                   <div><strong>WhatsApp</strong></div>
-                  <a href="{{ wa_url }}" target="_blank" rel="noopener" class="text-link is-secondary on-inverse">{{ wa_num }}</a>
+                  <a href="{{ wa_url }}" target="_blank" rel="noopener" class="text-link is-secondary on-inverse">{{ wa_label }}</a>
                 </div>
               </div>
             </li>

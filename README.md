@@ -57,7 +57,8 @@ real value is known.
 | `social.strava` | Overrides the Strava link; normally left blank (see below) |
 | `forms.endpoint` | Contact form. **Blank, so no form renders**; see below |
 | `contact.email` | The email address shown on Contact. Single-sourced — changing it here changes it everywhere |
-| `contact.whatsapp_display` / `contact.whatsapp_url` | WhatsApp entry on Contact; blank either one and the row disappears |
+| `contact.whatsapp_url` | WhatsApp link target; blank it and the row disappears |
+| `contact.whatsapp_label` | The text shown for it. The number is not displayed |
 | `baseurl` | `""` for the custom domain; `"/keep-riding"` for the github.io URL |
 
 ### The contact form
@@ -68,6 +69,17 @@ button that did nothing. It is now driven by `forms.endpoint`: while that is
 blank the Contact page leads with the email address instead. Paste an endpoint
 from a form handler (Formspree, Basin, Getform, …) into `forms.endpoint` and the
 full form renders and works. Nothing else needs to change.
+
+### Hiding the phone number
+
+The Contact page shows "Message on WhatsApp" rather than the digits — the number
+lives only in the link target. Note that a `wa.me/<number>` URL still contains
+the digits, so they are in the page source even though nothing displays them.
+That stops casual copying, not a scraper.
+
+To keep the number out of the source entirely, create a free WhatsApp Business
+short link (`wa.link/xxxxx`) and put that in `contact.whatsapp_url`. It resolves
+to the number without exposing it, and nothing else needs to change.
 
 ### The Strava link
 

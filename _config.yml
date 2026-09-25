@@ -24,10 +24,17 @@ baseurl: ""
 # ---------------------------------------------------------------------------
 contact:
   email: "anthonybrown7557@gmail.com"
-  # Confirmed real. The old site showed this number but linked it to "#", so it
-  # was not clickable; wa.me makes it open a chat directly.
-  whatsapp_display: "+1 (253) 576-2262"
+  # The old site printed this number but linked it to "#", so it was visible and
+  # not clickable — the worst of both. Now the number lives only in the href and
+  # the page shows `whatsapp_label` instead.
+  #
+  # Caveat worth knowing: a wa.me URL still contains the digits, so the number is
+  # in the page source even though it is not displayed. That stops casual
+  # copying, not a scraper. To keep it out of the source entirely, replace
+  # whatsapp_url with a free WhatsApp Business short link (wa.link/xxxxx), which
+  # resolves to the number without revealing it. Nothing else needs to change.
   whatsapp_url: "https://wa.me/12535762262"
+  whatsapp_label: "Message on WhatsApp"
 
 social:
   facebook: "https://www.facebook.com/profile.php?id=61567605682416"
