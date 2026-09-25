@@ -12,8 +12,8 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
 {%- endcomment -%}
 {%- assign form_endpoint = site.forms.endpoint | default: "" -%}
 {%- assign fb = site.social.facebook | default: "" -%}
-{%- assign tt = site.social.tiktok | default: "" -%}
 {%- assign st = site.social.strava | default: "" -%}
+{%- if st == "" -%}{%- assign st = site.data.stats.stravaUrl | default: "" -%}{%- endif -%}
 
 <header class="section is-inverse">
   <div class="container">
@@ -98,16 +98,6 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
                 <div class="flex-child_expand">
                   <div><strong>Facebook</strong></div>
                   <a href="{{ fb }}" target="_blank" rel="noopener" class="text-link is-secondary on-inverse">DaPenguin on Facebook</a>
-                </div>
-              </div>
-            </li>
-            {%- endif %}
-            {%- if tt != "" %}
-            <li>
-              <div class="flex_horizontal mobile-l-vertical gap-xsmall is-y-center">
-                <div class="flex-child_expand">
-                  <div><strong>TikTok</strong></div>
-                  <a href="{{ tt }}" target="_blank" rel="noopener" class="text-link is-secondary on-inverse">DaPenguin on TikTok</a>
                 </div>
               </div>
             </li>

@@ -53,8 +53,7 @@ real value is known.
 | Key | What it controls |
 | --- | --- |
 | `social.facebook` | Facebook link in the footer and on Contact |
-| `social.tiktok` | TikTok link — **blank, needs the real URL** |
-| `social.strava` | Strava link — **blank, needs the real URL** |
+| `social.strava` | Overrides the Strava link; normally left blank (see below) |
 | `forms.endpoint` | Contact form. **Blank, so no form renders**; see below |
 | `contact.email` | The email address shown on Contact |
 | `baseurl` | `""` for the custom domain; `"/keep-riding"` for the github.io URL |
@@ -67,6 +66,18 @@ button that did nothing. It is now driven by `forms.endpoint`: while that is
 blank the Contact page leads with the email address instead. Paste an endpoint
 from a form handler (Formspree, Basin, Getform, …) into `forms.endpoint` and the
 full form renders and works. Nothing else needs to change.
+
+### The Strava link
+
+Normally nothing to do. `scripts/update-strava-stats.mjs` already calls
+`/api/v3/athlete` to get the athlete id it needs for the stats request, so it
+also records the public profile URL in `_data/stats.json`. The footer and the
+Contact page fall back to that, so the Strava link appears on its own after the
+next daily run. Set `social.strava` only to override it with something else.
+
+TikTok is not on the site. To add it later: put the URL in `_config.yml` under
+`social`, then copy the Facebook `{%- if ... %}` block in `_includes/footer.html`
+and in `contact.html`.
 
 ## Mileage
 

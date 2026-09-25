@@ -27,8 +27,11 @@ contact:
 
 social:
   facebook: "https://www.facebook.com/profile.php?id=61567605682416"
-  tiktok: ""   # TODO: needs the real profile URL from Anthony
-  strava: ""   # TODO: needs the real athlete profile URL from Anthony
+  # Strava: normally left blank. The daily mileage Action records the athlete's
+  # public profile URL in _data/stats.json, and the site falls back to that, so
+  # the link appears on its own after the next run. Set a value here only to
+  # override it (e.g. a vanity URL).
+  strava: ""
 
 forms:
   # The old markup was a Webflow form. Webflow forms only collect submissions on
