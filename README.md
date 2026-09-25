@@ -17,6 +17,8 @@ _includes/nav.html       global navigation
 _includes/footer.html    global footer
 _data/stats.json         Strava year-to-date mileage, written by a GitHub Action
 _data/rides.yml          the rides listed on Rides, and the home "Latest ride"
+_data/videos.yml         the clips in the Video section of Photos & Video
+videos/                  the clips themselves, plus a poster image for each
 css/site.css             our CSS; everything else in css/ is Webflow's export
 js/nav.js                mobile menu toggle
 js/contact-form.js       contact form submission (loads only on Contact)
@@ -182,6 +184,29 @@ empty blog or placeholder posts would be worse than no blog. The old nav's
 **Ride detail pages.** The "Ride Details" / "See Photos" style CTAs were removed
 rather than pointed at pages that do not exist. If these get built, `_data/rides.yml`
 is already the right shape to generate them from.
+
+## Adding a video
+
+Drop the encoded `.mp4` and a `.jpg` poster of the same name into `videos/`,
+then add an entry to `_data/videos.yml`. Ordered oldest first.
+
+Encode from the master, not from a file already in here:
+
+```bash
+ffmpeg -i master.mp4 -vf scale=540:960 -c:v libx264 -crf 27 -preset slow \
+  -pix_fmt yuv420p -c:a aac -b:a 96k -movflags +faststart videos/<slug>.mp4
+ffmpeg -ss <seconds> -i master.mp4 -frames:v 1 -vf scale=540:960 -q:v 4 videos/<slug>.jpg
+```
+
+540x960 is deliberate. The masters are 1080x1920 and run 8-10 Mbps, which is
+edit quality, not delivery quality; at the size these play in the grid the
+re-encode is indistinguishable and roughly a sixth of the weight. Pick the
+poster timestamp by eye — a frame mid-clip usually beats the opening one, which
+is often a title card or a fade from black.
+
+Every clip is `preload="none"`, so the page loads eight posters (~430KB) rather
+than eight videos (~42MB). Nothing downloads until someone presses play. Keep
+that attribute on any clip you add.
 
 ## Mileage
 
