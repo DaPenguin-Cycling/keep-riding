@@ -17,9 +17,10 @@
  *      access to whoever approves it, so approving as anyone else would point
  *      the site at the wrong athlete's rides.
  *
- *   2. After approving, the browser lands on a localhost page that will not
- *      load. That is expected — nothing is listening. The part that matters is
- *      in the address bar: copy the value of `code=`, up to the `&`.
+ *   2. After approving, the browser lands on the app's callback domain at a
+ *      path that does not exist, so expect a 404. That is fine — nothing needs
+ *      to be listening. The part that matters is in the address bar: copy the
+ *      value of `code=`, up to the `&`.
  *
  * Then put the printed refresh token into the repo's STRAVA_REFRESH_TOKEN
  * secret (Settings -> Secrets and variables -> Actions) and the next run picks
@@ -48,7 +49,13 @@ if (!clientId || !clientSecret) {
 // for an already-approved app and hand back a token carrying the OLD scopes,
 // which looks like success and then fails the same way at the activities call.
 const scope = "read,activity:read";
-const redirectUri = "http://localhost/exchange_token";
+
+// Strava checks this against the Authorization Callback Domain on the app's
+// settings page and rejects anything else, so the two have to agree. Override
+// with STRAVA_CALLBACK_DOMAIN if the app is ever pointed somewhere else.
+const callbackDomain = process.env.STRAVA_CALLBACK_DOMAIN || "dapenguincycling.com";
+const scheme = callbackDomain.startsWith("localhost") ? "http" : "https";
+const redirectUri = `${scheme}://${callbackDomain}/exchange_token`;
 
 const authUrl =
   `https://www.strava.com/oauth/authorize` +
@@ -60,7 +67,8 @@ const authUrl =
 
 console.log("\n1. Sign in to Strava as Anthony, then open:\n");
 console.log(authUrl);
-console.log("\n2. Approve. The browser will fail to load a localhost page — that is fine.");
+console.log(`\n2. Approve. The browser lands on ${redirectUri} and shows a 404.`);
+console.log("   That is expected — nothing is meant to be there.");
 console.log("3. Copy the `code=` value out of the address bar (stop at the `&`).\n");
 
 const rl = createInterface({ input: stdin, output: stdout });
@@ -84,7 +92,15 @@ const res = await fetch("https://www.strava.com/oauth/token", {
 });
 
 if (!res.ok) {
-  console.error(`\nExchange failed: ${res.status} ${await res.text()}`);
+  const body = await res.text();
+  console.error(`\nExchange failed: ${res.status} ${body}`);
+  if (body.includes("redirect_uri") || body.includes("invalid")) {
+    console.error(
+      `\nIf it is complaining about the redirect, ${callbackDomain} does not match the\n` +
+        `Authorization Callback Domain on https://www.strava.com/settings/api.\n` +
+        `Set STRAVA_CALLBACK_DOMAIN to whatever that page says and run this again.`
+    );
+  }
   console.error("A code is single-use and expires quickly — authorise again for a fresh one.");
   process.exit(1);
 }

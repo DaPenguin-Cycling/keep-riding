@@ -245,6 +245,12 @@ STRAVA_CLIENT_ID=xxxxx STRAVA_CLIENT_SECRET=yyyyy node scripts/strava-reauth.mjs
 Authorise **as Anthony**, paste the code back, and put the printed refresh token
 into the `STRAVA_REFRESH_TOKEN` secret. Only that secret changes.
 
+The redirect has to match the Authorization Callback Domain on
+<https://www.strava.com/settings/api>; the script assumes `dapenguincycling.com`
+and takes `STRAVA_CALLBACK_DOMAIN` to override it. After approving, the browser
+lands on a path that does not exist and shows a 404 — that is expected, the code
+is in the address bar.
+
 Until then nothing breaks: the Action writes the mileage as usual, logs that it
 skipped the per-ride figures, and leaves any existing `ride_stats.json` alone.
 
