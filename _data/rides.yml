@@ -9,6 +9,16 @@
 # filename from images/ plus `image_alt` and a photo appears on that card. Only
 # add one when it is genuinely from that ride.
 #
+# `dates` is what the daily Strava Action matches activities against, so keep it
+# machine-readable. It is a list so a multi-day trip can carry each of its days;
+# the card then shows the trip's combined figures. Rides without it simply get
+# no figures.
+#
+# The Action writes what it finds to _data/ride_stats.json and the card renders
+# from that — nothing here needs filling in by hand. A `strava` block below is
+# still honoured and overrides the fetched figures, which is the escape hatch
+# for a ride Strava has no record of.
+#
 # `image_position` sets the CSS object-position for the card's 3:2 crop. It
 # defaults to "center 25%", which suits landscape shots. A portrait photo only
 # shows about half its height in that slot, so use "center top" to keep a face
@@ -16,6 +26,7 @@
 
 upcoming:
   - name: Cameron Ponder Memorial Ride
+    dates: [2026-10-03]
     meta: "October 3, 2026 • Elizabethtown, Kentucky"
     # No `body` yet: distance/route and Anthony's own note on this one are not
     # known, and the card renders fine without them. Add lines here when he has
@@ -24,7 +35,8 @@ upcoming:
 
 completed:
   - name: Limestone Cycling Tour
-    meta: "September 2026 • 28 miles"
+    dates: [2026-09-12]
+    meta: "September 12, 2026"
     # Home page uses this shorter note; the Rides page uses `body` below.
     home_body:
       - Another one in the books.
@@ -39,14 +51,21 @@ completed:
     image_h: 640
 
   - name: Horsey Hundred
+    dates: [2026-05-23]
     meta: "May 23, 2026 • Georgetown, Kentucky"
-    # He bonked roughly 34 miles in and did not finish this one. The last line
-    # was written for him and approved by Melanie on 2026-09-25; the two above
-    # it are his original copy.
+    # He bonked and did not finish this one. The closing line is his own Strava
+    # caption for the ride, verbatim, and 36.78 mi is the distance from that
+    # same activity — both read off the Strava card shown at 0:56 in
+    # videos/horsey-hundred-ride.mp4. The ride is logged there as a Morning
+    # Ride in Scott County, Kentucky: 36.78 mi, 2,300 ft, 3:55:00, 165 W avg.
     body:
       - One of the Kentucky Cycling Challenge rides and one I look forward to.
       - Third year doing this series. Still not tired of it.
-      - Bonked around 34 miles in this year and called it. It happens.
+      - Bonked and called it at 36.78 miles this year.
+      - Bad day on the bike, but still miles.
+    # Figures now come from Strava via the Action. These are what the ride
+    # video's Strava card showed, kept as a fallback until the first fetch
+    # confirms them: 36.78 mi, 2,300 ft, 3:55:00.
     # The jersey in this shot reads KENTUCKY CYCLING CHALLENGE 2025 — that is
     # last year's kit. The photo is from the 2026 ride, confirmed by Melanie.
     image: horsey-hundred.avif
@@ -58,7 +77,8 @@ completed:
     # image_alt:
 
   - name: Redbud Ride
-    meta: "2026 • Kentucky"
+    dates: [2026-04-18]
+    meta: "April 18, 2026 • London, Kentucky"
     body:
       - First KCC ride I documented for DaPenguin.
       - Plenty of miles. Plenty of camera footage. Apparently riding the bike wasn't enough work.
@@ -68,8 +88,9 @@ completed:
     image_w: 640
     image_h: 480
 
-  - name: Jamaica
-    meta: "April 2026 • Jamaica"
+  - name: Cycle Jamaica
+    dates: [2026-04-10, 2026-04-11, 2026-04-12]
+    meta: "April 10–12, 2026 • Jamaica"
     body:
       - First international cycling trip.
       - Also the first time I'd been outside the United States without the Marine Corps being responsible for the itinerary.

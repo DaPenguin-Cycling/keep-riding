@@ -1,10 +1,12 @@
 # Clips on the Video section of Photos & Video, oldest first.
 #
-# The order below is the files' creation dates, kept here for reference but not
-# shown on the page: for most of these the file date is when the edit was
-# exported, not when the ride happened, so printing it would imply something it
-# does not mean. The Horsey Hundred clip, for instance, was exported on 26 May
-# for a ride on 23 May.
+# Ordered by when the ride happened, which is not the same as the file dates:
+# the Cycle Jamaica clips were exported on 22 April for a trip ridden 10-12
+# April, and the Horsey Hundred clip on 26 May for a ride on 23 May. Ordering by
+# export date put the Jamaica trip after a ride that in fact followed it.
+#
+# `created` is the ride date where one is known and the export date otherwise.
+# It is not shown on the page; it only sets this order.
 #
 # `title` is taken from what each clip says on screen or from the ride it is
 # plainly of — none of it is invented. Rename freely; it is only a label.
@@ -14,17 +16,17 @@
 # repo — re-encode from those rather than from these if a bigger version is ever
 # needed.
 
-- slug: started-here-finished
-  title: "Started here. Finished."
-  created: 2026-04-18
-
 - slug: cycle-jamaica-day-1
   title: "Cycle Jamaica — Day 1"
-  created: 2026-04-22
+  created: 2026-04-10
 
 - slug: cycle-jamaica-day-2
   title: "Cycle Jamaica — Day 2"
-  created: 2026-04-22
+  created: 2026-04-11
+
+- slug: started-here-finished
+  title: "Started here. Finished."
+  created: 2026-04-18
 
 - slug: home-ride
   title: "Home ride"
@@ -36,7 +38,7 @@
 
 - slug: horsey-hundred-ride
   title: "Horsey Hundred"
-  created: 2026-05-26
+  created: 2026-05-23
 
 - slug: weather-takes-control
   title: "When the weather takes control"

@@ -127,6 +127,12 @@ To add a photo to a ride, drop the file in `images/` and add `image`,
 have resized variants). Leave them out and the ride renders as a text card.
 Only attach a photo that is genuinely from that ride.
 
+To show logged figures on a ride, add a `strava` block with `distance`,
+`elevation` and `time`. Add `url` as well and the row links to the activity —
+only do that for an activity that is public, or the link 404s for visitors.
+These are typed in by hand: the daily Action fetches year-to-date totals, not
+per-activity data, so nothing fills them in automatically.
+
 `upcoming: []` is a valid state — the Rides page then says "Nothing on the board
 right now." Add an entry with `name`, `meta` and `body` to list a real event.
 
@@ -215,4 +221,51 @@ runs daily, calls the Strava API via `scripts/update-strava-stats.mjs`, and comm
 the file if it changed. That commit triggers a Pages rebuild, so the number on the
 home page is baked into the HTML at build time — no JavaScript, no loading flicker.
 
+It also writes `_data/ride_stats.json` — every ride-type activity of the current
+year, keyed by date, with multiple activities on one date summed. Each ride in
+`_data/rides.yml` carries a `dates` list; the card looks its dates up in there
+and shows distance, elevation and time. A multi-day trip sums across its days.
+
+The card links to the activity only when a single activity sits behind the
+figures, since pointing a combined total at one of several rides would
+misrepresent it.
+
 Needs repo secrets `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`, `STRAVA_REFRESH_TOKEN`.
+
+### Scopes
+
+Per-ride figures need `activity:read`; the mileage alone does not. A Strava
+token's scopes are fixed when it is authorised — nothing widens an existing one
+— so adding it means minting a new refresh token against the same app:
+
+```bash
+STRAVA_CLIENT_ID=xxxxx STRAVA_CLIENT_SECRET=yyyyy node scripts/strava-reauth.mjs
+```
+
+Authorise **as Anthony**, paste the code back, and put the printed refresh token
+into the `STRAVA_REFRESH_TOKEN` secret. Only that secret changes.
+
+The redirect has to match the Authorization Callback Domain on
+<https://www.strava.com/settings/api>; the script assumes `dapenguincycling.com`
+and takes `STRAVA_CALLBACK_DOMAIN` to override it. After approving, the browser
+lands on a path that does not exist and shows a 404 — that is expected, the code
+is in the address bar.
+
+Until then nothing breaks: the Action writes the mileage as usual, logs that it
+skipped the per-ride figures, and leaves any existing `ride_stats.json` alone.
+
+### Tokens
+
+The **access token** is short-lived and needs no attention — it is minted fresh
+from the refresh token on every run and never stored. An expiry notice from
+Strava about one is nothing to act on.
+
+The **refresh token** is the one that matters. Strava can rotate it during a
+refresh, invalidating the old one, and an Action cannot write back to the secret
+that holds it. So the script stops with a clear error if that happens rather
+than letting the next day's run fail for no visible reason. Mint a replacement
+with `scripts/strava-reauth.mjs` and update the secret.
+
+This repo is public, which makes its Action logs public too. GitHub masks secret
+values it already knows, but not a token that has just been rotated — so the
+script never prints one.

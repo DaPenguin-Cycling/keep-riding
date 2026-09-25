@@ -50,7 +50,7 @@ forms:
   # control. Paste a form-handler endpoint here (Formspree, Basin, Getform, etc.)
   # and the contact form renders and works. While this is blank the contact page
   # leads with the real email address instead of showing a button that does nothing.
-  endpoint: ""
+  endpoint: "https://script.google.com/macros/s/AKfycbxnR44JeS5awVY5p_BlizC1AZl6gObOr80ZDQ_m0jfOzKDibq8V9j6zKzUg6bQxxpTS1Q/exec"
 
 sponsor:
   bluedobie: "https://www.bluedobiedev.com"

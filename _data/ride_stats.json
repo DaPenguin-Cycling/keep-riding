@@ -1,0 +1,145 @@
+{
+  "updatedAt": "2026-09-25T15:47:47.359Z",
+  "dates": {
+    "2026-09-23": {
+      "distanceMi": 8.52,
+      "elevationFt": 568,
+      "movingSeconds": 2629,
+      "elapsedSeconds": 2757,
+      "url": "https://www.strava.com/activities/20299231458"
+    },
+    "2026-09-15": {
+      "distanceMi": 8.44,
+      "elevationFt": 548,
+      "movingSeconds": 2843,
+      "elapsedSeconds": 2843,
+      "url": "https://www.strava.com/activities/20186933288"
+    },
+    "2026-09-12": {
+      "distanceMi": 27.07,
+      "elevationFt": 1627,
+      "movingSeconds": 8702,
+      "elapsedSeconds": 12042,
+      "url": "https://www.strava.com/activities/20145703296"
+    },
+    "2026-06-20": {
+      "distanceMi": 9.93,
+      "elevationFt": 873,
+      "movingSeconds": 2904,
+      "elapsedSeconds": 3583,
+      "url": "https://www.strava.com/activities/20136716774"
+    },
+    "2026-05-27": {
+      "distanceMi": 8.47,
+      "elevationFt": 554,
+      "movingSeconds": 2415,
+      "elapsedSeconds": 2444,
+      "url": "https://www.strava.com/activities/18678400117"
+    },
+    "2026-05-23": {
+      "distanceMi": 36.79,
+      "elevationFt": 2300,
+      "movingSeconds": 11277,
+      "elapsedSeconds": 14100,
+      "url": "https://www.strava.com/activities/18627744965"
+    },
+    "2026-05-15": {
+      "distanceMi": 37.16,
+      "elevationFt": 2454,
+      "movingSeconds": 11289,
+      "elapsedSeconds": 13030,
+      "url": "https://www.strava.com/activities/18521068978"
+    },
+    "2026-05-13": {
+      "distanceMi": 8.48,
+      "elevationFt": 577,
+      "movingSeconds": 2796,
+      "elapsedSeconds": 2796,
+      "url": "https://www.strava.com/activities/18492494165"
+    },
+    "2026-05-09": {
+      "distanceMi": 22,
+      "elevationFt": 1142,
+      "movingSeconds": 6474,
+      "elapsedSeconds": 7008,
+      "url": "https://www.strava.com/activities/18441695902"
+    },
+    "2026-05-04": {
+      "distanceMi": 8.57,
+      "elevationFt": 650,
+      "movingSeconds": 2598,
+      "elapsedSeconds": 2639,
+      "url": "https://www.strava.com/activities/18375177209"
+    },
+    "2026-04-28": {
+      "distanceMi": 8.53,
+      "elevationFt": 568,
+      "movingSeconds": 2843,
+      "elapsedSeconds": 2866,
+      "url": "https://www.strava.com/activities/18295782226"
+    },
+    "2026-04-24": {
+      "distanceMi": 10.63,
+      "elevationFt": 856,
+      "movingSeconds": 3358,
+      "elapsedSeconds": 3577,
+      "url": "https://www.strava.com/activities/18242429876"
+    },
+    "2026-04-18": {
+      "distanceMi": 68.93,
+      "elevationFt": 4577,
+      "movingSeconds": 19070,
+      "elapsedSeconds": 25242,
+      "url": "https://www.strava.com/activities/18162230082"
+    },
+    "2026-04-15": {
+      "distanceMi": 16.5,
+      "elevationFt": 1138,
+      "movingSeconds": 5028,
+      "elapsedSeconds": 5316,
+      "url": null
+    },
+    "2026-04-12": {
+      "distanceMi": 26.88,
+      "elevationFt": 1339,
+      "movingSeconds": 6452,
+      "elapsedSeconds": 9063,
+      "url": "https://www.strava.com/activities/18082870541"
+    },
+    "2026-04-11": {
+      "distanceMi": 32.2,
+      "elevationFt": 961,
+      "movingSeconds": 7427,
+      "elapsedSeconds": 10828,
+      "url": "https://www.strava.com/activities/18068991188"
+    },
+    "2026-04-10": {
+      "distanceMi": 23.76,
+      "elevationFt": 643,
+      "movingSeconds": 5535,
+      "elapsedSeconds": 8662,
+      "url": "https://www.strava.com/activities/18054324412"
+    },
+    "2026-04-01": {
+      "distanceMi": 5.8,
+      "elevationFt": 387,
+      "movingSeconds": 1929,
+      "elapsedSeconds": 1929,
+      "url": "https://www.strava.com/activities/17940758492"
+    },
+    "2026-03-30": {
+      "distanceMi": 8.45,
+      "elevationFt": 633,
+      "movingSeconds": 2848,
+      "elapsedSeconds": 2960,
+      "url": "https://www.strava.com/activities/17914424705"
+    },
+    "2026-02-27": {
+      "distanceMi": 8.52,
+      "elevationFt": 574,
+      "movingSeconds": 2663,
+      "elapsedSeconds": 2890,
+      "url": "https://www.strava.com/activities/17545979544"
+    }
+  }
+}
