@@ -118,17 +118,21 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
       <h2 class="heading_primary">Latest ride</h2>
     </div>
     {%- comment -%}
-      Newest entry in _data/rides.yml. Name and distance come from the same place
-      as the Rides page, so the two cannot drift apart the way the distance did
-      before. The wording here is the ride's `home_body`.
+      Newest entry in _data/rides.yml, so adding a ride there updates this block
+      and the Rides page together and the two cannot drift apart.
+
+      `home_body` is an optional shorter note for this card; without one it falls
+      back to the ride's `body`, so a newly added ride is never left here as a
+      heading with nothing under it.
     {%- endcomment -%}
     {%- assign latest = site.data.rides.completed | first %}
+    {%- if latest.home_body %}{%- assign latest_copy = latest.home_body %}{%- else %}{%- assign latest_copy = latest.body %}{%- endif %}
     <div class="card">
       <div class="card_body">
         <h3 class="heading_tertiary">{{ latest.name }}</h3>
         <div class="label">{{ latest.meta }}</div>
         <div class="rich-text w-richtext">
-          {%- for para in latest.home_body %}
+          {%- for para in latest_copy %}
           <p>{{ para }}</p>
           {%- endfor %}
         </div>
