@@ -9,10 +9,10 @@ so an unknown profile leaves no dead link behind.
   `default: ""` normalises a missing key and an empty value to the same thing.
 {%- endcomment -%}
 {%- assign fb = site.social.facebook | default: "" -%}
-{%- assign tt = site.social.tiktok | default: "" -%}
 {%- assign st = site.social.strava | default: "" -%}
+{%- if st == "" -%}{%- assign st = site.data.stats.stravaUrl | default: "" -%}{%- endif -%}
 {%- assign has_social = false -%}
-{%- if fb != "" or tt != "" or st != "" -%}
+{%- if fb != "" or st != "" -%}
   {%- assign has_social = true -%}
 {%- endif -%}
 <footer class="footer is-inverse">
@@ -68,13 +68,6 @@ so an unknown profile leaves no dead link behind.
         <li>
           <a href="{{ fb }}" target="_blank" rel="noopener" class="footer_link on-inverse w-inline-block">
             <div>Facebook</div>
-          </a>
-        </li>
-        {%- endif %}
-        {%- if tt != "" %}
-        <li>
-          <a href="{{ tt }}" target="_blank" rel="noopener" class="footer_link on-inverse w-inline-block">
-            <div>TikTok</div>
           </a>
         </li>
         {%- endif %}

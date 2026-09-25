@@ -24,11 +24,25 @@ baseurl: ""
 # ---------------------------------------------------------------------------
 contact:
   email: "anthonybrown7557@gmail.com"
+  # The old site printed this number but linked it to "#", so it was visible and
+  # not clickable — the worst of both. Now the number lives only in the href and
+  # the page shows `whatsapp_label` instead.
+  #
+  # Caveat worth knowing: a wa.me URL still contains the digits, so the number is
+  # in the page source even though it is not displayed. That stops casual
+  # copying, not a scraper. To keep it out of the source entirely, replace
+  # whatsapp_url with a free WhatsApp Business short link (wa.link/xxxxx), which
+  # resolves to the number without revealing it. Nothing else needs to change.
+  whatsapp_url: "https://wa.me/12535762262"
+  whatsapp_label: "Message on WhatsApp"
 
 social:
   facebook: "https://www.facebook.com/profile.php?id=61567605682416"
-  tiktok: ""   # TODO: needs the real profile URL from Anthony
-  strava: ""   # TODO: needs the real athlete profile URL from Anthony
+  # Strava: normally left blank. The daily mileage Action records the athlete's
+  # public profile URL in _data/stats.json, and the site falls back to that, so
+  # the link appears on its own after the next run. Set a value here only to
+  # override it (e.g. a vanity URL).
+  strava: ""
 
 forms:
   # The old markup was a Webflow form. Webflow forms only collect submissions on
@@ -48,7 +62,3 @@ exclude:
   - scripts
   - README.md
   - CLAUDE.md
-  # Webflow's generated component style guide. Kept in the repo as a reference for
-  # the design system's class names, but no longer published — it is full of
-  # template placeholder copy and nothing on the site links to it.
-  - style-guide.html

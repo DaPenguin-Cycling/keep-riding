@@ -47,8 +47,13 @@ async function main() {
   const ytdMeters = stats.ytd_ride_totals?.distance ?? 0;
   const ytdMiles = Math.round(ytdMeters / 1609.344);
 
+  // The athlete response is already in hand for the stats call, so record the
+  // public profile URL too. That lets the site link to Strava without anyone
+  // having to look the handle up by hand.
   const output = {
     ytdMiles,
+    athleteId: athlete.id,
+    stravaUrl: `https://www.strava.com/athletes/${athlete.id}`,
     updatedAt: new Date().toISOString(),
   };
 

@@ -6,6 +6,37 @@
    Loaded last, so anything here wins.
    --------------------------------------------------------------------------- */
 
+/* Contact form states.
+   webflow.css hides `.w-form-done` / `.w-form-fail` with `display: none`;
+   js/contact-form.js reveals one by adding `.is-visible`. Two classes beats
+   Webflow's one, so no !important is needed. */
+.form_success-message.is-visible,
+.form_error-message.is-visible {
+  display: block;
+}
+
+/* `.form` sets its own `display`, which outranks the `hidden` attribute's UA
+   style — so hiding the form on success had no visual effect. Make `hidden`
+   win for any element carrying a display from the design system. */
+[hidden] {
+  display: none !important;
+}
+
+.form_success-message:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Honeypot: off-screen rather than display:none, which some bots skip.
+   Real people never see or tab to it; bots that fill everything get caught. */
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* Skip link — visually hidden until it receives keyboard focus.
    The Webflow `.screen-reader` utility has no focus state, so it cannot be
    used for this on its own. */

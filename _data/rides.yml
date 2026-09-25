@@ -1,0 +1,58 @@
+# Rides shown on event.html, and the "Latest ride" block on the home page.
+#
+# `completed` is newest first — the home page takes the first entry.
+# `upcoming` being empty is a valid state: the Rides page then says
+# "Nothing on the board right now. That won't last." rather than inventing an
+# event to fill the space. Add an entry with the same fields to list one.
+#
+# `image` is optional. Leave it out and the ride renders as a text card; add a
+# filename from images/ plus `image_alt` and a photo appears on that card. Only
+# add one when it is genuinely from that ride.
+
+upcoming: []
+
+completed:
+  - name: Limestone Cycling Tour
+    meta: "September 2026 • 28 miles"
+    # Home page uses this shorter note; the Rides page uses `body` below.
+    home_body:
+      - Another one in the books.
+      - Good ride. Good people. Bike did what it was supposed to do.
+      - I'll take it.
+    body:
+      - Finished.
+      - Legs worked. Bike worked. That's generally the arrangement I'm looking for.
+    # image:      # TODO: needs a photo confirmed as being from this ride
+    # image_alt:
+
+  - name: Horsey Hundred
+    meta: "May 23, 2026 • Georgetown, Kentucky"
+    body:
+      - One of the Kentucky Cycling Challenge rides and one I look forward to.
+      - Third year doing this series. Still not tired of it.
+    # image:      # TODO: needs a photo confirmed as being from this ride
+    # image_alt:
+
+  - name: Redbud Ride
+    meta: "2026 • Kentucky"
+    body:
+      - First KCC ride I documented for DaPenguin.
+      - Plenty of miles. Plenty of camera footage. Apparently riding the bike wasn't enough work.
+    image: IMG_0712.webp
+    image_srcset: IMG_0712-p-500.webp 500w, IMG_0712.webp 640w
+    image_alt: Anthony Brown riding through the finish arch at the Redbud Ride in London, Kentucky
+    image_w: 640
+    image_h: 480
+
+  - name: Jamaica
+    meta: "April 2026 • Jamaica"
+    body:
+      - First international cycling trip.
+      - Also the first time I'd been outside the United States without the Marine Corps being responsible for the itinerary.
+      - Different experience.
+      - I'd go back.
+    image: 3147cfbf-be43-49c3-91ef-17db01ac294b.jpeg
+    image_srcset: 3147cfbf-be43-49c3-91ef-17db01ac294b-p-500.jpeg 500w, 3147cfbf-be43-49c3-91ef-17db01ac294b-p-800.jpeg 800w, 3147cfbf-be43-49c3-91ef-17db01ac294b.jpeg 1200w
+    image_alt: Road bikes lined up on a balcony above the beach in Jamaica
+    image_w: 1200
+    image_h: 1600

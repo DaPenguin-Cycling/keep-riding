@@ -119,14 +119,20 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
     <div class="header">
       <h2 class="heading_primary">Latest ride</h2>
     </div>
+    {%- comment -%}
+      Newest entry in _data/rides.yml. Name and distance come from the same place
+      as the Rides page, so the two cannot drift apart the way the distance did
+      before. The wording here is the ride's `home_body`.
+    {%- endcomment -%}
+    {%- assign latest = site.data.rides.completed | first %}
     <div class="card">
       <div class="card_body">
-        <h3 class="heading_tertiary">Limestone Cycling Tour</h3>
-        <div class="label">September 2026 • 28 miles</div>
+        <h3 class="heading_tertiary">{{ latest.name }}</h3>
+        <div class="label">{{ latest.meta }}</div>
         <div class="rich-text w-richtext">
-          <p>Another one in the books.</p>
-          <p>Good ride. Good people. Bike did what it was supposed to do.</p>
-          <p>I'll take it.</p>
+          {%- for para in latest.home_body %}
+          <p>{{ para }}</p>
+          {%- endfor %}
         </div>
       </div>
     </div>

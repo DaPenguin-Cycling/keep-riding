@@ -28,6 +28,25 @@ description: See where Anthony Brown is riding, where he's been, and the cycling
     <div class="header">
       <h2 class="heading_primary">Coming up</h2>
     </div>
+    {%- if site.data.rides.upcoming.size > 0 %}
+    <ul role="list" class="list gap-small w-list-unstyled">
+      {%- for ride in site.data.rides.upcoming %}
+      <li>
+        <div class="card">
+          <div class="card_body">
+            <h3 class="heading_tertiary">{{ ride.name }}</h3>
+            <div class="label">{{ ride.meta }}</div>
+            <div class="rich-text w-richtext">
+              {%- for para in ride.body %}
+              <p>{{ para }}</p>
+              {%- endfor %}
+            </div>
+          </div>
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+    {%- else %}
     <div class="card">
       <div class="card_body">
         <div class="rich-text w-richtext">
@@ -36,6 +55,7 @@ description: See where Anthony Brown is riding, where he's been, and the cycling
         </div>
       </div>
     </div>
+    {%- endif %}
   </div>
 </section>
 
@@ -45,56 +65,24 @@ description: See where Anthony Brown is riding, where he's been, and the cycling
       <h2 class="heading_primary">Done</h2>
     </div>
     <ul role="list" class="list gap-small w-list-unstyled">
+      {%- for ride in site.data.rides.completed %}
       <li>
         <div class="card on-secondary">
+          {%- if ride.image %}
+          <div class="image-ratio_3x2 radius_bottom-none"><img class="image_cover" src="{{ ride.image | prepend: '/images/' | relative_url }}"{% if ride.image_srcset %} srcset="{% assign parts = ride.image_srcset | split: ',' %}{% for p in parts %}{% assign bits = p | strip | split: ' ' %}{{ bits[0] | prepend: '/images/' | relative_url }} {{ bits[1] }}{% unless forloop.last %}, {% endunless %}{% endfor %}"{% endif %} sizes="(max-width: 767px) 100vw, 720px" width="{{ ride.image_w }}" height="{{ ride.image_h }}" alt="{{ ride.image_alt }}" loading="lazy"></div>
+          {%- endif %}
           <div class="card_body">
-            <h3 class="heading_tertiary">Limestone Cycling Tour</h3>
-            <div class="label">September 2026 • 28 miles</div>
+            <h3 class="heading_tertiary">{{ ride.name }}</h3>
+            <div class="label">{{ ride.meta }}</div>
             <div class="rich-text w-richtext">
-              <p>Finished.</p>
-              <p>Legs worked. Bike worked. That's generally the arrangement I'm looking for.</p>
+              {%- for para in ride.body %}
+              <p>{{ para }}</p>
+              {%- endfor %}
             </div>
           </div>
         </div>
       </li>
-      <li>
-        <div class="card on-secondary">
-          <div class="card_body">
-            <h3 class="heading_tertiary">Horsey Hundred</h3>
-            <div class="label">May 23, 2026 • Georgetown, Kentucky</div>
-            <div class="rich-text w-richtext">
-              <p>One of the Kentucky Cycling Challenge rides and one I look forward to.</p>
-              <p>Third year doing this series. Still not tired of it.</p>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="card on-secondary">
-          <div class="card_body">
-            <h3 class="heading_tertiary">Redbud Ride</h3>
-            <div class="label">2026 • Kentucky</div>
-            <div class="rich-text w-richtext">
-              <p>First KCC ride I documented for DaPenguin.</p>
-              <p>Plenty of miles. Plenty of camera footage. Apparently riding the bike wasn't enough work.</p>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="card on-secondary">
-          <div class="card_body">
-            <h3 class="heading_tertiary">Jamaica</h3>
-            <div class="label">April 2026 • Jamaica</div>
-            <div class="rich-text w-richtext">
-              <p>First international cycling trip.</p>
-              <p>Also the first time I'd been outside the United States without the Marine Corps being responsible for the itinerary.</p>
-              <p>Different experience.</p>
-              <p>I'd go back.</p>
-            </div>
-          </div>
-        </div>
-      </li>
+      {%- endfor %}
     </ul>
     <div class="button-group margin-top_medium">
       <a href="{{ '/portfolio.html' | relative_url }}" class="button is-secondary w-button">Photos &amp; Video</a>
