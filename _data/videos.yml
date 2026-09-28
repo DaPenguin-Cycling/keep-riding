@@ -21,6 +21,14 @@
 # used, which is thin — a sentence saying what is actually in the clip is worth
 # adding whenever someone knows.
 #
+# Removed 2026-09-28: a clip listed as "Home ride" (exported 25 April) turned
+# out to be a second edit of the ride already here as "Building toward the
+# Horsey 100" — same footage, same on-screen captions, and the Strava card
+# inside it reads "Building toward the Horsey 100" and the same 856 ft of
+# gain. It only differed in how it ended. Kept the one whose title matches the
+# ride and whose outro carries the logo and Strava link. Check a new export
+# against this list before adding it; two cuts of one ride read as two rides.
+#
 # Sources are 1080x1920 masters; what ships is 540x960 at CRF 27, which is
 # indistinguishable at the size these play in the grid. Masters are outside the
 # repo — re-encode from those rather than from these if a bigger version is ever
@@ -41,10 +49,6 @@
   created: 2026-04-18
   duration: PT17S
 
-- slug: home-ride
-  title: "Home ride"
-  created: 2026-04-25
-  duration: PT1M5S
 
 - slug: building-toward-horsey
   title: "Building toward the Horsey 100"

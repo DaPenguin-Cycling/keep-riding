@@ -112,6 +112,23 @@ description: Ride photos, event footage, cycling travel, and moments from Anthon
             pull tens of megabytes before anyone pressed play. The poster is all
             that loads until they do.
           {%- endcomment -%}
+          {%- comment -%}
+            Captions. Every clip carries real audio, so WCAG 1.2.2 (Level A)
+            wants captions on all of them — but a <track> pointing at a file
+            that is not there is worse than none: the browser offers a captions
+            control that then fails silently.
+
+            So the track is emitted only when `videos/<slug>.vtt` actually
+            exists in the repo, checked against site.static_files. Drop a .vtt
+            in and captions appear on that clip; the ones without a file stay
+            exactly as they were. Same convention as the config links — the
+            absence of a thing removes it rather than leaving a dead control.
+          {%- endcomment -%}
+          {%- assign vtt = v.slug | prepend: '/videos/' | append: '.vtt' -%}
+          {%- assign has_vtt = false -%}
+          {%- for sf in site.static_files -%}
+            {%- if sf.path == vtt -%}{%- assign has_vtt = true -%}{%- endif -%}
+          {%- endfor -%}
           <video
             class="video-item"
             controls
@@ -122,6 +139,9 @@ description: Ride photos, event footage, cycling travel, and moments from Anthon
             poster="{{ v.slug | prepend: '/videos/' | append: '.jpg' | relative_url }}"
             aria-label="{{ v.title }}">
             <source src="{{ v.slug | prepend: '/videos/' | append: '.mp4' | relative_url }}" type="video/mp4">
+            {%- if has_vtt %}
+            <track kind="captions" src="{{ vtt | relative_url }}" srclang="en" label="English" default>
+            {%- endif %}
             Your browser can't play this video.
             <a href="{{ v.slug | prepend: '/videos/' | append: '.mp4' | relative_url }}">Download it instead</a>.
           </video>

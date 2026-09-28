@@ -379,9 +379,42 @@ re-encode is indistinguishable and roughly a sixth of the weight. Pick the
 poster timestamp by eye — a frame mid-clip usually beats the opening one, which
 is often a title card or a fade from black.
 
-Every clip is `preload="none"`, so the page loads eight posters (~430KB) rather
-than eight videos (~42MB). Nothing downloads until someone presses play. Keep
-that attribute on any clip you add.
+Every clip is `preload="none"`, so the page loads posters (~430KB) rather than
+the videos themselves (~42MB). Nothing downloads until someone presses play.
+Keep that attribute on any clip you add.
+
+Before adding an export, check it is not already here under another name. Two
+edits of one ride look like two rides on the page — that is exactly what
+happened with the clip removed on 2026-09-28, where the giveaway was the Strava
+card inside it naming a ride that was already listed.
+
+### Captions
+
+Every clip carries real audio, so WCAG 1.2.2 (Level A) wants captions on all of
+them. `portfolio.html` emits a `<track kind="captions">` for a clip **only when
+`videos/<slug>.vtt` exists**, checked against `site.static_files`. Drop a WebVTT
+file in `videos/` named after the slug and captions appear on that clip; clips
+without one are untouched. The conditional matters — a `<track>` pointing at a
+missing file gives the player a captions button that silently does nothing,
+which is worse than no button.
+
+Background music does not get its lyrics transcribed, vocals or not. Captions
+carry content: speech, who is speaking, and non-speech sound that means
+something. A soundtrack gets a descriptor:
+
+```
+WEBVTT
+
+00:00:00.000 --> 00:00:59.000
+[upbeat music]
+```
+
+A clip with speech needs the words. Auto-captioning (Canva, YouTube, Descript)
+gives a usable first pass, but read it before committing — it reliably mangles
+Lynskey, DaPenguin, and Kentucky and Jamaican place names.
+
+Still outstanding: none of the clips have a `.vtt` yet. `cycle-jamaica-day-1`
+and `-day-2` are the two known to contain speech.
 
 ## Mileage
 
