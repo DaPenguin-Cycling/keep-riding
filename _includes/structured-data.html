@@ -162,8 +162,18 @@
       {%- if v.duration %}
       "duration": {{ v.duration | jsonify }},
       {%- endif %}
-      "isPartOf": { "@id": {{ page_id | jsonify }} },
+      "isPartOf": { "@id": {{ page_id | jsonify }} }
+      {%- comment -%}
+        Authorship is a claim, so it is only made where it is true. A clip
+        carrying an explicit blank `creator` in videos.yml was made by someone
+        else — the Cycle Jamaica group shot and released the two Jamaica clips
+        — and gets no creator rather than being credited to Anthony. Omitting
+        the key is what makes this safe: `creator` absent from the entry means
+        "his", a blank value means "not his, and not mine to attribute".
+      {%- endcomment -%}
+      {%- unless v.creator != nil and v.creator == "" -%},
       "creator": { "@id": {{ person_id | jsonify }} }
+      {%- endunless %}
     }
       {%- endfor -%}
     {%- endif %}

@@ -413,9 +413,9 @@ A clip with speech needs the words. Auto-captioning (Canva, YouTube, Descript)
 gives a usable first pass, but read it before committing — it reliably mangles
 Lynskey, DaPenguin, and Kentucky and Jamaican place names.
 
-All seven clips are captioned. **None of them contain speech** — that was
-established rather than assumed, because it is the sort of thing it would be
-embarrassing to get wrong:
+All seven clips are captioned. Five contain no speech at all; the two Cycle
+Jamaica clips carry a few spoken lines under the music. Working out which was
+which took two passes, and the first one got it wrong:
 
 - Local Whisper (`mlx-whisper`, `large-v3-turbo`) over every clip. Three
   returned sung lyrics — the soundtrack, not narration. One was tagged `Music`
@@ -426,10 +426,26 @@ embarrassing to get wrong:
   autocorrelated over 0.25–1.2 s lags. Five clips show a clear periodic peak
   (59–88 BPM). It agreed with Whisper everywhere the two overlapped.
 
+That first pass concluded no clip had speech, and it was wrong about the two
+Jamaica ones. A loud music bed masks sparse speech: Whisper locks onto the sung
+lyrics and reports those, and finding nothing else looks identical to there
+being nothing else. Re-running the audio band-limited to 200–3800 Hz, with
+`--condition-on-previous-text False` so one bad guess cannot cascade, surfaced
+speech that the first pass missed entirely — a few lines over the closing card
+of day one and a start-line call in the opening seconds of day two.
+
+The lesson worth keeping: **a Whisper transcript full of lyrics is not evidence
+that there is no speech.** Suppress the bed and run it again before concluding.
+
 Two clips could not be settled either way — `weather-takes-control` sits on the
 beat threshold and `going-out` shows no beat but strong high-frequency content,
 which reads as wind. They carry a descriptor that is true whichever it is.
 Narrow it if anyone ever actually listens.
+
+**Never attribute a voice to Anthony without checking.** The Cycle Jamaica
+clips were shot and released by the group, so the speaker in them is someone
+else. The caption files say so in a NOTE, and those clips carry a blank
+`creator` in `_data/videos.yml` so the schema makes no authorship claim.
 
 Note the CLI writes every result to the *first* input's filename when given
 several files at once, silently overwriting. Transcribe one file per
