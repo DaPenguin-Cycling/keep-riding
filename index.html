@@ -35,8 +35,25 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
       </div>
       <div class="grid-item-manual hero-copy">
         <div class="header margin-bottom_none">
-          <div class="eyebrow">Anthony Brown / DaPenguin</div>
-          <h1 class="heading_hero">The miles. <br>The work. <br>The ride.</h1>
+          {%- comment -%}
+            The eyebrow is inside the h1, not a sibling div above it.
+
+            It already looked like part of the heading; it just was not one, so
+            the page's single strongest on-page signal read "The miles. The
+            work. The ride." and contained neither his name nor the brand.
+            Nothing moves on screen — `.eyebrow` carries its own font, size,
+            colour and margin, and site.css restores `display: block` that it
+            loses as a span — but the h1 now opens with who this is.
+
+            An em dash rather than the slash it used to carry: a screen reader
+            reads "/" aloud as "slash" in the middle of the heading.
+
+            The space after </span> is deliberate. The span is display:block so
+            it changes nothing visually, but without it the heading's text
+            content reads "DaPenguinThe miles" — which is the string a search
+            engine extracts and some assistive tech announces. Don't tidy it.
+          {%- endcomment -%}
+          <h1 class="heading_hero"><span class="eyebrow">Anthony Brown — DaPenguin</span> The miles. <br>The work. <br>The ride.</h1>
           <div class="subheading rich-text w-richtext">
             <p>I ride. I train. I show up.</p>
             <p>Some rides go exactly as planned. Some turn into training rides whether I planned on it or not.</p>

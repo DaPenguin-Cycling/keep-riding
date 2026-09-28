@@ -450,3 +450,17 @@
 .input_field.is-select.on-accent-primary:hover {
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20viewBox='0%200%2016%2016'%20fill='none'%3E%3Cpath%20d='M3.5%206L8%2010.5L12.5%206'%20stroke='%23ffffff'%20stroke-width='1.75'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E");
 }
+
+/* Eyebrow nested inside a hero heading.
+   `.eyebrow` is authored for a block-level div — it sets margin-bottom to
+   space itself off the heading below. As a <span> inside the h1 it becomes
+   inline, that margin stops applying vertically, and the two lines run
+   together. Restoring block display is the whole fix; every other eyebrow
+   property still applies, so the nested version renders identically to the
+   sibling div it replaced.
+
+   Scoped to the hero so a standalone `.eyebrow` div elsewhere (the 404 page)
+   is untouched. */
+.heading_hero > .eyebrow {
+  display: block;
+}

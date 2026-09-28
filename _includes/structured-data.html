@@ -41,6 +41,26 @@
       "description": {{ site.description | strip | jsonify }},
       "inLanguage": "en-US",
       "publisher": { "@id": {{ person_id | jsonify }} }
+      {%- comment -%}
+        `publisher` and `creator` are different claims and both are true here.
+        Anthony publishes the site — it is his, and the content is his. The
+        build is Bluedobie's work, which `creator` credits. Wired from
+        `built_by` in _config.yml so the credit and the visible block on the
+        home page cannot drift apart, and so blanking the name there removes
+        both at once.
+      {%- endcomment -%}
+      {%- assign bb_name = site.built_by.name | default: "" -%}
+      {%- assign bb_url = site.built_by.url | default: "" -%}
+      {%- if bb_name != "" %},
+      "creator": {
+        "@type": "Organization",
+        "name": {{ bb_name | jsonify }}
+        {%- if bb_url != "" %},
+        "url": {{ bb_url | jsonify }},
+        "sameAs": {{ bb_url | jsonify }}
+        {%- endif %}
+      }
+      {%- endif %}
     },
     {
       "@type": "Person",
