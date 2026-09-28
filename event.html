@@ -15,6 +15,22 @@ description: See where Anthony Brown is riding, where he's been, and the cycling
           <p>They're all miles.</p>
           <p>Here's what's on the calendar and what I've finished.</p>
         </div>
+        {%- comment -%}
+          The page had no call to action anywhere above the ride list. Strava
+          is the right one here rather than another internal link: this page is
+          the record of what he has ridden, and Strava is where that record
+          actually lives and keeps updating. The per-ride "View this ride on
+          Strava" links below point at single activities; this one is the
+          profile.
+
+          Rendered only when a profile URL is known — see the include.
+        {%- endcomment -%}
+        {%- capture strava_url %}{% include strava-url.html %}{% endcapture -%}
+        {%- if strava_url != "" %}
+        <div class="button-group">
+          <a href="{{ strava_url }}" target="_blank" rel="noopener" class="button on-inverse w-button">Follow on Strava</a>
+        </div>
+        {%- endif %}
       </div>
       <div class="grid-item-manual">
         <div class="image-ratio_1x1"><img class="image_cover" src="{{ '/images/DSC00143.avif' | relative_url }}" width="640" height="480" alt="Anthony Brown and his Lynskey titanium bike at the car before the Redbud Ride" sizes="(max-width: 991px) 100vw, 640px" loading="eager" srcset="{{ '/images/DSC00143-p-500.avif' | relative_url }} 500w, {{ '/images/DSC00143.avif' | relative_url }} 640w"></div>

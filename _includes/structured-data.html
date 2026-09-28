@@ -21,8 +21,7 @@
   a quotation mark.
 {%- endcomment -%}
 {%- assign fb = site.social.facebook | default: "" -%}
-{%- assign st = site.social.strava | default: "" -%}
-{%- if st == "" -%}{%- assign st = site.data.stats.stravaUrl | default: "" -%}{%- endif -%}
+{%- capture st %}{% include strava-url.html %}{% endcapture -%}
 {%- assign site_id = "/#website" | absolute_url -%}
 {%- assign person_id = "/#anthony" | absolute_url -%}
 {%- assign page_id = page.url | absolute_url | append: "#webpage" -%}

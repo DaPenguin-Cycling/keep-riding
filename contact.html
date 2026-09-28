@@ -14,8 +14,7 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
 {%- assign fb = site.social.facebook | default: "" -%}
 {%- assign wa_url = site.contact.whatsapp_url | default: "" -%}
 {%- assign wa_label = site.contact.whatsapp_label | default: "Message on WhatsApp" -%}
-{%- assign st = site.social.strava | default: "" -%}
-{%- if st == "" -%}{%- assign st = site.data.stats.stravaUrl | default: "" -%}{%- endif -%}
+{%- capture st %}{% include strava-url.html %}{% endcapture -%}
 
 <header class="section is-inverse">
   <div class="container">

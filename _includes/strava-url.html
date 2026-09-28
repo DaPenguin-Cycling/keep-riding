@@ -1,0 +1,22 @@
+{%- comment -%}
+  Anthony's Strava profile URL, or nothing at all.
+
+  Two sources, in order: an explicit `social.strava` in _config.yml wins, so a
+  vanity URL can override; otherwise the athlete URL the daily Strava Action
+  records in _data/stats.json, which means the link appears on its own after
+  the next run without anyone setting it.
+
+  Emits an empty string when neither is known, so every caller can follow the
+  site's usual rule — compare against "" and render nothing rather than an
+  href="" dead link. Compare against "" and not Liquid's `blank`: an empty
+  string is truthy in Liquid and `!= blank` is also true for it, which is the
+  bug this convention exists to avoid.
+
+  Used via capture, since an include cannot assign into its caller:
+    {%- capture strava %}{% include strava-url.html %}{% endcapture -%}
+
+  Tag-level hyphens throughout: this must emit the URL and no whitespace.
+{%- endcomment -%}
+{%- assign st = site.social.strava | default: "" -%}
+{%- if st == "" -%}{%- assign st = site.data.stats.stravaUrl | default: "" -%}{%- endif -%}
+{{- st -}}

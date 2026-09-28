@@ -464,3 +464,19 @@
 .heading_hero > .eyebrow {
   display: block;
 }
+
+/* Hero photo grid on a phone.
+   The design system collapses every `.grid_2-col` to a single column at
+   767px. For the four hero photographs that produced a 1578px column —
+   nearly two phone screens, 28% of the whole page — sitting between the hero
+   buttons and the next tappable thing. Held at two columns they are ~160px
+   thumbnails, read as a set rather than a slideshow, and the block drops to
+   roughly 430px.
+
+   Scoped to this one grid on purpose: every other `.grid_2-col` on the site
+   holds text or cards that genuinely do need the full width on a phone. */
+@media screen and (max-width: 767px) {
+  .hero-photo-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

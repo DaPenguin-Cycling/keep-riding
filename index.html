@@ -18,7 +18,7 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
           candidate every time. The three-stop value below matches what the
           layout actually does. Re-measure if the hero grid changes.
         {%- endcomment -%}
-        <div class="w-layout-grid grid_2-col gap-xsmall">
+        <div class="w-layout-grid grid_2-col gap-xsmall hero-photo-grid">
           <div class="grid-item-manual">
             <div class="image-ratio_1x1"><img width="640" height="640" alt="Anthony Brown at the start line of the Redbud Ride" src="{{ '/images/DSC00152.webp' | relative_url }}" loading="eager" srcset="{{ '/images/DSC00152-p-500.webp' | relative_url }} 500w, {{ '/images/DSC00152.webp' | relative_url }} 640w" sizes="(max-width: 767px) 90vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
           </div>
@@ -129,6 +129,18 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
     <div class="rich-text margin-top_medium w-richtext">
       <p>Numbers change. The work doesn't.</p>
     </div>
+    {%- comment -%}
+      The figures above come from Strava, so the natural next move for anyone
+      who cares about them is to follow the source. It also filled a long gap:
+      on a phone there was nothing tappable between the hero buttons and the
+      Latest ride card, more than three screens further down.
+    {%- endcomment -%}
+    {%- capture strava_url %}{% include strava-url.html %}{% endcapture -%}
+    {%- if strava_url != "" %}
+    <div class="button-group margin-top_small">
+      <a href="{{ strava_url }}" target="_blank" rel="noopener" class="button is-secondary w-button">Follow on Strava</a>
+    </div>
+    {%- endif %}
   </div>
 </section>
 
@@ -171,6 +183,14 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
         </div>
       </div>
     </a>
+    {%- comment -%}
+      Photos & Video was reachable from the home page only through the nav and
+      the footer — the one page with no link from the body, and the most worth
+      looking at. Same treatment the Rides page already gives it.
+    {%- endcomment -%}
+    <div class="button-group margin-top_medium">
+      <a href="{{ '/portfolio.html' | relative_url }}" class="button is-secondary w-button">Photos &amp; Video</a>
+    </div>
   </div>
 </section>
 

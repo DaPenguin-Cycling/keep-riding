@@ -7,10 +7,12 @@ so an unknown profile leaves no dead link behind.
   Liquid, and `!= blank` still evaluates true here, so both of those idioms would
   emit href="" dead links for profiles that have not been supplied yet.
   `default: ""` normalises a missing key and an empty value to the same thing.
+
+  The Strava URL and its fallback to what the daily Action records now live in
+  _includes/strava-url.html, which five places share.
 {%- endcomment -%}
 {%- assign fb = site.social.facebook | default: "" -%}
-{%- assign st = site.social.strava | default: "" -%}
-{%- if st == "" -%}{%- assign st = site.data.stats.stravaUrl | default: "" -%}{%- endif -%}
+{%- capture st %}{% include strava-url.html %}{% endcapture -%}
 {%- assign has_social = false -%}
 {%- if fb != "" or st != "" -%}
   {%- assign has_social = true -%}

@@ -88,6 +88,23 @@ cost time: a filter inside an array subscript (`words[n | minus: 1]`) applies
 to the *result* of the subscript, not the index; and an include parameter named
 `count` resolves against the include hash rather than the value passed in.
 
+### The Strava link
+
+`_includes/strava-url.html` resolves it once for the five places that need it
+— the footer, the contact page, the Rides page CTA, the home page CTA and the
+`sameAs` in the structured data. An explicit `social.strava` in `_config.yml`
+wins; otherwise it falls back to the athlete URL the daily Action records in
+`_data/stats.json`, so the link appears on its own after the next run.
+
+It emits an empty string when neither is known. Callers capture it and compare
+against `""` before rendering, which is the site's usual rule — an unknown
+profile leaves no dead link behind.
+
+```liquid
+{%- capture strava %}{% include strava-url.html %}{% endcapture -%}
+{%- if strava != "" %}...{% endif %}
+```
+
 ### The Bluedobie credit
 
 `built_by` in `_config.yml` (name and url) drives the block under the hero on
