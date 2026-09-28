@@ -32,18 +32,26 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
 
         {%- if form_endpoint != "" %}
         <div class="form_block">
+          {%- comment -%}
+            `autocomplete` on the three identity fields is WCAG 1.3.5 (Identify
+            Input Purpose, AA): it lets a browser or assistive tool fill them
+            from the visitor's own saved details, which is the difference
+            between one tap and typing an address out on a phone. The honeypot
+            below deliberately carries `autocomplete="off"` for the opposite
+            reason — nothing should ever fill it.
+          {%- endcomment -%}
           <form action="{{ form_endpoint }}" method="post" name="contact-form" id="contact-form" class="form">
             <div class="form_item is-half">
               <label for="name" class="input_label">Name</label>
-              <input class="input_field on-inverse w-input" maxlength="256" name="name" type="text" id="name" required>
+              <input class="input_field on-inverse w-input" maxlength="256" name="name" type="text" id="name" autocomplete="name" required>
             </div>
             <div class="form_item is-half">
               <label for="email" class="input_label">Email</label>
-              <input class="input_field on-inverse w-input" maxlength="256" name="email" type="email" id="email" required>
+              <input class="input_field on-inverse w-input" maxlength="256" name="email" type="email" id="email" autocomplete="email" required>
             </div>
             <div class="form_item">
               <label for="company" class="input_label">Company / Organization <span class="text-color_secondary">(optional)</span></label>
-              <input class="input_field on-inverse w-input" maxlength="256" name="company" type="text" id="company">
+              <input class="input_field on-inverse w-input" maxlength="256" name="company" type="text" id="company" autocomplete="organization">
             </div>
             <div class="form_item">
               <label for="topic" class="input_label">What are we talking about?</label>

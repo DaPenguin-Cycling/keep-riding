@@ -102,10 +102,14 @@
   border-radius: var(--_sizes---card--card-radius, 0.5rem);
 }
 
+/* `--_colors---text-color--text-secondary` is a fixed rgba(30,31,40,.6), which
+   is 4.34:1 on white — under AA. The design system's own surface-relative
+   idiom (`color-mix` on currentColor, as `.text-color_secondary` uses) is
+   6.05:1 here and keeps working if this ever sits on a dark surface. */
 .video-grid figcaption {
   margin-top: 0.6rem;
   font-size: 0.9rem;
-  color: var(--_colors---text-color--text-secondary);
+  color: color-mix(in srgb, currentColor 70%, transparent);
 }
 
 @media screen and (max-width: 991px) {
@@ -136,7 +140,10 @@
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--_colors---text-color--text-secondary);
+  /* Same fix as .video-grid figcaption below: the fixed text-secondary token is
+     4.34:1, and at 12px uppercase these labels are the smallest text on the
+     site, so they need the margin most. */
+  color: color-mix(in srgb, currentColor 70%, transparent);
   margin-bottom: 0.15rem;
 }
 
@@ -304,4 +311,139 @@
   .hero-text-first > .hero-copy {
     order: -1;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Accessibility corrections to the design system.
+
+   These override tokens and rules that ship in the Webflow export. They live
+   here rather than in dapenguin.webflow.css for the reason at the top of this
+   file: a Webflow re-export overwrites that file and would silently take the
+   failures back. Every number below was measured against the rendered pages
+   with axe-core, not estimated.
+   --------------------------------------------------------------------------- */
+
+/* Accent colour.
+
+   The exported accent, #0077ea, lands at 4.35:1 — under the 4.5:1 WCAG AA
+   minimum for normal-size text — and it fails in both directions at once:
+   as a button background carrying white labels, and as link/`.text-button`
+   text on a white surface. Between them that was 20 of the 41 contrast
+   failures on the site, on every page.
+
+   #0070dd is the same hue two steps darker. It clears AA in both roles at
+   4.81:1 and is still 3.40:1 against the dark `is-inverse` surface, which
+   matters because `.button:focus` draws its outline in this colour and
+   WCAG 1.4.11 wants 3:1 for a focus indicator. That second constraint is what
+   sets the floor here: darkening further (#0066cc and below) buys nothing for
+   text and drops the focus ring under 3:1 on the dark hero. Don't go past it.
+
+   Caveat worth knowing: as text on the #ececec secondary surface #0070dd is
+   4.08:1, which would fail. Nothing on the site currently puts accent-coloured
+   text on that surface — the Strava link in a `.card.on-secondary` is
+   `text-primary`, not accent — so this is a boundary to respect rather than a
+   live failure. If a link ever needs to sit in a `.is-secondary` section, give
+   it `.text-link.is-secondary` rather than the bare accent.
+
+   The hover token was worse than the base: #2895ff is 3.07:1 either way.
+   #1a75d6 keeps the original lighten-on-hover direction and clears AA at
+   4.61:1. The gap from the base colour is smaller than Webflow's was, which is
+   the price of both states being legible; bare links carry a permanent
+   underline, so colour is not the only hover affordance. */
+:root {
+  --_colors---core-accent-color--accent-primary: #0070dd;
+  --_colors---core-accent-color--accent-primary-hover: #1a75d6;
+
+  /* Text links and `.text-button` on a light surface do NOT read the accent
+     token above — they go through `text-link--link-primary`, which points at
+     `text-accent-on-primary`, a second hard-coded #0077ea (line 162 of the
+     export). Overriding only the accent token left every "See all rides" style
+     link still failing at 4.35:1, which is why both are set here. If a future
+     export adds a third spelling of this blue, the axe run is what catches it.
+
+     The hover was the worst value on the site: `#0077ea99` is the accent at 60%
+     alpha, which composites to #66adf2 on white for 2.38:1 — hovering a link
+     made it roughly half as legible. Matching the button hover keeps one hover
+     blue across the site at 4.61:1. */
+  --_colors---text-color--text-accent-on-primary: #0070dd;
+  --_colors---text-color--text-accent-on-primary-hover: #1a75d6;
+
+  /* On the dark surface the accent is a separate, lighter blue (#3d94ea,
+     5.17:1) and is fine. Its hover was `#3d94ea99` — the same blue at 60%
+     alpha, which composites to #31659c against #1e1f28 for 2.71:1. Hovering a
+     link made it harder to read than not hovering it. A solid lighter blue
+     hovers the right way: 7.93:1, and visibly a lift from the 5.17:1 base. */
+  --_colors---text-color--text-accent-on-inverse-hover: #7cbaf2;
+}
+
+/* `.label` — the date/place line under a ride heading — is
+   `color-mix(currentColor 60%, transparent)`. Against the dark surface that is
+   a comfortable 6.67:1, but on the white and #ececec card surfaces where it
+   actually appears it is 4.34:1 and 4.12:1. 70% keeps the same
+   inherit-from-the-surface behaviour and reads 6.05:1 on white, 5.55:1 on
+   #ececec, 8.65:1 on dark. */
+.label {
+  color: color-mix(in srgb, currentColor 70%, transparent);
+}
+
+/* Restore the focus ring on the mobile menu button.
+
+   webflow.css:1661 sets `.w-nav-button:focus { outline: 0 }`, and nothing puts
+   one back, so the one control that opens the navigation on a phone had no
+   visible focus state at all — a keyboard or switch user could not see where
+   they were. `:focus-visible` rather than `:focus` so a pointer tap does not
+   leave a ring behind. `!important` is needed: webflow.css's rule is equally
+   specific and the shorthand `outline: 0` resets `outline-style`. */
+.w-nav-button:focus-visible {
+  outline: 2px solid currentColor !important;
+  outline-offset: 2px;
+}
+
+/* Matching focus rings for the link styles the design system left bare.
+   Buttons get a branded accent ring from dapenguin.webflow.css:773 and
+   `.card-link` gets one above; nav links, footer links, text links and the
+   logo were relying on the browser default, which differs per engine and sits
+   awkwardly on the dark bar. currentColor inherits the surface's own text
+   colour, so one rule covers the light and inverse surfaces both. */
+.nav_link:focus-visible,
+.footer_link:focus-visible,
+.text-link:focus-visible,
+.text-button:focus-visible,
+.nav_logo:focus-visible,
+.logo-link:focus-visible,
+.sponsor-mark:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Restore the select's dropdown chevron.
+
+   The Webflow export sets `appearance: none` on `.input_field.is-select` and
+   then points its replacement indicator at `url('../images/')` — an empty
+   filename, in six rules (base, hover, and the on-inverse and
+   on-accent-primary variants of each). The export simply lost the asset.
+
+   The result on the contact page was a <select> stripped of its native arrow
+   and given nothing in its place, so "What are we talking about?" looked
+   exactly like the Name and Email text inputs above it with no hint that it
+   opens a list — plus a request to /images/ on every page that has one, which
+   is a directory, not an image.
+
+   Inlined as a data URI rather than a file: it is ~200 bytes, it costs no
+   request, and it cannot go missing the way the original did. Two colours
+   because the chevron cannot inherit currentColor through background-image —
+   dark for the default surface, white for the inverse and accent ones (the
+   contact form's select is `.on-inverse`). `background-position` and
+   `-size` are already set by the export and are fine, so only the image is
+   replaced here. */
+.input_field.is-select,
+.input_field.is-select:hover {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20viewBox='0%200%2016%2016'%20fill='none'%3E%3Cpath%20d='M3.5%206L8%2010.5L12.5%206'%20stroke='%231e1f28'%20stroke-width='1.75'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.input_field.is-select.on-inverse,
+.input_field.is-select.on-inverse:hover,
+.input_field.is-select.on-accent-primary,
+.input_field.is-select.on-accent-primary:hover {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20viewBox='0%200%2016%2016'%20fill='none'%3E%3Cpath%20d='M3.5%206L8%2010.5L12.5%206'%20stroke='%23ffffff'%20stroke-width='1.75'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E");
 }
