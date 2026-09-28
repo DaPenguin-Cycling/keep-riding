@@ -37,7 +37,10 @@
   overflow: hidden;
 }
 
-/* "Supported by Bluedobie" lockup.
+/* Bluedobie build-credit lockup.
+   The class name predates the copy change and is layout only — the block is a
+   build credit, not a sponsorship. See _config.yml (built_by) for why that
+   distinction matters before renaming anything back.
    This used Webflow's `.logo` utility, which is hard-set to 4rem — it exists for
    the small partner-logo strip — so the mark rendered at 64px and sat alone in a
    450px half-column, swallowed by the space around it. The columns now size to

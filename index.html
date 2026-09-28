@@ -52,28 +52,54 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
   </div>
 </header>
 
+{%- comment -%}
+  Build credit, deliberately not a sponsorship.
+
+  This block used to read "Supported by Bluedobie Developing / Bluedobie keeps
+  the website running. I handle the bike. Seems fair." Anthony takes ownership
+  of Bluedobie, which turns that from a modest thank-you into his own company
+  presented as outside backing — the one claim on the page a prospective
+  sponsor would actually check, sitting in the slot directly under the hero.
+
+  "Built by" is accurate before and after the handover and asserts nothing.
+  The old closing line went with it: "seems fair" was a joke about a fair
+  trade, and you cannot trade with yourself.
+{%- endcomment -%}
+{%- assign bb_name = site.built_by.name | default: "" -%}
+{%- assign bb_url = site.built_by.url | default: "" -%}
+{%- if bb_name != "" %}
 <section class="section">
   <div class="container is-small">
     <div class="sponsor-lockup">
-      <a href="{{ site.sponsor.bluedobie }}" target="_blank" rel="noopener" class="sponsor-mark w-inline-block">
-        <img src="{{ '/images/logo-nobkg.avif' | relative_url }}" loading="lazy" width="256" height="256" alt="Bluedobie Developing logo">
+      {%- comment -%} No link when no url is set, rather than an href="" dead mark. {%- endcomment -%}
+      {%- if bb_url != "" %}
+      <a href="{{ bb_url }}" target="_blank" rel="noopener" class="sponsor-mark w-inline-block">
+        <img src="{{ '/images/logo-nobkg.avif' | relative_url }}" loading="lazy" width="256" height="256" alt="{{ bb_name }} logo">
       </a>
+      {%- else %}
+      <div class="sponsor-mark">
+        <img src="{{ '/images/logo-nobkg.avif' | relative_url }}" loading="lazy" width="256" height="256" alt="{{ bb_name }} logo">
+      </div>
+      {%- endif %}
       <div>
         <div class="header margin-bottom_none">
-          <h2 class="heading_primary">Supported by Bluedobie Developing</h2>
+          <h2 class="heading_primary">Built by {{ bb_name }}</h2>
           <div class="rich-text w-richtext">
-            <p>Bluedobie keeps the website running.</p>
+            <p>Bluedobie builds the site and keeps it running.</p>
             <p>I handle the bike.</p>
-            <p>Seems fair.</p>
+            <p>Two different kinds of maintenance.</p>
           </div>
+          {%- if bb_url != "" %}
           <div class="button-group">
-            <a href="{{ site.sponsor.bluedobie }}" target="_blank" rel="noopener" class="text-link is-secondary is-xlarge">bluedobiedev.com</a>
+            <a href="{{ bb_url }}" target="_blank" rel="noopener" class="text-link is-secondary is-xlarge">{{ bb_url | remove: "https://" | remove: "http://" | remove: "www." | remove_last: "/" }}</a>
           </div>
+          {%- endif %}
         </div>
       </div>
     </div>
   </div>
 </section>
+{%- endif %}
 
 <section class="section is-secondary">
   <div class="container">
@@ -89,7 +115,15 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
           <div class="card_body_small">
             <p class="heading_primary margin-bottom_none">{{ site.data.stats.ytdMiles }}</p>
             <div class="margin_top-auto">
-              <p class="text-color_secondary margin-bottom_none">Miles ridden in 2026</p>
+              {%- comment -%}
+                The year is derived, not typed. `ytdMiles` comes from Strava's
+                `ytd_ride_totals`, which resets to zero on 1 January — so a
+                hardcoded 2026 would, on new year's day, label next year's
+                near-zero total as this year's mileage. `site.time` is the
+                build time, and the daily Strava commit rebuilds the site, so
+                the label turns over on its own within a day of the number.
+              {%- endcomment -%}
+              <p class="text-color_secondary margin-bottom_none">Miles ridden in {{ site.time | date: "%Y" }}</p>
             </div>
           </div>
         </div>

@@ -52,8 +52,19 @@ forms:
   # leads with the real email address instead of showing a button that does nothing.
   endpoint: "https://script.google.com/macros/s/AKfycbxnR44JeS5awVY5p_BlizC1AZl6gObOr80ZDQ_m0jfOzKDibq8V9j6zKzUg6bQxxpTS1Q/exec"
 
-sponsor:
-  bluedobie: "https://www.bluedobiedev.com"
+# Who built and maintains the site.
+#
+# This is a credit, not a sponsorship, and the distinction is the whole point.
+# Anthony takes ownership of Bluedobie Developing, so billing it as outside
+# support would be presenting his own company as social proof — on the very
+# page being shown to prospective sponsors, who can find that out. A build
+# credit is true either way and claims nothing.
+#
+# Blank the url and the credit still renders, just without a link. Blank the
+# name and the whole block disappears.
+built_by:
+  name: "Bluedobie Developing"
+  url: "https://www.bluedobiedev.com"
 
 # jekyll-sitemap generates /sitemap.xml (and a /robots.txt pointing at it) from
 # the pages that already exist — nothing to maintain by hand, and a new page is

@@ -66,6 +66,21 @@ real value is known.
 | `analytics.ga4_measurement_id` | Google Analytics 4 property. Blank it and the tag disappears |
 | `baseurl` | `""` for the custom domain; `"/keep-riding"` for the github.io URL |
 
+### The Bluedobie credit
+
+`built_by` in `_config.yml` (name and url) drives the block under the hero on
+the home page. It is a **build credit, not a sponsorship**, and that wording is
+load-bearing: Anthony takes ownership of Bluedobie Developing, so "supported
+by" would put his own company forward as outside backing — in the slot directly
+under the hero, on the page shown to prospective sponsors, who can find that
+out. "Built by" is true either way and claims nothing.
+
+Blank the url and the credit renders without a link. Blank the name and the
+block disappears entirely.
+
+The CSS still calls the layout `.sponsor-lockup`, which is a leftover class
+name, not a claim. Don't let it talk you back into the old framing.
+
 ### The contact form
 
 The old markup was a Webflow form. Webflow forms only collect submissions on
