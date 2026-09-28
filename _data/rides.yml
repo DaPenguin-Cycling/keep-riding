@@ -9,6 +9,15 @@
 # filename from images/ plus `image_alt` and a photo appears on that card. Only
 # add one when it is genuinely from that ride.
 #
+# `location` is optional and exists for the same reason `dates` does: `meta` is
+# display text and its shape varies ("September 12, 2026" for a completed ride,
+# "October 3, 2026 • Elizabethtown, Kentucky" for an upcoming one), so nothing
+# should try to parse a place back out of it. An upcoming ride with `location`
+# set is published as schema.org SportsEvent markup by
+# _includes/structured-data.html, which is what makes it eligible to appear as
+# an event in search results; one without it is simply left out of that markup.
+# Write it "City, State".
+#
 # `dates` is what the daily Strava Action matches activities against, so keep it
 # machine-readable. It is a list so a multi-day trip can carry each of its days;
 # the card then shows the trip's combined figures. Rides without it simply get
@@ -28,6 +37,7 @@ upcoming:
   - name: Cameron Ponder Memorial Ride
     dates: [2026-10-03]
     meta: "October 3, 2026 • Elizabethtown, Kentucky"
+    location: "Elizabethtown, Kentucky"
     # No `body` yet: distance/route and Anthony's own note on this one are not
     # known, and the card renders fine without them. Add lines here when he has
     # something to say about it.

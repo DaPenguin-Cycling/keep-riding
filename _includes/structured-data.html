@@ -1,0 +1,172 @@
+{%- comment -%}
+  schema.org JSON-LD.
+
+  Why this exists: the pages say plainly who Anthony is, where he rides and what
+  he has finished, but they say it only in prose. A search engine — and, more to
+  the point now, an answer engine summarising "who is DaPenguin" or "what rides
+  has Anthony Brown done" — has to infer all of it. This states the same facts
+  in a form that does not need inferring. Nothing here is new information: every
+  value is either already printed on a page or already in _config.yml / _data.
+  If a fact stops being true on the page, change it here in the same commit.
+
+  One `@graph` in one script rather than several scripts: the nodes reference
+  each other by `@id`, so the Person that publishes the site and the Person the
+  page is about are understood to be the same person rather than three
+  lookalikes.
+
+  Everything interpolated goes through `jsonify`, which emits the surrounding
+  quotes and escapes what is inside them. That matters more than it looks —
+  the site's copy is full of apostrophes and em dashes, and a bare
+  "{{ value }}" would produce invalid JSON the first time a ride name contained
+  a quotation mark.
+{%- endcomment -%}
+{%- assign fb = site.social.facebook | default: "" -%}
+{%- assign st = site.social.strava | default: "" -%}
+{%- if st == "" -%}{%- assign st = site.data.stats.stravaUrl | default: "" -%}{%- endif -%}
+{%- assign site_id = "/#website" | absolute_url -%}
+{%- assign person_id = "/#anthony" | absolute_url -%}
+{%- assign page_id = page.url | absolute_url | append: "#webpage" -%}
+{%- assign social = "" | split: "" -%}
+{%- if fb != "" %}{% assign social = social | push: fb %}{% endif -%}
+{%- if st != "" %}{% assign social = social | push: st %}{% endif -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": {{ site_id | jsonify }},
+      "url": {{ "/" | absolute_url | jsonify }},
+      "name": {{ site.title | jsonify }},
+      "description": {{ site.description | strip | jsonify }},
+      "inLanguage": "en-US",
+      "publisher": { "@id": {{ person_id | jsonify }} }
+    },
+    {
+      "@type": "Person",
+      "@id": {{ person_id | jsonify }},
+      "name": "Anthony Brown",
+      "alternateName": "DaPenguin",
+      "description": "Marine veteran and cyclist based in Caldwell County, Kentucky, in his third consecutive year completing the Kentucky Cycling Challenge.",
+      "url": {{ "/about.html" | absolute_url | jsonify }},
+      "image": {{ "/images/dapenguin-social.jpg" | absolute_url | jsonify }},
+      {%- comment -%}
+        Caldwell County is not a city, so it is `homeLocation` as an
+        AdministrativeArea rather than an `address` with a bogus locality.
+        The region and country are safe to state either way.
+      {%- endcomment %}
+      "homeLocation": {
+        "@type": "AdministrativeArea",
+        "name": "Caldwell County, Kentucky",
+        "address": { "@type": "PostalAddress", "addressRegion": "KY", "addressCountry": "US" }
+      },
+      "knowsAbout": [
+        "Road cycling",
+        "Endurance cycling",
+        "Kentucky Cycling Challenge",
+        "Century rides",
+        "Cycling events",
+        "Cycling travel"
+      ],
+      {%- comment -%}
+        `sameAs` is what ties this page's Anthony Brown to the same person on
+        Facebook and Strava. It is built from the same config values the footer
+        and contact page use, including the Strava fallback the daily Action
+        writes, so an unset profile leaves the array out rather than publishing
+        an empty string. Omitted entirely when neither is known.
+      {%- endcomment %}
+      {%- if social.size > 0 %}
+      "sameAs": {{ social | jsonify }},
+      {%- endif %}
+      "email": {{ site.contact.email | prepend: "mailto:" | jsonify }}
+    },
+    {
+      "@type": "WebPage",
+      "@id": {{ page_id | jsonify }},
+      "url": {{ page.url | absolute_url | jsonify }},
+      "name": {{ page.title | jsonify }},
+      "description": {{ page.description | jsonify }},
+      "inLanguage": "en-US",
+      "isPartOf": { "@id": {{ site_id | jsonify }} },
+      "about": { "@id": {{ person_id | jsonify }} },
+      "primaryImageOfPage": {{ "/images/dapenguin-social.jpg" | absolute_url | jsonify }}
+    }
+    {%- comment -%}
+      ---------------------------------------------------------------------
+      Rides page: the events that have not happened yet.
+
+      Only `upcoming`, and only entries carrying a `location` — a SportsEvent
+      without a place is not eligible for an event result and is arguably not
+      worth publishing. Completed rides are deliberately not marked up: past
+      events earn no rich result, and eight of them per page reads as padding
+      to exactly the systems this is meant to inform. What those rides did and
+      what they measured is already on the page in prose and in the stat list.
+      ---------------------------------------------------------------------
+    {%- endcomment -%}
+    {%- if page.nav == "rides" -%}
+      {%- for ride in site.data.rides.upcoming -%}
+        {%- if ride.location and ride.location != "" -%}
+          {%- assign city = ride.location | split: "," | first | strip -%}
+          {%- assign start = ride.dates | first -%}
+          {%- if start %},
+    {
+      "@type": "SportsEvent",
+      "name": {{ ride.name | jsonify }},
+      "startDate": {{ start | date: "%Y-%m-%d" | jsonify }},
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "sport": "Cycling",
+      "url": {{ page.url | absolute_url | jsonify }},
+      "location": {
+        "@type": "Place",
+        "name": {{ ride.location | jsonify }},
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": {{ city | jsonify }},
+          "addressRegion": "KY",
+          "addressCountry": "US"
+        }
+      },
+      "performer": { "@id": {{ person_id | jsonify }} }
+      {%- if ride.body and ride.body.size > 0 -%}
+      {%- assign ride_desc = ride.body | join: " " -%},
+      "description": {{ ride_desc | jsonify }}
+      {%- endif %}
+    }
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- comment -%}
+      ---------------------------------------------------------------------
+      Photos & Video page: the clips.
+
+      These are self-hosted mp4 files. Without this markup a search engine sees
+      a <video> tag and a poster image and has no idea what either contains, so
+      this is the only thing making the eight clips findable at all.
+
+      `duration` comes from _data/videos.yml, measured off the shipped file.
+      `description` is optional there and falls back to the title, which is thin
+      but honest — better a real sentence per clip when someone can write one.
+      ---------------------------------------------------------------------
+    {%- endcomment -%}
+    {%- if page.nav == "photos" -%}
+      {%- for v in site.data.videos -%},
+    {
+      "@type": "VideoObject",
+      "name": {{ v.title | jsonify }},
+      "description": {{ v.description | default: v.title | jsonify }},
+      "thumbnailUrl": {{ v.slug | prepend: "/videos/" | append: ".jpg" | absolute_url | jsonify }},
+      "contentUrl": {{ v.slug | prepend: "/videos/" | append: ".mp4" | absolute_url | jsonify }},
+      "uploadDate": {{ v.created | date: "%Y-%m-%d" | jsonify }},
+      {%- if v.duration %}
+      "duration": {{ v.duration | jsonify }},
+      {%- endif %}
+      "isPartOf": { "@id": {{ page_id | jsonify }} },
+      "creator": { "@id": {{ person_id | jsonify }} }
+    }
+      {%- endfor -%}
+    {%- endif %}
+  ]
+}
+</script>

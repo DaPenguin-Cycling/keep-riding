@@ -4,11 +4,22 @@
   <meta charset="utf-8">
   <title>{{ page.title }}</title>
   <meta content="{{ page.description }}" name="description">
+  {%- comment -%}
+    Canonical URL. The site answers on two hostnames — www.dapenguincycling.com
+    301s to the apex — and every page is also reachable at its `/name.html` and
+    (on GitHub Pages) extensionless `/name` form. Without this tag a search
+    engine has to guess which spelling is the real one and splits the page's
+    signals across them. `absolute_url` builds it from `url` in _config.yml,
+    which is the apex, so the tag, the sitemap and the redirect all agree.
+  {%- endcomment -%}
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
   <meta content="{{ page.title }}" property="og:title">
   <meta content="{{ page.description }}" property="og:description">
   <meta content="{{ page.title }}" name="twitter:title">
   <meta content="{{ page.description }}" name="twitter:description">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:locale" content="en_US">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
   <meta property="og:image" content="{{ '/images/dapenguin-social.jpg' | absolute_url }}">
   <meta property="og:image:width" content="1200">
@@ -16,6 +27,7 @@
   <meta property="og:image:alt" content="DaPenguin — a penguin in a Jamaica cycling kit riding a road bike">
   <meta content="summary_large_image" name="twitter:card">
   <meta content="width=device-width, initial-scale=1" name="viewport">
+  {% include structured-data.html %}
   {% include analytics.html %}
   <link href="{{ '/css/normalize.css' | relative_url }}" rel="stylesheet" type="text/css">
   <link href="{{ '/css/webflow.css' | relative_url }}" rel="stylesheet" type="text/css">

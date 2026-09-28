@@ -9,18 +9,27 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
   <div class="container">
     <div class="w-layout-grid grid_2-col tablet-1-col-1-2 gap-large is-y-center hero-text-first">
       <div class="grid-item-manual">
+        {%- comment -%}
+          `sizes` here is measured, not assumed. These four sit in a 2x2 grid
+          inside the hero's left column, and render 288px wide at 1440px, 464px
+          at 991px and 640px at 767px where the grid collapses to one column.
+          They all claimed `100vw` before, which told the browser to budget for
+          a 1440px-wide image to fill a 288px slot and to pick the largest
+          candidate every time. The three-stop value below matches what the
+          layout actually does. Re-measure if the hero grid changes.
+        {%- endcomment -%}
         <div class="w-layout-grid grid_2-col gap-xsmall">
           <div class="grid-item-manual">
-            <div class="image-ratio_1x1"><img width="640" height="640" alt="Anthony Brown at the start line of the Redbud Ride" src="{{ '/images/DSC00152.webp' | relative_url }}" loading="eager" sizes="100vw" class="image_cover"></div>
+            <div class="image-ratio_1x1"><img width="640" height="640" alt="Anthony Brown at the start line of the Redbud Ride" src="{{ '/images/DSC00152.webp' | relative_url }}" loading="eager" srcset="{{ '/images/DSC00152-p-500.webp' | relative_url }} 500w, {{ '/images/DSC00152.webp' | relative_url }} 640w" sizes="(max-width: 767px) 90vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
           </div>
           <div class="grid-item-manual">
-            <div class="image-ratio_3x4"><img width="640" height="480" alt="Anthony Brown with his Lynskey titanium bike before the start of the Redbud Ride" src="{{ '/images/DSC00145.avif' | relative_url }}" loading="eager" sizes="100vw" class="image_cover"></div>
+            <div class="image-ratio_3x4"><img width="640" height="480" alt="Anthony Brown with his Lynskey titanium bike before the start of the Redbud Ride" src="{{ '/images/DSC00145.avif' | relative_url }}" loading="eager" sizes="(max-width: 767px) 90vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
           </div>
           <div class="grid-item-manual">
-            <div class="image-ratio_3x4"><img width="640" height="480" alt="Anthony Brown and his Lynskey titanium bike at the car before the Redbud Ride" src="{{ '/images/DSC00143.avif' | relative_url }}" loading="lazy" sizes="100vw" class="image_cover"></div>
+            <div class="image-ratio_3x4"><img width="640" height="480" alt="Anthony Brown and his Lynskey titanium bike at the car before the Redbud Ride" src="{{ '/images/DSC00143.avif' | relative_url }}" loading="lazy" srcset="{{ '/images/DSC00143-p-500.avif' | relative_url }} 500w, {{ '/images/DSC00143.avif' | relative_url }} 640w" sizes="(max-width: 767px) 90vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
           </div>
           <div class="grid-item-manual">
-            <div class="image-ratio_1x1"><img width="640" height="480" alt="Anthony Brown riding through the finish arch at a Kentucky event" src="{{ '/images/IMG_0712.webp' | relative_url }}" loading="lazy" srcset="{{ '/images/IMG_0712-p-500.webp' | relative_url }} 500w, {{ '/images/IMG_0712.webp' | relative_url }} 640w" sizes="100vw" class="image_cover"></div>
+            <div class="image-ratio_1x1"><img width="640" height="480" alt="Anthony Brown riding through the finish arch at a Kentucky event" src="{{ '/images/IMG_0712.webp' | relative_url }}" loading="lazy" srcset="{{ '/images/IMG_0712-p-500.webp' | relative_url }} 500w, {{ '/images/IMG_0712.webp' | relative_url }} 640w" sizes="(max-width: 767px) 90vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
           </div>
         </div>
       </div>

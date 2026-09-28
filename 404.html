@@ -1,0 +1,66 @@
+---
+layout: default
+permalink: /404.html
+sitemap: false
+title: Page not found | DaPenguin
+description: That page isn't here. The rides, photos and contact details are.
+---
+
+{%- comment -%}
+  GitHub Pages serves /404.html for any path it cannot find, on the apex domain
+  as well as the github.io one — it just needs to exist at the root, which is
+  what the explicit `permalink` guarantees regardless of any future permalink
+  style. Without this file a visitor following an old or mistyped link got
+  GitHub's generic grey 404, with no nav, no branding and no way back into the
+  site except the browser's Back button.
+
+  `sitemap: false` keeps it out of sitemap.xml — it is a real page to the
+  server but not one to submit to a search engine. It carries no `nav` value,
+  so no navigation item is marked current, which is correct: this is not one of
+  them.
+
+  The layout supplies the full header and footer, so every route out of here is
+  already on the page; the links below are just the likely ones said plainly.
+{%- endcomment -%}
+
+<header class="section is-inverse">
+  <div class="container is-small">
+    <div class="header is-align-center margin-bottom_none">
+      <div class="eyebrow">404</div>
+      <h1 class="heading_hero">That page isn't here.</h1>
+      <div class="subheading rich-text w-richtext">
+        <p>Wrong turn. It happens on the bike too.</p>
+        <p>Everything that is here is one link away.</p>
+      </div>
+      <div class="button-group">
+        <a href="{{ '/event.html' | relative_url }}" class="button on-inverse w-button">See the Rides</a>
+        <a href="{{ '/index.html' | relative_url }}" class="button is-secondary on-inverse w-button">Back Home</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container is-small">
+    <div class="header">
+      <h2 class="heading_primary">Try one of these</h2>
+    </div>
+    <ul role="list" class="list-divided gap-xsmall w-list-unstyled">
+      <li>
+        <a href="{{ '/event.html' | relative_url }}" class="text-link is-secondary">Rides &amp; Events</a>
+      </li>
+      <li>
+        <a href="{{ '/portfolio.html' | relative_url }}" class="text-link is-secondary">Photos &amp; Video</a>
+      </li>
+      <li>
+        <a href="{{ '/about.html' | relative_url }}" class="text-link is-secondary">About Anthony</a>
+      </li>
+      <li>
+        <a href="{{ '/work-with-me.html' | relative_url }}" class="text-link is-secondary">Work With Me</a>
+      </li>
+      <li>
+        <a href="{{ '/contact.html' | relative_url }}" class="text-link is-secondary">Contact</a>
+      </li>
+    </ul>
+  </div>
+</section>

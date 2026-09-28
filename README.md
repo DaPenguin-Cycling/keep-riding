@@ -240,6 +240,81 @@ Leave the file in place permanently. Google re-checks it, and verification is
 revoked if it disappears. Submit the sitemap in Search Console under
 **Sitemaps** as `sitemap.xml`.
 
+### Structured data
+
+`_includes/structured-data.html` emits one schema.org JSON-LD `@graph` into
+every page's `<head>`. It exists because the pages state who Anthony is, where
+he rides and what he has finished only in prose — a search engine, and more to
+the point an answer engine summarising "who is DaPenguin", has to infer all of
+it. This says the same things in a form that needs no inferring.
+
+Every node is built from values that already exist in `_config.yml` or `_data/`.
+Nothing in it is new information, which is the rule to keep: **if a fact stops
+being true on a page, change it in that file in the same commit.** The one
+hand-written string is the `Person` description, which paraphrases the opening
+of `about.html`.
+
+What it publishes:
+
+| Where | Nodes |
+| --- | --- |
+| Every page | `WebSite`, `Person` (Anthony), `WebPage` |
+| `event.html` | plus one `SportsEvent` per upcoming ride that has a `location` |
+| `portfolio.html` | plus one `VideoObject` per clip in `_data/videos.yml` |
+
+The nodes cross-reference by `@id`, so the person who publishes the site, the
+person a page is about and the performer at an event are understood to be one
+person rather than three lookalikes. `sameAs` links that `Person` to the
+Facebook and Strava profiles, using the same config values (and the same Strava
+fallback) as the footer, so an unset profile drops out rather than publishing an
+empty string.
+
+Two things are deliberately *not* marked up. Completed rides get no
+`SportsEvent`: a past event earns no rich result, and eight of them per page
+reads as padding to exactly the systems this is meant to inform. And an upcoming
+ride without a `location` is skipped, because an event with no place is not
+eligible for an event result anyway — that is what the optional `location` field
+in `_data/rides.yml` is for.
+
+The `VideoObject` block is the only thing making the clips findable at all: they
+are self-hosted mp4s, so without it a crawler sees a `<video>` tag and a poster
+image and can tell nothing about either. `duration` comes from `_data/videos.yml`
+and is measured off the shipped file, not estimated. `description` is optional
+there and currently falls back to the title, which is thin — a real sentence per
+clip is the easiest available improvement.
+
+Check any change with Google's
+[Rich Results Test](https://search.google.com/test/rich-results) or the
+[schema.org validator](https://validator.schema.org/). Locally, this prints
+every page's nodes and fails loudly on malformed JSON:
+
+```bash
+python3 -c "
+import json,re,glob
+for f in sorted(glob.glob('_site/*.html')):
+    for b in re.findall(r'<script type=\"application/ld\+json\">(.*?)</script>', open(f).read(), re.S):
+        print(f, [n['@type'] for n in json.loads(b)['@graph']])
+"
+```
+
+### Canonical URLs
+
+`_layouts/default.html` emits `<link rel="canonical">` on every page, built from
+`page.url | absolute_url`. The same reasoning as the sitemap applies and the two
+must not disagree: the site answers on two hostnames (`www` 301s to the apex) and
+GitHub Pages serves each page at both `/name.html` and `/name`, so without this
+tag a search engine has to guess which spelling is real and splits the page's
+signals across the variants.
+
+### The 404 page
+
+`404.html` at the repo root is what GitHub Pages serves for any path it cannot
+find, on the custom domain as well as `github.io`. It uses the normal layout, so
+it carries the real nav and footer instead of GitHub's generic grey page, and it
+is kept out of the sitemap with `sitemap: false`. The explicit `permalink:
+/404.html` is what guarantees it lands at the root whatever permalink style the
+site later adopts — Pages will not find it anywhere else.
+
 ## If Webflow gets replaced
 
 The plan is to drop the Webflow CSS for Tailwind or plain CSS eventually. What
@@ -277,6 +352,18 @@ is already the right shape to generate them from.
 
 Drop the encoded `.mp4` and a `.jpg` poster of the same name into `videos/`,
 then add an entry to `_data/videos.yml`. Ordered oldest first.
+
+Include `duration` in the entry — it feeds the `VideoObject` markup described
+under [Structured data](#structured-data), which is the only thing that makes
+these clips findable. Measure it off the shipped file rather than estimating:
+
+```bash
+ffprobe -v error -show_entries format=duration -of csv=p=0 videos/<slug>.mp4
+```
+
+and write it ISO 8601 (`PT1M8S` for 68 seconds). An optional `description` in
+the same entry also feeds that markup and is worth adding — without one the
+title is used, which tells a search engine very little.
 
 Encode from the master, not from a file already in here:
 

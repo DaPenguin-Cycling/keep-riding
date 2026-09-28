@@ -11,6 +11,16 @@
 # `title` is taken from what each clip says on screen or from the ride it is
 # plainly of — none of it is invented. Rename freely; it is only a label.
 #
+# `duration` is ISO 8601, measured off the shipped file with ffprobe, and feeds
+# the VideoObject markup in _includes/structured-data.html — a self-hosted mp4
+# tells a search engine nothing on its own, so the markup is the only way these
+# clips are findable. Measure a new one rather than estimating:
+#   ffprobe -v error -show_entries format=duration -of csv=p=0 videos/<slug>.mp4
+#
+# `description` is optional and also feeds that markup. Without one the title is
+# used, which is thin — a sentence saying what is actually in the clip is worth
+# adding whenever someone knows.
+#
 # Sources are 1080x1920 masters; what ships is 540x960 at CRF 27, which is
 # indistinguishable at the size these play in the grid. Masters are outside the
 # repo — re-encode from those rather than from these if a bigger version is ever
@@ -19,31 +29,39 @@
 - slug: cycle-jamaica-day-1
   title: "Cycle Jamaica — Day 1"
   created: 2026-04-10
+  duration: PT1M8S
 
 - slug: cycle-jamaica-day-2
   title: "Cycle Jamaica — Day 2"
   created: 2026-04-11
+  duration: PT1M39S
 
 - slug: started-here-finished
   title: "Started here. Finished."
   created: 2026-04-18
+  duration: PT17S
 
 - slug: home-ride
   title: "Home ride"
   created: 2026-04-25
+  duration: PT1M5S
 
 - slug: building-toward-horsey
   title: "Building toward the Horsey 100"
   created: 2026-04-26
+  duration: PT1M0S
 
 - slug: horsey-hundred-ride
   title: "Horsey Hundred"
   created: 2026-05-23
+  duration: PT1M6S
 
 - slug: weather-takes-control
   title: "When the weather takes control"
   created: 2026-05-30
+  duration: PT30S
 
 - slug: going-out
   title: "Going out"
   created: 2026-06-08
+  duration: PT38S
