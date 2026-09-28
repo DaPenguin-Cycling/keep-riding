@@ -24,16 +24,29 @@ baseurl: ""
 # ---------------------------------------------------------------------------
 contact:
   email: "anthonybrown7557@gmail.com"
-  # The old site printed this number but linked it to "#", so it was visible and
-  # not clickable — the worst of both. Now the number lives only in the href and
-  # the page shows `whatsapp_label` instead.
+  # WhatsApp: deliberately blank, which removes the option from the contact
+  # page entirely. It is not gone for good — paste a link back in and it
+  # returns everywhere, no other change needed.
   #
-  # Caveat worth knowing: a wa.me URL still contains the digits, so the number is
-  # in the page source even though it is not displayed. That stops casual
-  # copying, not a scraper. To keep it out of the source entirely, replace
-  # whatsapp_url with a free WhatsApp Business short link (wa.link/xxxxx), which
-  # resolves to the number without revealing it. Nothing else needs to change.
-  whatsapp_url: "https://wa.me/12535762262"
+  # Why it is off. It was a wa.me link, and a wa.me URL carries the digits, so
+  # Anthony's personal mobile number was sitting in this file and in the
+  # rendered page — on a public repository. It also fails awkwardly for anyone
+  # without WhatsApp installed: the link hands off to the whatsapp:// scheme
+  # and Android answers "couldn't find the app for that", which is a poor
+  # result for a contact option sitting under the email address.
+  #
+  # Why it is worth bringing back. He keeps in touch with people he met on the
+  # Cycle Jamaica trip, and WhatsApp is how that happens — for an
+  # international audience it is a more natural channel than email.
+  #
+  # What to paste back: a free WhatsApp Business short link, wa.link/xxxxx,
+  # which routes to the number without publishing it. That fixes the exposure;
+  # the missing-app behaviour is inherent to WhatsApp links and is the reason
+  # email stays listed first.
+  #
+  # Note the number remains in this repository's git history, which is public.
+  # Blanking it here stops further publication but does not retract it.
+  whatsapp_url: ""
   whatsapp_label: "Message on WhatsApp"
 
 social:
