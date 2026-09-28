@@ -23,7 +23,8 @@ so an unknown profile leaves no dead link behind.
       <div class="grid-item-manual">
         <div class="flex_vertical gap-small">
           <a href="{{ '/index.html' | relative_url }}" class="logo-link w-inline-block">
-            <div class="nav_logo-icon"><img src="{{ '/images/dapenguin-icon.avif' | relative_url }}" loading="lazy" width="75" height="75" alt="" srcset="{{ '/images/dapenguin-icon-p-500.avif' | relative_url }} 500w, {{ '/images/dapenguin-icon.avif' | relative_url }} 1024w" sizes="75px" class="image-3"></div>
+            {%- comment -%} Same 160px file as the nav; 75px at 2x is 150, so it covers this too. {%- endcomment -%}
+          <div class="nav_logo-icon"><img src="{{ '/images/dapenguin-icon-160.avif' | relative_url }}" loading="lazy" width="75" height="75" alt="" class="image-3"></div>
             <div data-brand-name="true" class="paragraph_xlarge margin-bottom_none text_all-caps">DaPenguin</div>
           </a>
           <p class="paragraph_small text-color_inverse-secondary margin-bottom_none">Anthony Brown. Cyclist. Marine veteran. Usually somewhere between the next ride and getting the bike ready for it.</p>

@@ -1,0 +1,36 @@
+{%- comment -%}
+  Metricool tracker.
+
+  Previously inlined in the layout with its hash hardcoded and no guard at
+  all, which made it the only script here that ran in development as well as
+  production — local `jekyll serve` sessions were sending real hits into the
+  account. Same two guards as analytics.html now: a hash must be configured,
+  and the build must be production.
+
+  Left in place rather than removed because it may be feeding a dashboard
+  someone actually reads. If it is not, blank `analytics.metricool_hash` in
+  _config.yml and it disappears from every page — it is a second vendor
+  covering ground GA4 already covers, at two extra third-party requests per
+  page load.
+
+  The loader is Metricool's own snippet, reformatted but not rewritten. It
+  appends the script tag itself rather than using a plain async <script>,
+  which is their supported integration; `onreadystatechange` in there is dead
+  weight for any current browser but is left alone so the snippet stays
+  recognisable against their docs.
+{%- endcomment -%}
+{%- assign mc = site.analytics.metricool_hash | default: "" -%}
+{%- if mc != "" and jekyll.environment == "production" %}
+  <script>
+    function loadScript(a) {
+      var b = document.getElementsByTagName("head")[0],
+          c = document.createElement("script");
+      c.type = "text/javascript";
+      c.src = "https://tracker.metricool.com/resources/be.js";
+      c.onreadystatechange = a;
+      c.onload = a;
+      b.appendChild(c);
+    }
+    loadScript(function () { beTracker.t({ hash: "{{ mc }}" }); });
+  </script>
+{%- endif -%}

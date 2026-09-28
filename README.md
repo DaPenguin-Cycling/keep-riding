@@ -276,6 +276,38 @@ predating this and left alone. It runs on every page and in every build,
 including local development. Nothing depends on it; delete that one line if the
 account is no longer in use.
 
+### llms.txt
+
+`/llms.txt` is a plain-text map of the site for language models, generated
+from `_config.yml` and `_data` so adding a ride or a video updates it on the
+next build.
+
+Be clear-eyed about what it is: a **proposed** convention, not a standard any
+model provider has committed to consuming. It is here because it costs nothing
+and is generated rather than maintained. The structured data is what is
+actually read today.
+
+### Social cards
+
+Every page shared one `og:image` until pages started overriding it with
+`social_image` / `social_image_alt` in front matter. Two constraints on any
+replacement, both enforced by nothing but this note:
+
+- **JPG or PNG.** Facebook, LinkedIn and X do not reliably read AVIF or WebP,
+  which rules out most of `images/`.
+- **Exactly 1200x630**, because the layout declares those dimensions to the
+  scrapers and a mismatch makes them re-crop or skip the image.
+
+Generate one rather than pointing at a content photo:
+
+```bash
+ffmpeg -i source.jpg -vf "scale=1200:-1,crop=1200:630:0:(ih-630)*0.35" \
+       -q:v 3 images/social-<page>.jpg
+```
+
+The `0.35` anchors the crop above centre, which keeps heads and finish arches
+in frame where a straight centre crop cuts them.
+
 ### Sitemap
 
 `jekyll-sitemap` generates `/sitemap.xml` and `/robots.txt` from the pages that

@@ -125,6 +125,18 @@ analytics:
   # sends hits to the property.
   ga4_measurement_id: "G-XMHYECRX6B"
 
+  # Metricool tracker hash. This was hardcoded into the layout with no guard,
+  # which meant it was the one script on the site that also ran during local
+  # development — every `bundle exec jekyll serve` was sending real hits. It
+  # now follows the same rule as GA4: production builds only, and blanking
+  # this removes it from every page.
+  #
+  # Worth a decision at some point: it is a second analytics vendor covering
+  # ground GA4 already covers, for two extra requests to a third-party origin
+  # on every page load. Kept because it may be feeding a dashboard someone
+  # relies on — but if nobody is reading it, blank this line.
+  metricool_hash: "3d889f1096e40890688153506d0c3f01"
+
 exclude:
   - Gemfile
   - Gemfile.lock

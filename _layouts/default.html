@@ -21,10 +21,30 @@
   <meta property="og:site_name" content="{{ site.title }}">
   <meta property="og:locale" content="en_US">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
-  <meta property="og:image" content="{{ '/images/dapenguin-social.jpg' | absolute_url }}">
+  {%- comment -%}
+    Social card. Every page shared the one brand image, so a link to the Rides
+    page previewed identically to a link to Contact. A page can override with
+    `social_image` and `social_image_alt` in its front matter.
+
+    Two constraints on any replacement. It must be JPG or PNG — Facebook,
+    LinkedIn and X do not reliably read AVIF or WebP, which rules out most of
+    images/ — and it must be exactly 1200x630, because the width and height
+    below are declared to the scrapers and a mismatch makes them re-crop or
+    skip the image. Generate one rather than pointing at a content photo:
+
+      ffmpeg -i source.jpg -vf "scale=1200:-1,crop=1200:630:0:(ih-630)*0.35"              -q:v 3 images/social-<page>.jpg
+
+    The 0.35 anchors the crop above centre, which keeps heads and finish
+    arches in frame where a straight centre crop cuts them.
+  {%- endcomment -%}
+  {%- assign social_image = page.social_image | default: "/images/dapenguin-social.jpg" -%}
+  {%- assign social_alt = page.social_image_alt | default: "DaPenguin — a penguin in a Jamaica cycling kit riding a road bike" -%}
+  <meta property="og:image" content="{{ social_image | absolute_url }}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="DaPenguin — a penguin in a Jamaica cycling kit riding a road bike">
+  <meta property="og:image:alt" content="{{ social_alt }}">
+  <meta name="twitter:image" content="{{ social_image | absolute_url }}">
+  <meta name="twitter:image:alt" content="{{ social_alt }}">
   <meta content="summary_large_image" name="twitter:card">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   {% include structured-data.html %}
@@ -62,6 +82,6 @@
   </main>
   {% include footer.html %}
   <script src="{{ '/js/nav.js' | relative_url }}" defer></script>
-  <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"3d889f1096e40890688153506d0c3f01"})});</script>
+  {% include metricool.html %}
 </body>
 </html>

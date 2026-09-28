@@ -1,0 +1,87 @@
+---
+layout: null
+permalink: /llms.txt
+sitemap: false
+---
+{%- comment -%}
+  llms.txt — a plain-text map of the site for language models.
+
+  What this is and is not: llms.txt is a proposed convention, not a standard
+  anyone has committed to consuming. No major model provider has said it is a
+  retrieval or ranking signal. It is here because it costs nothing, cannot
+  hurt, and is generated rather than maintained — the structured data in
+  _includes/structured-data.html is what is actually read today.
+
+  Generated from _config.yml and _data, so adding a ride or a video updates
+  this file on the next build. Nothing below is typed by hand twice.
+
+  `layout: null` keeps the HTML chrome off it and `permalink` puts it at the
+  root, where the convention expects it. `sitemap: false` keeps it out of
+  sitemap.xml — it is a machine aid, not a page to index.
+{%- endcomment -%}
+{%- capture strava_url %}{% include strava-url.html %}{% endcapture -%}
+# DaPenguin — Anthony Brown
+
+> Anthony Brown, who rides as DaPenguin, is a Marine veteran and cyclist based
+> in Caldwell County, Kentucky. He is in his {% include kcc-year.html years=site.kcc.years_completed case="lower" %} consecutive year completing the
+> Kentucky Cycling Challenge, an annual series of {{ site.kcc.rides_in_series }} rides each requiring a
+> century or metric century. This site records his training, the events he
+> rides, his cycling travel, and photographs and video from the bike.
+
+Mileage figures on the site are pulled from Strava automatically and are
+current as of the last build. Ride distances and elevations shown on the Rides
+page are logged activity data, not estimates.
+
+## Pages
+
+{%- comment -%} Home first, then the rest; site.html_pages comes out in file order. {%- endcomment -%}
+{% for p in site.html_pages -%}
+{%- if p.url == "/" and p.title -%}
+- [{{ p.title }}]({{ p.url | absolute_url }}): {{ p.description }}
+{% endif -%}
+{%- endfor -%}
+{% for p in site.html_pages -%}
+{%- if p.title and p.sitemap != false and p.url != "/" -%}
+- [{{ p.title }}]({{ p.url | absolute_url }}): {{ p.description }}
+{% endif -%}
+{%- endfor %}
+## Rides completed
+
+{% for ride in site.data.rides.completed -%}
+- **{{ ride.name }}** ({{ ride.meta }}){% if ride.body and ride.body.size > 0 %} — {{ ride.body | join: " " }}{% endif %}
+{% endfor %}
+## Upcoming
+
+{% if site.data.rides.upcoming.size > 0 -%}
+{%- for ride in site.data.rides.upcoming -%}
+- **{{ ride.name }}** ({{ ride.meta }})
+{% endfor -%}
+{%- else -%}
+Nothing currently scheduled.
+{% endif %}
+## Video
+
+Self-hosted clips on the Photos & Video page. None contain narration; all are
+scored with music, and each carries a caption track.
+
+{% for v in site.data.videos -%}
+- **{{ v.title }}**{% if v.creator and v.creator != "" %} (filmed by {{ v.creator }}){% endif %}: {{ v.description | default: v.title }}
+{% endfor %}
+## Elsewhere
+
+- Strava: {{ strava_url }}
+{%- if site.social.facebook and site.social.facebook != "" %}
+- Facebook: {{ site.social.facebook }}
+{%- endif %}
+- Contact: {{ site.contact.email }}
+
+## Notes for machine readers
+
+- Every page carries schema.org JSON-LD. The Person, WebSite and WebPage nodes
+  are on all pages; the Rides page adds SportsEvent, and Photos & Video adds a
+  VideoObject per clip.
+- The two Cycle Jamaica clips were filmed and released by Cycle Caribbean
+  (formerly Cycle Jamaica), not by Anthony, and are published here with
+  permission. Their VideoObject entries credit that organisation, not him.
+- The site is built by Bluedobie Developing. That is a build credit, not a
+  sponsorship.

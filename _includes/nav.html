@@ -10,7 +10,15 @@ Every link here points at a page that exists.
   item below is the single element announced as the current page.
 {%- endcomment -%}
       <a href="{{ '/index.html' | relative_url }}" class="nav_logo w-inline-block{% if page.nav == 'home' %} w--current{% endif %}">
-        <div class="nav_logo-icon"><img src="{{ '/images/dapenguin-icon.avif' | relative_url }}" loading="eager" width="50" height="50" alt="" srcset="{{ '/images/dapenguin-icon-p-500.avif' | relative_url }} 500w, {{ '/images/dapenguin-icon.avif' | relative_url }} 1024w" sizes="50px"></div>
+        {%- comment -%}
+          One 160px file, no srcset. The old markup offered a 500w and a
+          "1024w" candidate for a 50px logo, so every page pulled 31KB for a
+          mark drawn at 50 CSS pixels — and the 1024w descriptor was wrong
+          anyway: dapenguin-icon.avif is 512x512, not 1024. 160px covers the
+          footer's 75px slot at 2x as well, which is the largest either place
+          needs, and costs 5KB.
+        {%- endcomment -%}
+        <div class="nav_logo-icon"><img src="{{ '/images/dapenguin-icon-160.avif' | relative_url }}" loading="eager" width="50" height="50" alt=""></div>
         <div data-brand-name="true" class="paragraph_large margin-bottom_none">DaPenguin</div>
       </a>
       <nav role="navigation" aria-label="Main" class="nav_menu w-nav-menu">
