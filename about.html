@@ -11,7 +11,13 @@ social_image_alt: "Anthony Brown with his bike, wearing a Kentucky Cycling Chall
   <div class="container">
     <div class="w-layout-grid grid_2-col tablet-1-col-1-2 gap-xxlarge is-y-center">
       <div class="header margin-bottom_none">
-        <h1 class="heading_hero">I'm Anthony.<br>DaPenguin came later.</h1>
+        {%- comment -%}
+          The space before the <br> is deliberate. Without it the heading's
+          text content reads "I'm Anthony.DaPenguin came later." — invisible on
+          screen, but that run-together string is what a crawler extracts and
+          what some assistive tech announces.
+        {%- endcomment -%}
+        <h1 class="heading_hero">I'm Anthony. <br>DaPenguin came later.</h1>
         <div class="subheading rich-text w-richtext">
           <p>I'm a Marine veteran and cyclist based in Caldwell County, Kentucky.</p>
           <p>I ride because I like riding. Pretty simple.</p>
@@ -39,6 +45,15 @@ social_image_alt: "Anthony Brown with his bike, wearing a Kentucky Cycling Chall
           <p>I train consistently because those miles don't ride themselves.</p>
           <p>My bike is a Lynskey titanium build. I made the fit decisions that mattered to me and let Lynskey handle the geometry — they know better than I do.</p>
           <p>Knowing when to leave something alone is also a technical skill.</p>
+        </div>
+        {%- comment -%}
+          Both of this page's links used to sit in the last section, so on a
+          phone there was nothing clickable for the first four screens. This
+          one lands where the text has just finished describing the riding,
+          which is the point at which somebody might want to go and see it.
+        {%- endcomment -%}
+        <div class="button-group">
+          <a href="{{ '/event.html' | relative_url }}" class="text-link is-secondary is-xlarge">See what I've ridden</a>
         </div>
       </div>
     </div>

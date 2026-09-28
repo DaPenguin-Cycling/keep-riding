@@ -227,9 +227,19 @@
   }
 }
 
+/* Deliberately NOT collapsing the photo grid to one column on a phone.
+   Eight full-width photographs ran to roughly eight screens, which is a lot
+   of scrolling to reach anything else on the page — and a gallery reads
+   better as a grid of thumbnails than as a stack you scroll through one at a
+   time. Two up at 375px gives ~160px squares, the same size the home page
+   hero now uses.
+
+   The video grid below is the opposite case and stays one column: these are
+   9:16 clips meant to be watched, and 160px wide is too small for that. Long
+   is the right answer there. */
 @media screen and (max-width: 479px) {
   .photo-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
