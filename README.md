@@ -413,8 +413,27 @@ A clip with speech needs the words. Auto-captioning (Canva, YouTube, Descript)
 gives a usable first pass, but read it before committing — it reliably mangles
 Lynskey, DaPenguin, and Kentucky and Jamaican place names.
 
-Still outstanding: none of the clips have a `.vtt` yet. `cycle-jamaica-day-1`
-and `-day-2` are the two known to contain speech.
+All seven clips are captioned. **None of them contain speech** — that was
+established rather than assumed, because it is the sort of thing it would be
+embarrassing to get wrong:
+
+- Local Whisper (`mlx-whisper`, `large-v3-turbo`) over every clip. Three
+  returned sung lyrics — the soundtrack, not narration. One was tagged `Music`
+  outright. The remaining three returned classic hallucination artifacts: the
+  word `I` repeated twenty times, `Thank you.` over silence. A useful tell is
+  the unique-word ratio: `uniq=1/20` is a loop, not a transcript.
+- Beat detection as a second, independent signal — a 20 ms RMS envelope
+  autocorrelated over 0.25–1.2 s lags. Five clips show a clear periodic peak
+  (59–88 BPM). It agreed with Whisper everywhere the two overlapped.
+
+Two clips could not be settled either way — `weather-takes-control` sits on the
+beat threshold and `going-out` shows no beat but strong high-frequency content,
+which reads as wind. They carry a descriptor that is true whichever it is.
+Narrow it if anyone ever actually listens.
+
+Note the CLI writes every result to the *first* input's filename when given
+several files at once, silently overwriting. Transcribe one file per
+invocation.
 
 ## Mileage
 
