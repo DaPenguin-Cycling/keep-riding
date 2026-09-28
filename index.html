@@ -78,55 +78,6 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
   </div>
 </header>
 
-{%- comment -%}
-  Build credit, deliberately not a sponsorship.
-
-  This block used to read "Supported by Bluedobie Developing / Bluedobie keeps
-  the website running. I handle the bike. Seems fair." Anthony takes ownership
-  of Bluedobie, which turns that from a modest thank-you into his own company
-  presented as outside backing — the one claim on the page a prospective
-  sponsor would actually check, sitting in the slot directly under the hero.
-
-  "Built by" is accurate before and after the handover and asserts nothing.
-  The old closing line went with it: "seems fair" was a joke about a fair
-  trade, and you cannot trade with yourself.
-{%- endcomment -%}
-{%- assign bb_name = site.built_by.name | default: "" -%}
-{%- assign bb_url = site.built_by.url | default: "" -%}
-{%- if bb_name != "" %}
-<section class="section">
-  <div class="container is-small">
-    <div class="sponsor-lockup">
-      {%- comment -%} No link when no url is set, rather than an href="" dead mark. {%- endcomment -%}
-      {%- if bb_url != "" %}
-      <a href="{{ bb_url }}" target="_blank" rel="noopener" class="sponsor-mark w-inline-block">
-        <img src="{{ '/images/logo-nobkg.avif' | relative_url }}" loading="lazy" width="256" height="256" alt="{{ bb_name }} logo">
-      </a>
-      {%- else %}
-      <div class="sponsor-mark">
-        <img src="{{ '/images/logo-nobkg.avif' | relative_url }}" loading="lazy" width="256" height="256" alt="{{ bb_name }} logo">
-      </div>
-      {%- endif %}
-      <div>
-        <div class="header margin-bottom_none">
-          <h2 class="heading_primary">Built by {{ bb_name }}</h2>
-          <div class="rich-text w-richtext">
-            <p>Bluedobie builds the site and keeps it running.</p>
-            <p>I handle the bike.</p>
-            <p>Two different kinds of maintenance.</p>
-          </div>
-          {%- if bb_url != "" %}
-          <div class="button-group">
-            <a href="{{ bb_url }}" target="_blank" rel="noopener" class="text-link is-secondary is-xlarge">{{ bb_url | remove: "https://" | remove: "http://" | remove: "www." | remove_last: "/" }}</a>
-          </div>
-          {%- endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-{%- endif %}
-
 <section class="section is-secondary">
   <div class="container">
     <div class="header">
@@ -222,6 +173,55 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
     </a>
   </div>
 </section>
+
+{%- comment -%}
+  Build credit, deliberately not a sponsorship.
+
+  This block used to read "Supported by Bluedobie Developing / Bluedobie keeps
+  the website running. I handle the bike. Seems fair." Anthony takes ownership
+  of Bluedobie, which turns that from a modest thank-you into his own company
+  presented as outside backing — the one claim on the page a prospective
+  sponsor would actually check, sitting in the slot directly under the hero.
+
+  "Built by" is accurate before and after the handover and asserts nothing.
+  The old closing line went with it: "seems fair" was a joke about a fair
+  trade, and you cannot trade with yourself.
+{%- endcomment -%}
+{%- assign bb_name = site.built_by.name | default: "" -%}
+{%- assign bb_url = site.built_by.url | default: "" -%}
+{%- if bb_name != "" %}
+<section class="section is-secondary">
+  <div class="container is-small">
+    <div class="sponsor-lockup">
+      {%- comment -%} No link when no url is set, rather than an href="" dead mark. {%- endcomment -%}
+      {%- if bb_url != "" %}
+      <a href="{{ bb_url }}" target="_blank" rel="noopener" class="sponsor-mark w-inline-block">
+        <img src="{{ '/images/logo-nobkg.avif' | relative_url }}" loading="lazy" width="256" height="256" alt="{{ bb_name }} logo">
+      </a>
+      {%- else %}
+      <div class="sponsor-mark">
+        <img src="{{ '/images/logo-nobkg.avif' | relative_url }}" loading="lazy" width="256" height="256" alt="{{ bb_name }} logo">
+      </div>
+      {%- endif %}
+      <div>
+        <div class="header margin-bottom_none">
+          <h2 class="heading_primary">Built by {{ bb_name }}</h2>
+          <div class="rich-text w-richtext">
+            <p>Bluedobie builds the site and keeps it running.</p>
+            <p>I handle the bike.</p>
+            <p>Two different kinds of maintenance.</p>
+          </div>
+          {%- if bb_url != "" %}
+          <div class="button-group">
+            <a href="{{ bb_url }}" target="_blank" rel="noopener" class="text-link is-secondary is-xlarge">{{ bb_url | remove: "https://" | remove: "http://" | remove: "www." | remove_last: "/" }}</a>
+          </div>
+          {%- endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{%- endif %}
 
 {%- comment -%}
   The pitch. The home page previously never asked for anything — Work With Me

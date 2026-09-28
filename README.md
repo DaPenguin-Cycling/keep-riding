@@ -100,6 +100,13 @@ out. "Built by" is true either way and claims nothing.
 Blank the url and the credit renders without a link. Blank the name and the
 block disappears entirely.
 
+It sits below Latest ride, not under the hero where it started. A build credit
+in the second slot made another company the first thing the page's heading
+outline said about Anthony, on the page being shown to prospective sponsors.
+It carries the secondary surface rather than white so it does not merge into
+the Latest ride section above it — the page alternates dark, grey, white,
+grey, dark, and nothing should break that run.
+
 The CSS still calls the layout `.sponsor-lockup`, which is a leftover class
 name, not a claim. Don't let it talk you back into the old framing.
 
