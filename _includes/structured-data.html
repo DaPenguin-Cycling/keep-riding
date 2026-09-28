@@ -164,16 +164,44 @@
       {%- endif %}
       "isPartOf": { "@id": {{ page_id | jsonify }} }
       {%- comment -%}
-        Authorship is a claim, so it is only made where it is true. A clip
-        carrying an explicit blank `creator` in videos.yml was made by someone
-        else — the Cycle Jamaica group shot and released the two Jamaica clips
-        — and gets no creator rather than being credited to Anthony. Omitting
-        the key is what makes this safe: `creator` absent from the entry means
-        "his", a blank value means "not his, and not mine to attribute".
+        Authorship is a claim, so it is only made where it is true. Three
+        states, set by `creator` in videos.yml:
+
+          absent            — Anthony shot it. The common case.
+          a name            — someone else did, and they are credited by name
+                              as an Organization, with `creator_url` as sameAs
+                              when one is known.
+          an empty string   — someone else did and we do not know who, so the
+                              clip claims nothing.
+
+        The middle case is the Cycle Jamaica clips. They came with the trip for
+        riders to publish, and the group wants the exposure, so naming them is
+        both accurate and the thing they actually want out of it — an omitted
+        creator would have credited nobody.
       {%- endcomment -%}
-      {%- unless v.creator != nil and v.creator == "" -%},
+      {%- if v.creator == nil %},
       "creator": { "@id": {{ person_id | jsonify }} }
-      {%- endunless %}
+      {%- elsif v.creator != "" %},
+      "creator": {
+        "@type": "Organization",
+        "name": {{ v.creator | jsonify }}
+        {%- comment -%}
+          `creator_alt` is for an organisation that has since been renamed.
+          The clip still says Cycle Jamaica on screen and is titled that way,
+          because that is what the trip was called; the outfit is now Cycle
+          Caribbean. `name` carries the current name so the credit points at
+          the company that exists today, `alternateName` keeps the old one so
+          the two resolve to one entity rather than two lookalikes.
+        {%- endcomment -%}
+        {%- if v.creator_alt and v.creator_alt != "" %},
+        "alternateName": {{ v.creator_alt | jsonify }}
+        {%- endif %}
+        {%- if v.creator_url and v.creator_url != "" %},
+        "url": {{ v.creator_url | jsonify }},
+        "sameAs": {{ v.creator_url | jsonify }}
+        {%- endif %}
+      }
+      {%- endif %}
     }
       {%- endfor -%}
     {%- endif %}

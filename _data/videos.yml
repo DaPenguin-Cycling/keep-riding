@@ -17,11 +17,19 @@
 # clips are findable. Measure a new one rather than estimating:
 #   ffprobe -v error -show_entries format=duration -of csv=p=0 videos/<slug>.mp4
 #
-# `creator` is optional and controls the authorship claim in that markup.
-# Leave it out and the clip is credited to Anthony, which is the common case.
-# Set it to a blank string for a clip he did not make: the creator is then
-# omitted entirely rather than asserting someone else. Same convention as the
-# links in _config.yml - blank removes the claim instead of inventing one.
+# `creator` is optional and controls the authorship claim in that markup:
+#
+#   left out           Anthony shot it. The common case.
+#   a name             someone else did, and they are credited by name.
+#                      `creator_url` alongside it adds their site as sameAs,
+#                      and `creator_alt` a former name if they have been
+#                      renamed - the group that ran the Jamaica trip now
+#                      trades as Cycle Caribbean.
+#   an empty string    someone else did and we do not know who, so the clip
+#                      claims nothing rather than guessing.
+#
+# Same convention as the links in _config.yml - blank removes the claim
+# instead of inventing one.
 #
 # This matters more than it looks. The VideoObject markup is a statement to
 # search engines about who made the thing, so defaulting every clip to Anthony
@@ -53,7 +61,8 @@
 
 - slug: cycle-jamaica-day-1
   title: "Cycle Jamaica — Day 1"
-  creator: ""   # made by the Cycle Jamaica group, not by Anthony
+  creator: "Cycle Caribbean"
+  creator_alt: "Cycle Jamaica"
   description: >-
     Day one of the Cycle Jamaica trip: an early start at the hotel, a police-escorted convoy heading out, and a visit to the Runaway Bay Basic School to meet the children. Captioned on screen as “early mornings”, “getting the day started right” and “taking off with the convoy”, and closing on a thank you to Cycle Jamaica for the rides of a lifetime.
   created: 2026-04-10
@@ -61,7 +70,8 @@
 
 - slug: cycle-jamaica-day-2
   title: "Cycle Jamaica — Day 2"
-  creator: ""   # made by the Cycle Jamaica group, not by Anthony
+  creator: "Cycle Caribbean"
+  creator_alt: "Cycle Jamaica"
   description: >-
     Day two of Cycle Jamaica, the One Love Century. Rolling out with the group, riding the coast road, and a rest stop given over to refreshments, music and dancing — community time, Jamaica-style. The on-screen text closes on “challenging together, finishing together, one love”.
   created: 2026-04-11
