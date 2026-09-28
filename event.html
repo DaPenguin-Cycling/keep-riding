@@ -141,8 +141,8 @@ description: See where Anthony Brown is riding, where he's been, and the cycling
     <div class="header">
       <h2 class="heading_primary">Kentucky Cycling Challenge</h2>
       <div class="rich-text subheading w-richtext">
-        <p>I'm in my third consecutive year completing the Kentucky Cycling Challenge.</p>
-        <p>Five rides. Each requires a century or metric century distance to count toward completing the series.</p>
+        <p>I'm in my {% include kcc-year.html years=site.kcc.years_completed case="lower" %} consecutive year completing the Kentucky Cycling Challenge.</p>
+        <p>{{ site.kcc.rides_in_series }} rides. Each requires a century or metric century distance to count toward completing the series.</p>
         <p>It's not complicated.</p>
         <p>Ride the miles.</p>
         <p>Then ride the next one.</p>

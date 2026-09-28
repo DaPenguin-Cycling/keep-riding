@@ -67,7 +67,14 @@
       "@id": {{ person_id | jsonify }},
       "name": "Anthony Brown",
       "alternateName": "DaPenguin",
-      "description": "Marine veteran and cyclist based in Caldwell County, Kentucky, in his third consecutive year completing the Kentucky Cycling Challenge.",
+      {%- comment -%}
+        Built from the same kcc values as the visible pages, so the year he is
+        on cannot say one thing in the markup and another on the page.
+      {%- endcomment -%}
+      {%- capture person_desc -%}
+        Marine veteran and cyclist based in Caldwell County, Kentucky, in his {% include kcc-year.html years=site.kcc.years_completed case="lower" %} consecutive year completing the Kentucky Cycling Challenge, an annual series of {{ site.kcc.rides_in_series }} rides each requiring a century or metric century.
+      {%- endcapture -%}
+      "description": {{ person_desc | strip | jsonify }},
       "url": {{ "/about.html" | absolute_url | jsonify }},
       "image": {{ "/images/dapenguin-social.jpg" | absolute_url | jsonify }},
       {%- comment -%}

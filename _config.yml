@@ -96,6 +96,26 @@ defaults:
     values:
       sitemap: false
 
+# Kentucky Cycling Challenge.
+#
+# An annual series of five rides, each requiring a century or metric century
+# to count toward completing it. Anthony has completed the series three years
+# running, and that count was previously typed out in five places — the home
+# page card, the About page, the Rides page, the Person description in the
+# structured data, and a ride note. Bumping it meant finding all five, so it
+# lives here once instead.
+#
+# `years_completed` is a count, deliberately not derived from the calendar.
+# Deriving it from a start year would keep incrementing on its own and would
+# quietly claim a season he sat out or did not finish. Bump it by hand after
+# each series he actually completes — that is the only correct trigger.
+#
+# `rides_in_series` is a property of the event, not of Anthony, so it only
+# changes if the organisers change the format.
+kcc:
+  years_completed: 3
+  rides_in_series: 5
+
 analytics:
   # Google Analytics 4 measurement ID for the "DaPenguin stream" web stream
   # (stream ID 15846120289, https://www.dapenguincycling.com).

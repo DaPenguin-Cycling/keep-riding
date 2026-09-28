@@ -1,0 +1,31 @@
+{%- comment -%}
+  The ordinal for how many years running Anthony has completed the Kentucky
+  Cycling Challenge — "Third", "Fourth", and so on — from `kcc.years_completed`
+  in _config.yml, passed in as `years`.
+
+  Two Liquid traps this file already fell into, both silent:
+
+  The index is computed into its own variable first. `words[n | minus: 1]`
+  looks reasonable and is not — Liquid applies the filter to the result of the
+  subscript, not inside it, so it evaluates `words[n] | minus: 1`, and
+  "Fourth" minus 1 is 0. The card rendered "0 year" with no error anywhere.
+
+  The parameter is called `years` rather than `count`, since `include.count`
+  resolves against the include hash rather than the value passed in.
+
+  Pass `case: "lower"` for prose ("in his third consecutive year"); the default
+  is capitalised for the home page stat card. Past ten it falls back to "11th"
+  rather than inventing a word, which is both correct and a long way off.
+
+  Whitespace matters here: this include is used inline, so it must emit the
+  word and nothing else. Hence the tag-level hyphens throughout.
+{%- endcomment -%}
+{%- assign words = "First,Second,Third,Fourth,Fifth,Sixth,Seventh,Eighth,Ninth,Tenth" | split: "," -%}
+{%- assign n = include.years | plus: 0 -%}
+{%- assign idx = n | minus: 1 -%}
+{%- if n >= 1 and n <= 10 -%}
+  {%- assign word = words[idx] -%}
+{%- else -%}
+  {%- assign word = n | append: "th" -%}
+{%- endif -%}
+{%- if include.case == "lower" -%}{{ word | downcase }}{%- else -%}{{ word }}{%- endif -%}

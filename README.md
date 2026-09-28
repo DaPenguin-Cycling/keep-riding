@@ -66,6 +66,28 @@ real value is known.
 | `analytics.ga4_measurement_id` | Google Analytics 4 property. Blank it and the tag disappears |
 | `baseurl` | `""` for the custom domain; `"/keep-riding"` for the github.io URL |
 
+### Kentucky Cycling Challenge figures
+
+`kcc` in `_config.yml` holds `years_completed` and `rides_in_series`. Those two
+numbers were previously typed out in five places — the home page cards, About,
+Rides, the Person description in the structured data, and a ride note — so
+bumping the year meant finding all five and the markup could disagree with the
+page. Now it is one edit.
+
+`_includes/kcc-year.html` turns the count into an ordinal: `Third` by default
+for the stat card, `third` with `case="lower"` for prose. Past ten it falls
+back to `11th` rather than inventing a word.
+
+**`years_completed` is a count, deliberately not derived from the calendar.**
+Deriving it from a start year would keep incrementing on its own and would
+quietly claim a season he sat out or did not finish. Bump it by hand after each
+series he actually completes.
+
+Two Liquid traps are documented in that include because both fail silently and
+cost time: a filter inside an array subscript (`words[n | minus: 1]`) applies
+to the *result* of the subscript, not the index; and an include parameter named
+`count` resolves against the include hash rather than the value passed in.
+
 ### The Bluedobie credit
 
 `built_by` in `_config.yml` (name and url) drives the block under the hero on

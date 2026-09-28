@@ -56,6 +56,15 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
           <h1 class="heading_hero"><span class="eyebrow">Anthony Brown — DaPenguin</span> The miles. <br>The work. <br>The ride.</h1>
           <div class="subheading rich-text w-richtext">
             <p>I ride. I train. I show up.</p>
+            {%- comment -%}
+              The home page said nothing about who he is or where he rides —
+              "Marine veteran", "cyclist" and "Caldwell County, Kentucky" all
+              lived on About only, so the page a search engine sees first had
+              no person and no place in it. Same register as the opening of
+              About, shortened for the hero, and deliberately not word for
+              word with it.
+            {%- endcomment -%}
+            <p>Marine veteran and cyclist out of Caldwell County, Kentucky.</p>
             <p>Some rides go exactly as planned. Some turn into training rides whether I planned on it or not.</p>
             <p>This is where I keep track of both.</p>
           </div>
@@ -148,7 +157,7 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
       <div class="grid-item-manual">
         <div class="card on-secondary height_100percent">
           <div class="card_body_small">
-            <p class="heading_primary margin-bottom_none">Third year</p>
+            <p class="heading_primary margin-bottom_none">{% include kcc-year.html years=site.kcc.years_completed %} year</p>
             <div class="margin_top-auto">
               <p class="text-color_secondary margin-bottom_none">Kentucky Cycling Challenge</p>
             </div>
@@ -158,9 +167,9 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
       <div class="grid-item-manual">
         <div class="card on-secondary height_100percent">
           <div class="card_body_small">
-            <p class="heading_primary margin-bottom_none">5 rides</p>
+            <p class="heading_primary margin-bottom_none">{{ site.kcc.rides_in_series }} rides</p>
             <div class="margin_top-auto">
-              <p class="text-color_secondary margin-bottom_none">Century or metric-century distance required at each KCC event</p>
+              <p class="text-color_secondary margin-bottom_none">Century or metric-century distance required at each Kentucky Cycling Challenge event</p>
             </div>
           </div>
         </div>
@@ -211,5 +220,31 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
         </div>
       </div>
     </a>
+  </div>
+</section>
+
+{%- comment -%}
+  The pitch. The home page previously never asked for anything — Work With Me
+  existed in the nav and the footer and nowhere in the body, on a site whose
+  stated purpose includes finding partners. It sits last on purpose: the
+  numbers and the latest ride are the evidence, and the ask comes after them
+  rather than before.
+
+  Kept to the same shape as the work-with-me page's opening so the two read as
+  one voice, without repeating it word for word.
+{%- endcomment -%}
+<section class="section is-inverse">
+  <div class="container is-small">
+    <div class="header is-align-center margin-bottom_none">
+      <h2 class="heading_primary">Work with me</h2>
+      <div class="subheading rich-text w-richtext">
+        <p>I use gear in the real world. Training miles, long events, travel, and whatever the weather decides to do about it.</p>
+        <p>If it makes sense for what I'm already doing, we can talk.</p>
+      </div>
+      <div class="button-group">
+        <a href="{{ '/work-with-me.html' | relative_url }}" class="button on-inverse w-button">Work With Me</a>
+        <a href="{{ '/contact.html' | relative_url }}" class="button is-secondary on-inverse w-button">Get in Touch</a>
+      </div>
+    </div>
   </div>
 </section>
