@@ -9,6 +9,12 @@
 # filename from images/ plus `image_alt` and a photo appears on that card. Only
 # add one when it is genuinely from that ride.
 #
+# For an `upcoming` ride it does one more thing: it becomes the image on the
+# SportsEvent markup, which Google lists as recommended for an event result.
+# The markup deliberately does not fall back to a generic riding photo when
+# this is missing — attaching a picture of a different ride to an event
+# listing is worse than having no picture.
+#
 # `location` is optional and exists for the same reason `dates` does: `meta` is
 # display text and its shape varies ("September 12, 2026" for a completed ride,
 # "October 3, 2026 • Elizabethtown, Kentucky" for an upcoming one), so nothing

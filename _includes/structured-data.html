@@ -139,6 +139,25 @@
       "@type": "SportsEvent",
       "name": {{ ride.name | jsonify }},
       "startDate": {{ start | date: "%Y-%m-%d" | jsonify }},
+      {%- comment -%}
+        `endDate` is the last of the ride's dates, which equals startDate for
+        a single-day event and spans the trip for something like Cycle
+        Jamaica. Google lists it as recommended for an event result, and
+        without it a multi-day ride would read as a one-day one.
+      {%- endcomment -%}
+      {%- assign last_date = ride.dates | last -%}
+      "endDate": {{ last_date | date: "%Y-%m-%d" | jsonify }},
+      {%- comment -%}
+        `image` only when the ride has its own photograph. Google wants an
+        image representing the event, and the obvious shortcut — falling back
+        to the site's generic riding photo — would attach a picture of a
+        different ride to this one. An omitted recommended field costs a
+        little; a misleading one is worse. Add `image` to the entry in
+        _data/rides.yml when there is a real photograph of it.
+      {%- endcomment -%}
+      {%- if ride.image and ride.image != "" %}
+      "image": {{ ride.image | prepend: "/images/" | absolute_url | jsonify }},
+      {%- endif %}
       "eventStatus": "https://schema.org/EventScheduled",
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
       "sport": "Cycling",
