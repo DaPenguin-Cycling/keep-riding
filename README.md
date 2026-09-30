@@ -308,6 +308,48 @@ ffmpeg -i source.jpg -vf "scale=1200:-1,crop=1200:630:0:(ih-630)*0.35" \
 The `0.35` anchors the crop above centre, which keeps heads and finish arches
 in frame where a straight centre crop cuts them.
 
+### What GA4 measures, and what to mark
+
+`js/analytics.js` sends the events enhanced measurement cannot see. They fall
+into three tiers, and the tiers matter more than the list:
+
+| tier | events | mark as key event? |
+| --- | --- | --- |
+| Lead | `contact_form_submit`, `email_click` | **yes** |
+| Intent | `work_with_me_click` | optional |
+| Audience | `video_play`, `video_complete`, `strava_click`, `facebook_click` | **no** |
+
+Do not mark the audience tier. A video play is not a conversion, and marking
+it would inflate the conversion rate to the point where the handful of real
+enquiries disappear into it — on a site whose whole purpose is finding
+sponsors, that is the one number that has to stay honest.
+
+Three parameters carry the detail. GA4 will not show any of them in reports
+until they are registered as custom dimensions (Admin → Custom definitions →
+Create custom dimension, scope: Event):
+
+- **`form_topic`** on `contact_form_submit` — Cycling / Event / Partnership /
+  Media / Something else, straight from the form's own select. This is the
+  single most useful field on the site: it separates "someone wrote in" from
+  "someone wrote in about sponsorship".
+- **`link_location`** on the click events — `nav`, `footer`, or the slugged
+  heading of the section the link sits in (`work_with_me`, `the_numbers`,
+  `latest_ride`). Derived from the DOM, so no markup changes are needed when
+  a CTA moves.
+- **`video_title`** on the video events.
+
+"Which page" needs no parameter — GA4 attaches `page_location` to every event
+automatically.
+
+A new event will not appear in the Events list until GA4 has seen one. Do not
+wait for that: Admin → Key events → **New key event** accepts an event name
+typed by hand, and the same is true of custom dimensions.
+
+Self-hosted video is worth calling out. GA4's automatic `video_*` events are
+YouTube-only, so the seven clips here were completely invisible until these
+listeners existed — and "does anyone actually watch them" is the first thing
+a prospective sponsor asks.
+
 ### Sitemap
 
 `jekyll-sitemap` generates `/sitemap.xml` and `/robots.txt` from the pages that

@@ -64,8 +64,21 @@
           show(done);
           // Defined by js/analytics.js, which only loads when analytics is
           // configured — hence the guard rather than a direct call.
+          //
+          // The topic rides along. The form already asks whether this is about
+          // Cycling, an Event, a Partnership / Sponsorship, Media or something
+          // else, and that answer was being thrown away at exactly the moment
+          // it was worth most — a site that exists partly to attract sponsors
+          // needs to distinguish a sponsorship enquiry from a question about
+          // a ride, and this is the only place that distinction exists.
+          //
+          // Read off the live control rather than the FormData copy, so it
+          // still reports correctly if the field is ever renamed.
           if (typeof window.trackEvent === 'function') {
-            window.trackEvent('contact_form_submit');
+            var topic = form.querySelector('#topic');
+            window.trackEvent('contact_form_submit', {
+              form_topic: (topic && topic.value) || 'unspecified'
+            });
           }
           // Move focus to the confirmation so it is announced and so keyboard
           // users are not left on a button that no longer exists.
