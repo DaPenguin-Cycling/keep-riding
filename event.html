@@ -15,7 +15,7 @@ social_image_alt: "Anthony Brown riding away from the camera in a Kentucky Cycli
         <div class="subheading rich-text w-richtext">
           <p>Some rides are training. Some have a number pinned to them. Some require an alarm clock I don't particularly appreciate.</p>
           <p>They're all miles.</p>
-          <p>Here's what's on the calendar and what I've finished.</p>
+          <p>Here's what's on the calendar and what I've ridden.</p>
         </div>
         {%- comment -%}
           The page had no call to action anywhere above the ride list. Strava
@@ -35,7 +35,7 @@ social_image_alt: "Anthony Brown riding away from the camera in a Kentucky Cycli
         {%- endif %}
       </div>
       <div class="grid-item-manual">
-        <div class="image-ratio_1x1"><img class="image_cover" src="{{ '/images/DSC00143.avif' | relative_url }}" width="640" height="480" alt="Anthony Brown and his Lynskey titanium bike at the car before the Redbud Ride" sizes="(max-width: 991px) 100vw, 640px" loading="eager" srcset="{{ '/images/DSC00143-p-500.avif' | relative_url }} 500w, {{ '/images/DSC00143.avif' | relative_url }} 640w"></div>
+        <div class="image-ratio_1x1"><img class="image_cover" src="{{ '/images/DSC00143.avif' | relative_url }}" width="640" height="480" alt="Anthony Brown and his Lynskey titanium bike at the car before the Redbud Ride" sizes="(max-width: 991px) 100vw, 640px" loading="eager" fetchpriority="high" decoding="async" srcset="{{ '/images/DSC00143-p-500.avif' | relative_url }} 500w, {{ '/images/DSC00143.avif' | relative_url }} 640w"></div>
       </div>
     </div>
   </div>
@@ -54,11 +54,13 @@ social_image_alt: "Anthony Brown riding away from the camera in a Kentucky Cycli
           <div class="card_body">
             <h3 class="heading_tertiary">{{ ride.name }}</h3>
             <div class="label">{{ ride.meta }}</div>
+            {%- if ride.body and ride.body.size > 0 %}
             <div class="rich-text w-richtext">
               {%- for para in ride.body %}
               <p>{{ para }}</p>
               {%- endfor %}
             </div>
+            {%- endif %}
           </div>
         </div>
       </li>
@@ -92,11 +94,13 @@ social_image_alt: "Anthony Brown riding away from the camera in a Kentucky Cycli
           <div class="card_body">
             <h3 class="heading_tertiary">{{ ride.name }}</h3>
             <div class="label">{{ ride.meta }}</div>
+            {%- if ride.body and ride.body.size > 0 %}
             <div class="rich-text w-richtext">
               {%- for para in ride.body %}
               <p>{{ para }}</p>
               {%- endfor %}
             </div>
+            {%- endif %}
             {%- comment -%}
               Figures for the ride, summed across its dates so a multi-day trip
               reads as one total. `strava` in the rides file wins if it is set,

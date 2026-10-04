@@ -9,7 +9,7 @@ Every link here points at a page that exists.
   The logo links home but deliberately carries no aria-current, so the Home nav
   item below is the single element announced as the current page.
 {%- endcomment -%}
-      <a href="{{ '/index.html' | relative_url }}" class="nav_logo w-inline-block{% if page.nav == 'home' %} w--current{% endif %}">
+      <a href="{{ '/' | relative_url }}" class="nav_logo w-inline-block{% if page.nav == 'home' %} w--current{% endif %}">
         {%- comment -%}
           One 160px file, no srcset. The old markup offered a 500w and a
           "1024w" candidate for a 50px logo, so every page pulled 31KB for a
@@ -24,7 +24,7 @@ Every link here points at a page that exists.
       <nav role="navigation" aria-label="Main" class="nav_menu w-nav-menu">
         <ul role="list" class="nav_menu-list w-list-unstyled">
           <li class="nav_menu-list-item">
-            <a href="{{ '/index.html' | relative_url }}" class="nav_link on-inverse w-inline-block{% if page.nav == 'home' %} w--current{% endif %}"{% if page.nav == 'home' %} aria-current="page"{% endif %}>
+            <a href="{{ '/' | relative_url }}" class="nav_link on-inverse w-inline-block{% if page.nav == 'home' %} w--current{% endif %}"{% if page.nav == 'home' %} aria-current="page"{% endif %}>
               <div>Home</div>
             </a>
           </li>

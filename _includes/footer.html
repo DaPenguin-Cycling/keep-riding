@@ -22,7 +22,7 @@ so an unknown profile leaves no dead link behind.
     <nav class="grid_4-col gap-small" aria-label="Footer">
       <div class="grid-item-manual">
         <div class="flex_vertical gap-small">
-          <a href="{{ '/index.html' | relative_url }}" class="logo-link w-inline-block">
+          <a href="{{ '/' | relative_url }}" class="logo-link w-inline-block">
             {%- comment -%} Same 160px file as the nav; 75px at 2x is 150, so it covers this too. {%- endcomment -%}
           <div class="nav_logo-icon"><img src="{{ '/images/dapenguin-icon-160.avif' | relative_url }}" loading="lazy" width="75" height="75" alt="" class="image-3"></div>
             <div data-brand-name="true" class="paragraph_xlarge margin-bottom_none text_all-caps">DaPenguin</div>
@@ -36,7 +36,7 @@ so an unknown profile leaves no dead link behind.
           <h2 class="heading_xxsmall text-color_secondary">Explore</h2>
         </li>
         <li>
-          <a href="{{ '/index.html' | relative_url }}" class="footer_link on-inverse w-inline-block">
+          <a href="{{ '/' | relative_url }}" class="footer_link on-inverse w-inline-block">
             <div>Home</div>
           </a>
         </li>
@@ -102,7 +102,7 @@ so an unknown profile leaves no dead link behind.
     </nav>
     <div class="divider margin-top_xsmall margin-bottom_xsmall"></div>
     <div class="footer_bottom">
-      <div class="text-color_secondary">© 2026 DaPenguin. All rights reserved.</div>
+      <div class="text-color_secondary">© {{ site.time | date: "%Y" }} DaPenguin. All rights reserved.</div>
     </div>
   </div>
 </footer>
