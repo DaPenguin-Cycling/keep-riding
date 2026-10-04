@@ -20,16 +20,16 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
         {%- endcomment -%}
         <div class="w-layout-grid grid_2-col gap-xsmall hero-photo-grid">
           <div class="grid-item-manual">
-            <div class="image-ratio_1x1"><img width="640" height="640" alt="Anthony Brown at the start line of the Redbud Ride" src="{{ '/images/DSC00152.webp' | relative_url }}" loading="eager" srcset="{{ '/images/DSC00152-p-500.webp' | relative_url }} 500w, {{ '/images/DSC00152.webp' | relative_url }} 640w" sizes="(max-width: 767px) 90vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
+            <div class="image-ratio_1x1"><img width="640" height="640" alt="Anthony Brown at the start line of the Redbud Ride" src="{{ '/images/DSC00152.webp' | relative_url }}" loading="eager" fetchpriority="high" decoding="async" srcset="{{ '/images/DSC00152-p-500.webp' | relative_url }} 500w, {{ '/images/DSC00152.webp' | relative_url }} 640w" sizes="(max-width: 767px) 45vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
           </div>
           <div class="grid-item-manual">
-            <div class="image-ratio_3x4"><img width="640" height="480" alt="Anthony Brown with his Lynskey titanium bike before the start of the Redbud Ride" src="{{ '/images/DSC00145.avif' | relative_url }}" loading="eager" sizes="(max-width: 767px) 90vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
+            <div class="image-ratio_3x4"><img width="640" height="480" alt="Anthony Brown with his Lynskey titanium bike before the start of the Redbud Ride" src="{{ '/images/DSC00145.avif' | relative_url }}" loading="eager" decoding="async" sizes="(max-width: 767px) 45vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
           </div>
           <div class="grid-item-manual">
-            <div class="image-ratio_3x4"><img width="640" height="480" alt="Anthony Brown and his Lynskey titanium bike at the car before the Redbud Ride" src="{{ '/images/DSC00143.avif' | relative_url }}" loading="lazy" srcset="{{ '/images/DSC00143-p-500.avif' | relative_url }} 500w, {{ '/images/DSC00143.avif' | relative_url }} 640w" sizes="(max-width: 767px) 90vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
+            <div class="image-ratio_3x4"><img width="640" height="480" alt="Anthony Brown and his Lynskey titanium bike at the car before the Redbud Ride" src="{{ '/images/DSC00143.avif' | relative_url }}" loading="lazy" decoding="async" srcset="{{ '/images/DSC00143-p-500.avif' | relative_url }} 500w, {{ '/images/DSC00143.avif' | relative_url }} 640w" sizes="(max-width: 767px) 45vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
           </div>
           <div class="grid-item-manual">
-            <div class="image-ratio_1x1"><img width="640" height="480" alt="Anthony Brown riding through the finish arch at a Kentucky event" src="{{ '/images/IMG_0712.webp' | relative_url }}" loading="lazy" srcset="{{ '/images/IMG_0712-p-500.webp' | relative_url }} 500w, {{ '/images/IMG_0712.webp' | relative_url }} 640w" sizes="(max-width: 767px) 90vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
+            <div class="image-ratio_1x1"><img width="640" height="480" alt="Anthony Brown riding through the finish arch at a Kentucky event" src="{{ '/images/IMG_0712.webp' | relative_url }}" loading="lazy" decoding="async" srcset="{{ '/images/IMG_0712-p-500.webp' | relative_url }} 500w, {{ '/images/IMG_0712.webp' | relative_url }} 640w" sizes="(max-width: 767px) 45vw, (max-width: 991px) 50vw, 300px" class="image_cover"></div>
           </div>
         </div>
       </div>
@@ -168,11 +168,13 @@ description: Follow Anthony Brown, aka DaPenguin, through training rides, cyclin
       <div class="card_body">
         <h3 class="heading_tertiary">{{ latest.name }}</h3>
         <div class="label">{{ latest.meta }}</div>
+        {%- if latest_copy and latest_copy.size > 0 %}
         <div class="rich-text w-richtext">
           {%- for para in latest_copy %}
           <p>{{ para }}</p>
           {%- endfor %}
         </div>
+        {%- endif %}
         <div class="margin_top-auto padding-top_xsmall">
           <div class="text-button">
             <div>See all rides</div>

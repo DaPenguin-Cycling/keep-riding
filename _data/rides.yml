@@ -39,17 +39,23 @@
 # shows about half its height in that slot, so use "center top" to keep a face
 # in frame.
 
-upcoming:
+upcoming: []
+
+completed:
   - name: Cameron Ponder Memorial Ride
     dates: [2026-10-03]
     meta: "October 3, 2026 • Elizabethtown, Kentucky"
     location: "Elizabethtown, Kentucky"
-    # No `body` yet: distance/route and Anthony's own note on this one are not
-    # known, and the card renders fine without them. Add lines here when he has
-    # something to say about it.
+    # The site's Strava feed records a 35.84 mi activity on this date. That is
+    # enough to move the dated card out of "Coming up" and let the normal
+    # ride-stat renderer show the logged figures. No narrative is added until
+    # Anthony or Melanie supplies one.
     body: []
-
-completed:
+    image: cameron-ponder-ride-with-organizer.webp
+    image_position: center 35%
+    image_alt: Anthony Brown and a woman standing with his Lynskey bicycle in front of the Cameron Ponder memorial banner
+    image_w: 480
+    image_h: 640
   - name: Limestone Cycling Tour
     dates: [2026-09-12]
     meta: "September 12, 2026"
