@@ -490,3 +490,17 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* At narrow reflow widths, give the CTA its own row rather than shrinking
+   the brand container underneath its text. Keep both actions visible. */
+@media screen and (max-width: 360px) {
+  .nav_container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: .5rem;
+  }
+  .nav_left { min-width: 0; }
+  .nav_logo { flex-shrink: 0; }
+  .nav_right { grid-column: 1 / -1; grid-row: 2; justify-self: end; }
+  .nav_mobile-menu-button { grid-column: 2; grid-row: 1; }
+}
