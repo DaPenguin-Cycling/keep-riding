@@ -1,3 +1,4 @@
+# Keep each ride id stable: it is the public fragment used by direct links.
 # Rides shown on event.html, and the "Latest ride" block on the home page.
 #
 # `completed` is newest first — the home page takes the first entry.
@@ -42,7 +43,8 @@
 upcoming: []
 
 completed:
-  - name: Cameron Ponder Memorial Ride
+  - id: cameron-ponder-2026
+    name: Cameron Ponder Memorial Ride
     dates: [2026-10-03]
     meta: "October 3, 2026 • Elizabethtown, Kentucky"
     location: "Elizabethtown, Kentucky"
@@ -56,7 +58,8 @@ completed:
     image_alt: Anthony Brown and a woman standing with his Lynskey bicycle in front of the Cameron Ponder memorial banner
     image_w: 480
     image_h: 640
-  - name: Limestone Cycling Tour
+  - id: limestone-2026
+    name: Limestone Cycling Tour
     dates: [2026-09-12]
     meta: "September 12, 2026"
     # Home page uses this shorter note; the Rides page uses `body` below.
@@ -72,7 +75,8 @@ completed:
     image_w: 607
     image_h: 640
 
-  - name: Licking Valley Century
+  - id: licking-valley-2026
+    name: Licking Valley Century
     dates: [2026-06-20]
     meta: "June 20, 2026 • Alexandria, Kentucky"
     # A mechanical ended this one. Strava logs 9.93 mi, which matches the
@@ -88,7 +92,8 @@ completed:
     image_w: 1200
     image_h: 900
 
-  - name: Horsey Hundred
+  - id: horsey-hundred-2026
+    name: Horsey Hundred
     dates: [2026-05-23]
     meta: "May 23, 2026 • Georgetown, Kentucky"
     # He bonked and did not finish this one. The closing line is his own Strava
@@ -114,7 +119,8 @@ completed:
     # image:      # TODO: needs a photo confirmed as being from this ride
     # image_alt:
 
-  - name: Redbud Ride
+  - id: redbud-2026
+    name: Redbud Ride
     dates: [2026-04-18]
     meta: "April 18, 2026 • London, Kentucky"
     body:
@@ -126,7 +132,8 @@ completed:
     image_w: 640
     image_h: 480
 
-  - name: Cycle Jamaica
+  - id: cycle-jamaica-2026
+    name: Cycle Jamaica
     dates: [2026-04-10, 2026-04-11, 2026-04-12]
     meta: "April 10–12, 2026 • Jamaica"
     body:

@@ -504,3 +504,9 @@
   .nav_right { grid-column: 1 / -1; grid-row: 2; justify-self: end; }
   .nav_mobile-menu-button { grid-column: 2; grid-row: 1; }
 }
+
+/* Native ride fragments remain visible below the navigation. */
+.ride-anchor { scroll-margin-top: 7rem; }
+.ride-anchor:focus { outline: 3px solid currentColor; outline-offset: 6px; }
+.ride-jump-links { margin-bottom: 2rem; }
+.ride-jump-links li { margin-block: .5rem; }

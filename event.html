@@ -33,6 +33,10 @@ social_image_alt: "Anthony Brown riding away from the camera in a Kentucky Cycli
           <a href="{{ strava_url }}" target="_blank" rel="noopener" class="button on-inverse w-button">Follow on Strava</a>
         </div>
         {%- endif %}
+        {%- assign latest = site.data.rides.completed | first %}
+        {%- if latest %}
+        <p><a class="text-link on-inverse" href="#{{ latest.id | default: latest.name | slugify }}">Jump to the latest ride: {{ latest.name }}</a></p>
+        {%- endif %}
       </div>
       <div class="grid-item-manual">
         <div class="image-ratio_1x1"><img class="image_cover" src="{{ '/images/DSC00143.avif' | relative_url }}" width="640" height="480" alt="Anthony Brown and his Lynskey titanium bike at the car before the Redbud Ride" sizes="(max-width: 991px) 100vw, 640px" loading="eager" fetchpriority="high" decoding="async" srcset="{{ '/images/DSC00143-p-500.avif' | relative_url }} 500w, {{ '/images/DSC00143.avif' | relative_url }} 640w"></div>
@@ -84,6 +88,14 @@ social_image_alt: "Anthony Brown riding away from the camera in a Kentucky Cycli
     <div class="header">
       <h2 class="heading_primary">Done</h2>
     </div>
+    <nav aria-label="Jump to a completed ride" class="ride-jump-links">
+      <p>Jump to a ride:</p>
+      <ul>
+        {%- for ride in site.data.rides.completed %}
+        <li><a class="text-link is-secondary" href="#{{ ride.id | default: ride.name | slugify }}">{{ ride.name }} — {{ ride.dates.first | date: "%Y" }}</a></li>
+        {%- endfor %}
+      </ul>
+    </nav>
     <ul role="list" class="list gap-small w-list-unstyled">
       {%- for ride in site.data.rides.completed %}
       <li>
@@ -92,7 +104,7 @@ social_image_alt: "Anthony Brown riding away from the camera in a Kentucky Cycli
           <div class="image-ratio_3x2 radius_bottom-none"><img class="image_cover ride-card-image"{% if ride.image_position %} style="object-position: {{ ride.image_position }}"{% endif %} src="{{ ride.image | prepend: '/images/' | relative_url }}"{% if ride.image_srcset %} srcset="{% assign parts = ride.image_srcset | split: ',' %}{% for p in parts %}{% assign bits = p | strip | split: ' ' %}{{ bits[0] | prepend: '/images/' | relative_url }} {{ bits[1] }}{% unless forloop.last %}, {% endunless %}{% endfor %}"{% endif %} sizes="(max-width: 767px) 100vw, 720px" width="{{ ride.image_w }}" height="{{ ride.image_h }}" alt="{{ ride.image_alt }}" loading="lazy"></div>
           {%- endif %}
           <div class="card_body">
-            <h3 class="heading_tertiary">{{ ride.name }}</h3>
+            <h3 id="{{ ride.id | default: ride.name | slugify }}" class="heading_tertiary ride-anchor" tabindex="-1">{{ ride.name }}</h3>
             <div class="label">{{ ride.meta }}</div>
             {%- if ride.body and ride.body.size > 0 %}
             <div class="rich-text w-richtext">
@@ -145,7 +157,7 @@ social_image_alt: "Anthony Brown riding away from the camera in a Kentucky Cycli
             {%- assign strava_url = "" -%}
             {%- endif %}
             {%- if strava_url != "" %}
-            <a href="{{ strava_url }}" target="_blank" rel="noopener" class="text-link is-secondary">View this ride on Strava</a>
+            <a href="{{ strava_url }}" target="_blank" rel="noopener" class="text-link is-secondary">View {{ ride.name | escape }} on Strava</a>
             {%- endif %}
           </div>
         </div>
