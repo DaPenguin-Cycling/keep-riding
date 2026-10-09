@@ -39,13 +39,14 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
             below deliberately carries `autocomplete="off"` for the opposite
             reason — nothing should ever fill it.
           {%- endcomment -%}
+          <p>Name, email, and message are required.</p>
           <form action="{{ form_endpoint }}" method="post" name="contact-form" id="contact-form" class="form">
             <div class="form_item is-half">
-              <label for="name" class="input_label">Name</label>
+              <label for="name" class="input_label">Name (required)</label>
               <input class="input_field on-inverse w-input" maxlength="256" name="name" type="text" id="name" autocomplete="name" required>
             </div>
             <div class="form_item is-half">
-              <label for="email" class="input_label">Email</label>
+              <label for="email" class="input_label">Email (required)</label>
               <input class="input_field on-inverse w-input" maxlength="256" name="email" type="email" id="email" autocomplete="email" required>
             </div>
             <div class="form_item">
@@ -63,7 +64,7 @@ description: Contact Anthony Brown about DaPenguin, cycling events, collaboratio
               </select>
             </div>
             <div class="form_item">
-              <label for="message" class="input_label">Message</label>
+              <label for="message" class="input_label">Message (required)</label>
               <textarea id="message" name="message" maxlength="5000" class="input_field input_text-area on-inverse w-input" required></textarea>
             </div>
             <p class="form-honeypot" aria-hidden="true">
