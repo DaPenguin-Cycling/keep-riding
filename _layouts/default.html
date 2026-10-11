@@ -15,10 +15,10 @@
     which is the apex, so the tag, the sitemap and the redirect all agree.
   {%- endcomment -%}
   <link rel="canonical" href="{{ page.url | absolute_url }}">
-  <meta content="{{ page.title }}" property="og:title">
-  <meta content="{{ page.description }}" property="og:description">
-  <meta content="{{ page.title }}" name="twitter:title">
-  <meta content="{{ page.description }}" name="twitter:description">
+  <meta content="{{ page.social_title | default: page.title | escape }}" property="og:title">
+  <meta content="{{ page.social_description | default: page.description | escape }}" property="og:description">
+  <meta content="{{ page.social_title | default: page.title | escape }}" name="twitter:title">
+  <meta content="{{ page.social_description | default: page.description | escape }}" name="twitter:description">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{ site.title }}">
   <meta property="og:locale" content="en_US">
@@ -46,9 +46,9 @@
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{{ social_alt }}">
+  <meta property="og:image:alt" content="{{ social_alt | escape }}">
   <meta name="twitter:image" content="{{ social_image | absolute_url }}">
-  <meta name="twitter:image:alt" content="{{ social_alt }}">
+  <meta name="twitter:image:alt" content="{{ social_alt | escape }}">
   <meta content="summary_large_image" name="twitter:card">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   {% include structured-data.html %}

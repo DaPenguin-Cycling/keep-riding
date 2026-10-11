@@ -1,0 +1,3 @@
+<link rel="stylesheet" href="{{ "/css/privacy-choices.css" | relative_url }}">
+<script id="privacy-config" type="application/json">{"ga": {{ site.analytics.ga4_measurement_id | jsonify }}, "metricool": {{ site.analytics.metricool_hash | jsonify }}, "vendors": "Google Analytics and Metricool", "policy": {{ "/privacy.html" | relative_url | jsonify }}, "content": false, "production": {% if jekyll.environment == "production" %}true{% else %}false{% endif %}}</script>
+<script src="{{ "/js/privacy-choices.js" | relative_url }}" defer></script>
