@@ -1,6 +1,13 @@
 {
-  "updatedAt": "2026-10-10T17:33:28.566Z",
+  "updatedAt": "2026-10-11T17:51:15.320Z",
   "dates": {
+    "2026-10-10": {
+      "distanceMi": 8.5,
+      "elevationFt": 571,
+      "movingSeconds": 2566,
+      "elapsedSeconds": 2566,
+      "url": "https://www.strava.com/activities/20533421831"
+    },
     "2026-10-03": {
       "distanceMi": 35.84,
       "elevationFt": 1742,
