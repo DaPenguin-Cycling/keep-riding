@@ -4,6 +4,8 @@ social_description: "Meet Anthony Brown, the cyclist behind DaPenguin. Marine ve
 social_image: "/images/social/about.jpg"
 social_image_alt: "DAPENGUIN — THE RIDER BEHIND THE PENGUIN. Anthony Brown • Marine veteran • Kentucky cyclist"
 lcp_image: "/images/DSC00145.avif"
+lcp_srcset: "/images/DSC00145-p-500.avif 500w, /images/DSC00145.avif 640w"
+lcp_sizes: "(max-width: 991px) 100vw, 640px"
 layout: default
 nav: about
 title: About Anthony Brown | DaPenguin
@@ -29,7 +31,7 @@ description: Meet Anthony Brown, the cyclist behind DaPenguin. Marine veteran, K
         </div>
       </div>
       <div class="grid-item-manual">
-        <div class="image-ratio_1x1"><img width="640" height="480" src="{{ '/images/DSC00145.avif' | relative_url }}" loading="eager" fetchpriority="high" decoding="async" sizes="(max-width: 991px) 100vw, 640px" alt="Anthony Brown with his Lynskey titanium bike before the start of the Redbud Ride" class="image_cover"></div>
+        <div class="image-ratio_1x1"><img width="640" height="480" src="{{ '/images/DSC00145.avif' | relative_url }}" loading="eager" fetchpriority="high" decoding="async" srcset="{{ '/images/DSC00145-p-500.avif' | relative_url }} 500w, {{ '/images/DSC00145.avif' | relative_url }} 640w" sizes="(max-width: 991px) 100vw, 640px" alt="Anthony Brown with his Lynskey titanium bike before the start of the Redbud Ride" class="image_cover"></div>
       </div>
     </div>
   </div>
