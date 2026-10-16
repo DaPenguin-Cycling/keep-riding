@@ -51,6 +51,16 @@
   <meta name="twitter:image:alt" content="{{ social_alt | escape }}">
   <meta content="summary_large_image" name="twitter:card">
   <meta content="width=device-width, initial-scale=1" name="viewport">
+  {%- if page.lcp_image %}
+  {%- comment -%}
+    The first meaningful image on image-led pages is the usual LCP candidate.
+    Preloading only the page-declared candidate avoids pulling gallery images
+    forward while letting the browser start the request before it reaches the
+    body markup. Keep this in front matter so a layout change cannot silently
+    preload the wrong asset.
+  {%- endcomment -%}
+  <link rel="preload" as="image" href="{{ page.lcp_image | relative_url }}"{% if page.lcp_srcset %} imagesrcset="{{ page.lcp_srcset }}" imagesizes="{{ page.lcp_sizes }}"{% endif %} fetchpriority="high">
+  {%- endif %}
   {% include structured-data.html %}
   {% include analytics.html %}
   <link href="{{ '/css/normalize.css' | relative_url }}" rel="stylesheet" type="text/css">
